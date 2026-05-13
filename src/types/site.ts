@@ -10,6 +10,16 @@ export type ServiceItem = {
   phase: 'phase-1' | 'future';
 };
 
+export type ProjectTypeItem = {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  idealFor: string;
+  outcome: string;
+  statusLabel: 'Disponible ahora' | 'Proyecto a medida' | 'Fase avanzada';
+};
+
 export type UseCaseItem = {
   id: string;
   title: string;

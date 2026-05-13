@@ -4,6 +4,7 @@ import { FinalCtaSection } from '@/components/sections/FinalCtaSection';
 import { Footer } from '@/components/sections/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ProblemSection } from '@/components/sections/ProblemSection';
+import { ProjectTypesSection } from '@/components/sections/ProjectTypesSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { SolutionSection } from '@/components/sections/SolutionSection';
@@ -16,6 +17,7 @@ export default function HomePage() {
       <ProblemSection />
       <SolutionSection />
       <ServicesSection />
+      <ProjectTypesSection />
       <UseCasesSection />
       <BenefitsSection />
       <ProcessSection />

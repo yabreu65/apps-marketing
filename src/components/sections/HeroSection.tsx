@@ -13,27 +13,27 @@ export function HeroSection() {
       <Container className="relative z-10">
         <div className="max-w-3xl space-y-6">
           <p className="inline-flex rounded-full border border-[#A78BFA]/35 bg-[#7C3AED]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#C4B5FD]">
-            Landing comercial para captar más consultas
+            Desarrollo web profesional para crecer con tecnología
           </p>
 
           <h1 className="text-balance text-4xl font-semibold leading-tight tracking-tight text-[#F8FAFC] sm:text-5xl md:text-6xl">
-            Convertí visitas en oportunidades con una landing diseñada para vender
+            Desarrollo web, marketing e IA para llevar tu negocio al siguiente nivel
           </h1>
 
           <p className="max-w-2xl text-pretty text-base text-[#CBD5E1] sm:text-lg">
-            Diseñamos una presencia comercial clara para que tu propuesta se entienda rápido, genere confianza y active conversaciones reales con potenciales clientes.
+            Creamos desde landing pages comerciales hasta sistemas web, dashboards y productos SaaS a medida para negocios que quieren vender mejor, automatizar procesos y crecer con tecnología.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button href={whatsappHref} target="_blank" rel="noreferrer" variant="primary">
-              Solicitar diagnóstico por WhatsApp
+              Solicitar diagnóstico de mi proyecto
             </Button>
             <Button href="#servicios" variant="secondary">
               Ver servicios
             </Button>
           </div>
 
-          <p className="text-xs text-[#94A3B8]">Primero validamos mensaje y captación con un flujo simple. Después, si tiene sentido, escalamos a automatización e IA.</p>
+          <p className="text-xs text-[#94A3B8]">Primero entendemos tu negocio. Después definimos si necesitás landing, web, sistema interno o SaaS.</p>
         </div>
       </Container>
     </section>

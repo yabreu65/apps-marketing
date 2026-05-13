@@ -9,11 +9,11 @@ export function UseCasesSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Casos de uso"
-          title="Pensado para negocios que venden por conversación"
-          description="Enfocado en perfiles que necesitan más claridad comercial y un flujo simple para convertir interés en contacto."
+          title="Casos de uso para cada tipo de proyecto digital"
+          description="Desde captación comercial hasta sistemas internos y evolución tecnológica en etapas avanzadas."
         />
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {useCases.map((useCase) => (
             <Card key={useCase.id}>
               <h3 className="text-base font-semibold text-[#FFFBF5]">{useCase.title}</h3>

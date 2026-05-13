@@ -9,11 +9,11 @@ export function BenefitsSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Beneficios"
-          title="Resultados esperados en esta fase"
-          description="Sin promesas irreales: foco en claridad, contacto y señales tempranas de conversión para decidir próximos pasos."
+          title="Beneficios concretos para vender mejor y crecer con orden"
+          description="Sin promesas irreales: foco en claridad comercial, captación y base tecnológica para evolucionar por etapas."
         />
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {benefits.map((benefit) => (
             <Card key={benefit.id}>
               <h3 className="text-base font-semibold text-[#FFFBF5]">{benefit.title}</h3>

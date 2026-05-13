@@ -31,12 +31,13 @@ const INITIAL_VALUES: FormValues = {
 
 const SERVICE_OPTIONS = [
   'Landing comercial',
-  'Desarrollo web',
-  'SEO básico',
-  'Marketing digital inicial',
-  'Automatización comercial futura',
-  'IA aplicada a ventas futura',
-  'Sistema a medida futuro',
+  'Sitio web profesional',
+  'Sistema web a medida',
+  'Dashboard / panel interno',
+  'MVP SaaS',
+  'Automatización comercial',
+  'IA aplicada al negocio',
+  'SEO / marketing digital',
   'No estoy seguro',
 ];
 
@@ -117,8 +118,8 @@ export function ContactFormSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Contacto"
-          title="Contanos tu objetivo comercial"
-          description="Completá este formulario y te respondemos de forma manual para ayudarte a priorizar tu siguiente paso digital."
+          title="Contanos qué proyecto querés desarrollar"
+          description="Completá este formulario y te respondemos de forma manual para ayudarte a definir el mejor camino para tu proyecto digital."
         />
 
         <Card className="p-0">
@@ -255,7 +256,7 @@ export function ContactFormSection() {
                 rows={5}
                 value={values.message}
                 onChange={(e) => handleChange('message', e.target.value)}
-                placeholder="Ej: Necesito una landing para captar más consultas y ordenar mejor mis canales de contacto."
+                placeholder="Ej: Quiero lanzar una web, ordenar procesos internos o validar un MVP SaaS para mi negocio."
                 className="w-full rounded-md border border-[#26324A] bg-[#0B1020] px-3 py-2.5 text-sm text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#A78BFA]"
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? 'message-error' : 'message-help'}
@@ -290,7 +291,7 @@ export function ContactFormSection() {
                 Usaremos tus datos solo para responder tu consulta comercial. No pedimos información sensible.
               </p>
               <Button type="submit" variant="primary" className="w-full sm:w-auto">
-                Quiero que me contacten
+                Quiero que evalúen mi proyecto
               </Button>
             </div>
           </form>

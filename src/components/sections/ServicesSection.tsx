@@ -9,9 +9,13 @@ export function ServicesSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Servicios"
-          title="Servicios para activar tu captación comercial"
-          description="Empezamos por lo que necesitás hoy para convertir mejor. Las capacidades evolutivas quedan planificadas como siguiente etapa."
+          title="Desarrollo web y productos digitales para cada etapa de crecimiento"
+          description="Desde activos comerciales de entrada hasta proyectos a medida y fases avanzadas. Definimos el alcance según tu objetivo y tu momento de negocio."
         />
+        <p className="text-xs text-[#94A3B8]">
+          <span className="font-semibold text-[#FDBA74]">Disponible ahora:</span> entregas que podés iniciar hoy.{' '}
+          <span className="font-semibold text-[#C4B5FD]">Fase avanzada / Proyecto a medida:</span> evoluciones según roadmap y validación.
+        </p>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service) => (

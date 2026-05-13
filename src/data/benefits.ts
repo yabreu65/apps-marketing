@@ -4,16 +4,26 @@ export const benefits: BenefitItem[] = [
   {
     id: 'claridad',
     title: 'Claridad comercial',
-    description: 'El visitante entiende qué hacés y por qué debería contactarte.',
+    description: 'Tu propuesta se entiende rápido y facilita que el cliente correcto avance.',
   },
   {
-    id: 'conversion',
-    title: 'Mejor conversión inicial',
-    description: 'Más oportunidades a partir de CTA y formulario simples.',
+    id: 'professional-presence',
+    title: 'Presencia digital profesional',
+    description: 'Tu marca se presenta con una experiencia web sólida y coherente.',
   },
   {
-    id: 'base-escalable',
-    title: 'Base preparada para evolucionar',
-    description: 'Arquitectura frontend lista para crecer por fases sin romper alcance actual.',
+    id: 'better-capture',
+    title: 'Mejor captación comercial',
+    description: 'Más consultas con intención gracias a un recorrido claro de contacto.',
+  },
+  {
+    id: 'ordered-processes',
+    title: 'Procesos más ordenados',
+    description: 'Diseñamos soluciones alineadas a tu operación para reducir fricción interna.',
+  },
+  {
+    id: 'scalable-base',
+    title: 'Base tecnológica para crecer',
+    description: 'Partís de una base preparada para evolucionar a automatización e IA cuando corresponda.',
   },
 ];

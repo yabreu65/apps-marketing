@@ -13,7 +13,7 @@ export function HeroSection() {
       <Container className="relative z-10">
         <div className="max-w-3xl space-y-6">
           <p className="inline-flex rounded-full border border-[#A78BFA]/35 bg-[#7C3AED]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#C4B5FD]">
-            Estudio digital orientado a conversión
+            Landing comercial para captar más consultas
           </p>
 
           <h1 className="text-balance text-4xl font-semibold leading-tight tracking-tight text-[#F8FAFC] sm:text-5xl md:text-6xl">
@@ -26,7 +26,7 @@ export function HeroSection() {
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button href={whatsappHref} target="_blank" rel="noreferrer" variant="primary">
-              Hablar por WhatsApp (manual)
+              Solicitar diagnóstico por WhatsApp
             </Button>
             <Button href="#servicios" variant="secondary">
               Ver servicios

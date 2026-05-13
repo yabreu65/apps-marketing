@@ -23,7 +23,7 @@ export function ServicesSection() {
                     service.phase === 'phase-1' ? 'bg-[#F97316]/15 text-[#FDBA74]' : 'bg-[#7C3AED]/20 text-[#C4B5FD]'
                   }`}
                 >
-                  {service.phase === 'phase-1' ? 'Disponible ahora' : 'Próximamente'}
+                  {service.phase === 'phase-1' ? 'Disponible ahora' : 'Próximamente (fases futuras)'}
                 </span>
               </div>
               <p className="mt-2 text-sm text-[#CBD5E1]">{service.description}</p>

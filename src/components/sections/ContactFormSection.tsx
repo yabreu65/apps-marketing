@@ -255,7 +255,7 @@ export function ContactFormSection() {
                 rows={5}
                 value={values.message}
                 onChange={(e) => handleChange('message', e.target.value)}
-                  placeholder="Ej: Necesito una landing para captar más consultas y ordenar mejor mis canales de contacto."
+                placeholder="Ej: Necesito una landing para captar más consultas y ordenar mejor mis canales de contacto."
                 className="w-full rounded-md border border-[#26324A] bg-[#0B1020] px-3 py-2.5 text-sm text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#A78BFA]"
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? 'message-error' : 'message-help'}
@@ -290,7 +290,7 @@ export function ContactFormSection() {
                 Usaremos tus datos solo para responder tu consulta comercial. No pedimos información sensible.
               </p>
               <Button type="submit" variant="primary" className="w-full sm:w-auto">
-                Quiero recibir propuesta inicial
+                Quiero que me contacten
               </Button>
             </div>
           </form>

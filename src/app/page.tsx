@@ -6,6 +6,7 @@ import { Footer } from '@/components/sections/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { OfferPackagesSection } from '@/components/sections/OfferPackagesSection';
 import { ProblemSection } from '@/components/sections/ProblemSection';
+import { ProjectDiagnosisSection } from '@/components/sections/ProjectDiagnosisSection';
 import { ProjectTypesSection } from '@/components/sections/ProjectTypesSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
@@ -20,6 +21,7 @@ export default function HomePage() {
       <SolutionSection />
       <ServicesSection />
       <ProjectTypesSection />
+      <ProjectDiagnosisSection />
       <OfferPackagesSection />
       <UseCasesSection />
       <BenefitsSection />

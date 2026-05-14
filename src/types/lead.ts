@@ -35,3 +35,20 @@ export type LeadApiResponse = {
   leadId?: string;
   errors?: LeadValidationError[];
 };
+
+
+export type LeadNote = {
+  id: string;
+  leadId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type LeadStatusHistoryItem = {
+  id: string;
+  leadId: string;
+  fromStatus: LeadStatus | null;
+  toStatus: LeadStatus;
+  createdAt: string;
+};

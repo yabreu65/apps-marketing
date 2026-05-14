@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { LeadNotesPanel } from '@/components/internal/LeadNotesPanel';
 import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
 import { formatDateTime } from '@/lib/format';
 import { getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
@@ -9,6 +10,14 @@ export const dynamic = 'force-dynamic';
 
 type LeadDetailPageProps = {
   params: Promise<{ id: string }>;
+};
+
+type TimelineItem = {
+  id: string;
+  kind: 'status' | 'note';
+  createdAt: Date;
+  title: string;
+  description: string;
 };
 
 export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
@@ -28,6 +37,26 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       status: true,
       createdAt: true,
       updatedAt: true,
+      notes: {
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      statusHistory: {
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+        select: {
+          id: true,
+          fromStatus: true,
+          toStatus: true,
+          createdAt: true,
+        },
+      },
     },
   });
 
@@ -48,6 +77,23 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     );
   }
 
+  const timeline: TimelineItem[] = [
+    ...lead.statusHistory.map((item) => ({
+      id: `status-${item.id}`,
+      kind: 'status' as const,
+      createdAt: item.createdAt,
+      title: 'Cambio de status',
+      description: `${item.fromStatus ? getLeadStatusLabel(item.fromStatus) : 'Sin status'} → ${getLeadStatusLabel(item.toStatus)}`,
+    })),
+    ...lead.notes.map((note) => ({
+      id: `note-${note.id}`,
+      kind: 'note' as const,
+      createdAt: note.createdAt,
+      title: 'Nota interna',
+      description: note.content,
+    })),
+  ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
   return (
     <main className="min-h-screen bg-[#0B1020] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-4xl space-y-6">
@@ -66,7 +112,6 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
             <span>Recibido: {formatDateTime(lead.createdAt)}</span>
           </div>
         </header>
-
 
         <LeadStatusUpdater leadId={lead.id} currentStatus={lead.status} />
 
@@ -101,6 +146,27 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <dd className="mt-1 whitespace-pre-wrap text-slate-300">{lead.message}</dd>
             </div>
           </dl>
+        </section>
+
+        <LeadNotesPanel leadId={lead.id} notes={lead.notes} />
+
+        <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+          <h2 className="text-lg font-semibold text-slate-100">Actividad</h2>
+          {timeline.length === 0 ? (
+            <p className="text-sm text-slate-300">Todavía no hay actividad registrada para este lead.</p>
+          ) : (
+            <div className="space-y-3">
+              {timeline.map((item) => (
+                <article key={item.id} className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-medium text-slate-100">{item.title}</p>
+                    <p className="text-xs text-slate-400">{formatDateTime(item.createdAt)}</p>
+                  </div>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-slate-300">{item.description}</p>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
         <Link

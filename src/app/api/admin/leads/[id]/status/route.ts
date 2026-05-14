@@ -24,16 +24,32 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       );
     }
 
+    const nextStatus = body.status;
+
     const lead = await prisma.lead.findUnique({ where: { id }, select: { id: true, status: true } });
 
     if (!lead) {
       return NextResponse.json({ ok: false, message: 'Lead no encontrado.' }, { status: 404 });
     }
 
-    const updated = await prisma.lead.update({
-      where: { id },
-      data: { status: body.status },
-      select: { id: true, status: true, updatedAt: true },
+    const updated = await prisma.$transaction(async (tx) => {
+      const next = await tx.lead.update({
+        where: { id },
+        data: { status: nextStatus },
+        select: { id: true, status: true, updatedAt: true },
+      });
+
+      if (lead.status !== nextStatus) {
+        await tx.leadStatusHistory.create({
+          data: {
+            leadId: id,
+            fromStatus: lead.status,
+            toStatus: nextStatus,
+          },
+        });
+      }
+
+      return next;
     });
 
     return NextResponse.json({ ok: true, lead: updated }, { status: 200 });

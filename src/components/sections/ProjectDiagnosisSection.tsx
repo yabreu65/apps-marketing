@@ -72,8 +72,24 @@ export function ProjectDiagnosisSection() {
   const result = useMemo(() => getDiagnosis(answers), [answers]);
 
   const whatsappHref = useMemo(() => {
+    const messagesBySolution: Record<RecommendedSolution, string> = {
+      'Landing comercial':
+        'Hola, hice el diagnóstico y creo que necesito una landing comercial. Quiero orientación para mi proyecto.',
+      'Sitio web profesional':
+        'Hola, hice el diagnóstico y quiero evaluar un sitio web profesional para mi negocio.',
+      'Sistema web a medida':
+        'Hola, hice el diagnóstico y quiero evaluar un sistema web a medida para mi negocio.',
+      'Dashboard / panel interno':
+        'Hola, hice el diagnóstico y quiero evaluar un dashboard/panel interno para mi equipo.',
+      'MVP SaaS': 'Hola, hice el diagnóstico y quiero evaluar un MVP SaaS para mi idea.',
+      'Automatización comercial':
+        'Hola, hice el diagnóstico y quiero evaluar automatización comercial para mi negocio.',
+      'IA aplicada al negocio (fase avanzada)':
+        'Hola, hice el diagnóstico y quiero evaluar IA aplicada para mi negocio en una fase avanzada.',
+    };
+
     const message = result
-      ? `Hola, completé el diagnóstico y quiero avanzar con: ${result.recommendedSolution}.`
+      ? messagesBySolution[result.recommendedSolution]
       : 'Hola, quiero ayuda para definir qué solución digital necesito para mi negocio.';
 
     return buildWhatsAppLink('+54 9 11 0000 0000', message);
@@ -125,6 +141,9 @@ export function ProjectDiagnosisSection() {
               </p>
               <p className="mt-3 text-sm text-[#E2E8F0]">{result.nextAction}</p>
               <p className="mt-3 text-xs text-[#94A3B8]">{result.rationale}</p>
+              <p className="mt-3 text-xs text-[#94A3B8]">
+                Podés continuar por WhatsApp o completar el formulario para que revisemos tu caso.
+              </p>
             </>
           ) : (
             <p className="mt-2 text-sm text-[#CBD5E1]">Completá las tres preguntas para ver una recomendación orientativa.</p>
@@ -137,7 +156,7 @@ export function ProjectDiagnosisSection() {
               rel="noreferrer"
               className="rounded-md bg-[#F97316] px-4 py-2 text-sm font-semibold text-[#FFFBF5] hover:bg-[#EA580C]"
             >
-              Hablar por WhatsApp
+              Solicitar diagnóstico por WhatsApp
             </a>
             <a
               href="#contact-form"

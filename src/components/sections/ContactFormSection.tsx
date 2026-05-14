@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import type { LeadApiResponse, LeadInterest, LeadPayload } from '@/types/lead';
 
 type FormValues = {
   name: string;
@@ -88,6 +89,7 @@ export function ContactFormSection() {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const messageLength = useMemo(() => values.message.trim().length, [values.message]);
 
@@ -97,7 +99,7 @@ export function ContactFormSection() {
     setStatus('idle');
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const nextErrors = validate(values);
@@ -108,9 +110,61 @@ export function ContactFormSection() {
       return;
     }
 
-    // En Fase 1 el envío es simulado (sin backend / sin BD).
-    setStatus('success');
-    setValues(INITIAL_VALUES);
+    const payload: LeadPayload = {
+      name: values.name.trim(),
+      email: values.email.trim(),
+      phone: values.phone.trim(),
+      businessType: values.businessType.trim(),
+      serviceInterest: values.serviceInterest as LeadInterest,
+      message: values.message.trim(),
+      source: 'contact_form',
+    };
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = (await response.json()) as LeadApiResponse;
+
+      if (!response.ok || !data.ok) {
+        const apiErrors: FormErrors = {};
+
+        if (data.errors?.length) {
+          for (const error of data.errors) {
+            if (error.field in INITIAL_VALUES) {
+              apiErrors[error.field as keyof FormValues] = error.message;
+            } else {
+              apiErrors.general = error.message;
+            }
+          }
+        }
+
+        if (!apiErrors.general) {
+          apiErrors.general = data.message || 'No pudimos procesar tu consulta. Intentá nuevamente.';
+        }
+
+        setErrors(apiErrors);
+        setStatus('idle');
+        return;
+      }
+
+      setStatus('success');
+      setValues(INITIAL_VALUES);
+      setErrors({});
+    } catch {
+      setErrors({
+        general:
+          'No pudimos enviar tu consulta por un problema de conexión. Intentá nuevamente en unos minutos.',
+      });
+      setStatus('idle');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -290,8 +344,8 @@ export function ContactFormSection() {
               <p id="privacy-note" className="max-w-2xl text-xs text-[#94A3B8]">
                 Usaremos tus datos solo para responder tu consulta comercial. No pedimos información sensible.
               </p>
-              <Button type="submit" variant="primary" className="w-full sm:w-auto">
-                Quiero que evalúen mi proyecto
+              <Button type="submit" variant="primary" className="w-full sm:w-auto" disabled={isSubmitting}>
+                {isSubmitting ? 'Enviando consulta...' : 'Quiero que evalúen mi proyecto'}
               </Button>
             </div>
           </form>

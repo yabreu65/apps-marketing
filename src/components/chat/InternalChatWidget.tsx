@@ -31,15 +31,23 @@ export function InternalChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([initialChatMessage]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [lastIntent, setLastIntent] = useState<ChatIntent>('unknown');
 
-  const whatsappHref = useMemo(
-    () =>
-      buildWhatsAppLink(
-        '+54 9 11 0000 0000',
-        'Hola, usé el chat de orientación y quiero solicitar un diagnóstico para mi proyecto digital.',
-      ),
-    [],
-  );
+  const whatsappHref = useMemo(() => {
+    const messagesByIntent: Record<ChatIntent, string> = {
+      landing: 'Hola, usé el chat y quiero orientación para una landing comercial de mi proyecto.',
+      web: 'Hola, usé el chat y quiero evaluar una web profesional para mi negocio.',
+      system: 'Hola, usé el chat y quiero orientación para un sistema web o dashboard interno.',
+      saas: 'Hola, usé el chat y quiero evaluar un MVP SaaS para mi idea.',
+      automation_ai: 'Hola, usé el chat y quiero evaluar automatización o IA aplicada para mi negocio.',
+      seo_marketing: 'Hola, usé el chat y quiero orientación sobre SEO y marketing digital.',
+      pricing: 'Hola, quiero consultar costos y alcance para mi proyecto digital.',
+      human: 'Hola, quiero hablar con una persona del equipo sobre mi proyecto digital.',
+      unknown: 'Hola, usé el chat de orientación y quiero solicitar un diagnóstico para mi proyecto digital.',
+    };
+
+    return buildWhatsAppLink('+54 9 11 0000 0000', messagesByIntent[lastIntent]);
+  }, [lastIntent]);
 
   function appendAssistantResponse(intent: ChatIntent) {
     setIsTyping(true);
@@ -68,6 +76,7 @@ export function InternalChatWidget() {
 
     setMessages((prev) => [...prev, userMessage]);
     const intent = detectIntent(text);
+    setLastIntent(intent);
     appendAssistantResponse(intent);
   }
 
@@ -156,6 +165,10 @@ export function InternalChatWidget() {
 
             <p className="mt-3 text-xs text-[#94A3B8]">{privacyNote}</p>
 
+            <p className="mt-3 text-xs text-[#94A3B8]">
+              Podés continuar por WhatsApp o completar el formulario para que revisemos tu caso.
+            </p>
+
             <div className="mt-3 flex flex-wrap gap-2">
               <a
                 href={whatsappHref}
@@ -163,7 +176,7 @@ export function InternalChatWidget() {
                 rel="noreferrer"
                 className="rounded-md bg-[#F97316] px-3 py-2 text-xs font-semibold text-[#FFFBF5] hover:bg-[#EA580C]"
               >
-                Ir a WhatsApp
+                Solicitar diagnóstico por WhatsApp
               </a>
               <a
                 href="#contact-form"

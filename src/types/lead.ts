@@ -12,6 +12,8 @@ export type LeadInterest =
 
 export type LeadSource = 'contact_form' | 'chat' | 'diagnosis' | 'unknown';
 
+export type LeadStatus = 'new' | 'contacted' | 'qualified' | 'proposal' | 'closed' | 'archived';
+
 export type LeadPayload = {
   name: string;
   email: string;

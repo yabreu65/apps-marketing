@@ -1,7 +1,8 @@
 import Link from 'next/link';
 
-import { prisma } from '@/lib/prisma';
 import { formatDateTime } from '@/lib/format';
+import { LEAD_STATUSES, getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
+import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +20,7 @@ const PAGE_SIZE = 20;
 
 const STATUS_OPTIONS: FilterOption[] = [
   { label: 'Todos', value: '' },
-  { label: 'new', value: 'new' },
+  ...LEAD_STATUSES.map((status) => ({ label: getLeadStatusLabel(status), value: status })),
 ];
 
 const SOURCE_OPTIONS: FilterOption[] = [
@@ -292,8 +293,8 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
                       <td className="px-4 py-4 text-slate-300">{lead.serviceInterest}</td>
                       <td className="px-4 py-4 text-slate-300">{lead.source}</td>
                       <td className="px-4 py-4">
-                        <span className="inline-flex rounded-full border border-orange-500/40 bg-orange-500/15 px-2.5 py-1 text-xs font-medium text-orange-100">
-                          {lead.status}
+                        <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getLeadStatusBadgeClass(lead.status)}`}>
+                          {getLeadStatusLabel(lead.status)}
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-4 py-4 text-slate-300">{formatDateTime(lead.createdAt)}</td>
@@ -320,8 +321,8 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
                 >
                   <div className="flex items-start justify-between gap-3">
                     <h2 className="text-base font-semibold text-slate-100">{lead.name}</h2>
-                    <span className="inline-flex rounded-full border border-orange-500/40 bg-orange-500/15 px-2 py-1 text-xs font-medium text-orange-100">
-                      {lead.status}
+                    <span className={`inline-flex rounded-full border px-2 py-1 text-xs font-medium ${getLeadStatusBadgeClass(lead.status)}`}>
+                      {getLeadStatusLabel(lead.status)}
                     </span>
                   </div>
                   <p className="text-xs text-slate-400">{formatDateTime(lead.createdAt)}</p>

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
+import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
 import { formatDateTime } from '@/lib/format';
+import { getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -56,14 +58,17 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
             Vista interna local. Debe protegerse con autenticación antes de producción.
           </p>
           <div className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
-            <span className="inline-flex rounded-full border border-orange-500/40 bg-orange-500/15 px-2.5 py-1 text-xs font-medium text-orange-100">
-              {lead.status}
+            <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getLeadStatusBadgeClass(lead.status)}`}>
+              {getLeadStatusLabel(lead.status)}
             </span>
             <span>Fuente: {lead.source}</span>
             <span>•</span>
             <span>Recibido: {formatDateTime(lead.createdAt)}</span>
           </div>
         </header>
+
+
+        <LeadStatusUpdater leadId={lead.id} currentStatus={lead.status} />
 
         <section className="rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
           <dl className="grid gap-4 text-sm sm:grid-cols-2">

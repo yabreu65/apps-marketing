@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { normalizeLeadPayload, validateLeadPayload } from '@/lib/lead-validation';
+import { prisma } from '@/lib/prisma';
 import type { LeadApiResponse } from '@/types/lead';
-
-function createLeadId() {
-  return `local_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -32,13 +29,36 @@ export async function POST(request: Request) {
     return NextResponse.json(response, { status: 400 });
   }
 
-  const response: LeadApiResponse = {
-    ok: true,
-    message: 'Consulta recibida correctamente. Te contactaremos de forma manual.',
-    leadId: createLeadId(),
-  };
+  try {
+    const lead = await prisma.lead.create({
+      data: {
+        name: payload.name,
+        email: payload.email || null,
+        phone: payload.phone || null,
+        businessType: payload.businessType || null,
+        serviceInterest: payload.serviceInterest,
+        message: payload.message,
+        source: payload.source,
+        status: 'new',
+      },
+      select: { id: true },
+    });
 
-  return NextResponse.json(response, { status: 201 });
+    const response: LeadApiResponse = {
+      ok: true,
+      message: 'Consulta recibida correctamente. Te contactaremos de forma manual.',
+      leadId: lead.id,
+    };
+
+    return NextResponse.json(response, { status: 201 });
+  } catch {
+    const response: LeadApiResponse = {
+      ok: false,
+      message: 'No pudimos registrar tu consulta en este momento. Intentá nuevamente.',
+    };
+
+    return NextResponse.json(response, { status: 500 });
+  }
 }
 
 export async function GET() {

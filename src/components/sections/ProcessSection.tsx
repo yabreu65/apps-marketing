@@ -8,8 +8,8 @@ export function ProcessSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Proceso"
-          title="Cómo trabajamos en Fase 1"
-          description="Un proceso simple y profesional para construir una landing comercial clara, usable y preparada para iterar."
+          title="Cómo trabajamos tu proyecto digital"
+          description="Un proceso simple para entender tu negocio, definir la solución correcta y construir una base web lista para evolucionar."
         />
 
         <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" aria-label="Proceso de trabajo">

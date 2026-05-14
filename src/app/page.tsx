@@ -3,6 +3,7 @@ import { ContactFormSection } from '@/components/sections/ContactFormSection';
 import { FinalCtaSection } from '@/components/sections/FinalCtaSection';
 import { Footer } from '@/components/sections/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { OfferPackagesSection } from '@/components/sections/OfferPackagesSection';
 import { ProblemSection } from '@/components/sections/ProblemSection';
 import { ProjectTypesSection } from '@/components/sections/ProjectTypesSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
@@ -18,6 +19,7 @@ export default function HomePage() {
       <SolutionSection />
       <ServicesSection />
       <ProjectTypesSection />
+      <OfferPackagesSection />
       <UseCasesSection />
       <BenefitsSection />
       <ProcessSection />

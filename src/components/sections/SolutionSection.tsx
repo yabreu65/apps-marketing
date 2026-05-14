@@ -4,16 +4,16 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const pillars = [
   {
-    title: 'Narrativa comercial clara',
-    description: 'Mensaje directo para que el visitante entienda qué hacés, para quién y qué acción tomar.',
+    title: 'Estrategia comercial clara',
+    description: 'Mensaje directo para que el visitante entienda qué hacés, para quién es y cuál es el siguiente paso.',
   },
   {
-    title: 'CTA manual de alta intención',
-    description: 'WhatsApp manual y contacto simple para acelerar conversaciones reales sin fricción técnica.',
+    title: 'Contacto y conversión sin fricción',
+    description: 'Canales de contacto simples para acelerar conversaciones reales con foco comercial.',
   },
   {
-    title: 'Base preparada para crecer',
-    description: 'Arquitectura frontend sólida para evolucionar por fases cuando la validación comercial lo justifique.',
+    title: 'Base tecnológica para crecer',
+    description: 'Estructura web sólida para evolucionar hacia soluciones más avanzadas cuando el negocio lo requiera.',
   },
 ];
 
@@ -23,8 +23,8 @@ export function SolutionSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Solución"
-          title="Landing comercial orientada a acción"
-          description="Fase 1 se enfoca en comunicar valor, activar contacto y medir señales de conversión iniciales sin complejidad innecesaria."
+          title="Soluciones digitales orientadas a acción"
+          description="Creamos experiencias web claras, rápidas y alineadas a tus objetivos comerciales: desde una landing hasta un sistema o producto SaaS."
         />
 
         <div className="grid gap-4 md:grid-cols-3">

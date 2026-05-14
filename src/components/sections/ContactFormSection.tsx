@@ -38,7 +38,7 @@ const SERVICE_OPTIONS = [
   'Automatización comercial',
   'IA aplicada al negocio',
   'SEO / marketing digital',
-  'No estoy seguro',
+  'No estoy seguro (quiero orientación)',
 ];
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

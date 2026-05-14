@@ -20,6 +20,16 @@ export type ProjectTypeItem = {
   statusLabel: 'Disponible ahora' | 'Proyecto a medida' | 'Fase avanzada';
 };
 
+export type OfferPackageItem = {
+  id: string;
+  title: string;
+  subtitle: string;
+  idealFor: string;
+  includes: string[];
+  outcome: string;
+  statusLabel: 'Disponible ahora' | 'Proyecto a medida' | 'Fase avanzada';
+};
+
 export type UseCaseItem = {
   id: string;
   title: string;

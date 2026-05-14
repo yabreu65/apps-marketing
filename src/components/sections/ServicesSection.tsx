@@ -10,7 +10,7 @@ export function ServicesSection() {
         <SectionHeading
           eyebrow="Servicios"
           title="Desarrollo web y productos digitales para cada etapa de crecimiento"
-          description="Desde activos comerciales de entrada hasta proyectos a medida y fases avanzadas. Definimos el alcance según tu objetivo y tu momento de negocio."
+          description="Desde soluciones comerciales de entrada hasta proyectos a medida y evoluciones avanzadas, según tu objetivo y el momento de tu negocio."
         />
         <p className="text-xs text-[#94A3B8]">
           <span className="font-semibold text-[#FDBA74]">Disponible ahora:</span> entregas que podés iniciar hoy.{' '}
@@ -27,7 +27,7 @@ export function ServicesSection() {
                     service.phase === 'phase-1' ? 'bg-[#F97316]/15 text-[#FDBA74]' : 'bg-[#7C3AED]/20 text-[#C4B5FD]'
                   }`}
                 >
-                  {service.phase === 'phase-1' ? 'Disponible ahora' : 'Próximamente (fases futuras)'}
+                  {service.phase === 'phase-1' ? 'Disponible ahora' : 'Fase avanzada'}
                 </span>
               </div>
               <p className="mt-2 text-sm text-[#CBD5E1]">{service.description}</p>

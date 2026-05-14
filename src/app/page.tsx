@@ -1,4 +1,5 @@
 import { BenefitsSection } from '@/components/sections/BenefitsSection';
+import { InternalChatWidget } from '@/components/chat/InternalChatWidget';
 import { ContactFormSection } from '@/components/sections/ContactFormSection';
 import { FinalCtaSection } from '@/components/sections/FinalCtaSection';
 import { Footer } from '@/components/sections/Footer';
@@ -26,6 +27,7 @@ export default function HomePage() {
       <ContactFormSection />
       <FinalCtaSection />
       <Footer />
+      <InternalChatWidget />
     </main>
   );
 }

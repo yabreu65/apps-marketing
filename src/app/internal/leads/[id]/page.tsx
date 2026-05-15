@@ -1,11 +1,13 @@
 import Link from 'next/link';
 
 import { LeadNotesPanel } from '@/components/internal/LeadNotesPanel';
+import { LeadScorePanel } from '@/components/internal/LeadScorePanel';
 import { LeadSummaryPanel } from '@/components/internal/LeadSummaryPanel';
 import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
 import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
 import { getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
+import { buildLeadScore } from '@/lib/lead-score';
 import { buildLeadSummaryWithOptionalAI } from '@/lib/lead-summary-ai';
 import { prisma } from '@/lib/prisma';
 
@@ -99,6 +101,19 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
   const leadSummary = leadSummaryResult.summary;
 
+
+  const leadScore = buildLeadScore({
+    serviceInterest: lead.serviceInterest,
+    businessType: lead.businessType,
+    message: lead.message,
+    source: lead.source,
+    status: lead.status,
+    email: lead.email,
+    phone: lead.phone,
+    notes: lead.notes,
+    statusHistory: lead.statusHistory.map((item) => ({ toStatus: item.toStatus })),
+  });
+
   const timeline: TimelineItem[] = [
     ...lead.statusHistory.map((item) => ({
       id: `status-${item.id}`,
@@ -176,6 +191,8 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
 
         <LeadSummaryPanel leadId={lead.id} initialSummary={leadSummary} initialSource={leadSummaryResult.source} />
+
+        <LeadScorePanel score={leadScore} />
 
         <LeadNotesPanel leadId={lead.id} notes={lead.notes} />
 

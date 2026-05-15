@@ -5,6 +5,7 @@ import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
 import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
 import { getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
+import { buildLeadSummary } from '@/lib/lead-summary';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -13,6 +14,19 @@ type LeadDetailPageProps = {
   params: Promise<{ id: string }>;
 };
 
+
+
+function getPriorityBadgeClass(priority: 'low' | 'medium' | 'high') {
+  if (priority === 'high') return 'border-rose-500/40 bg-rose-500/15 text-rose-100';
+  if (priority === 'medium') return 'border-amber-500/40 bg-amber-500/15 text-amber-100';
+  return 'border-emerald-500/40 bg-emerald-500/15 text-emerald-100';
+}
+
+function getPriorityLabel(priority: 'low' | 'medium' | 'high') {
+  if (priority === 'high') return 'Alta';
+  if (priority === 'medium') return 'Media';
+  return 'Baja';
+}
 type TimelineItem = {
   id: string;
   kind: 'status' | 'note';
@@ -77,6 +91,15 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       </main>
     );
   }
+
+  const leadSummary = buildLeadSummary({
+    serviceInterest: lead.serviceInterest,
+    businessType: lead.businessType,
+    message: lead.message,
+    source: lead.source,
+    status: lead.status,
+    notes: lead.notes,
+  });
 
   const timeline: TimelineItem[] = [
     ...lead.statusHistory.map((item) => ({
@@ -150,6 +173,33 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <dd className="mt-1 whitespace-pre-wrap text-slate-300">{lead.message}</dd>
             </div>
           </dl>
+        </section>
+
+
+
+        <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+          <h2 className="text-lg font-semibold text-slate-100">Resumen comercial sugerido</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+              <p className="text-xs uppercase tracking-wide text-slate-400">Tipo de oportunidad</p>
+              <p className="mt-1 text-sm text-slate-100">{leadSummary.opportunityType}</p>
+            </article>
+            <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+              <p className="text-xs uppercase tracking-wide text-slate-400">Prioridad sugerida</p>
+              <span className={`mt-1 inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getPriorityBadgeClass(leadSummary.priority)}`}>
+                {getPriorityLabel(leadSummary.priority)}
+              </span>
+            </article>
+          </div>
+          <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+            <p className="text-xs uppercase tracking-wide text-slate-400">Resumen</p>
+            <p className="mt-1 text-sm text-slate-300">{leadSummary.summary}</p>
+          </article>
+          <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+            <p className="text-xs uppercase tracking-wide text-slate-400">Siguiente acción recomendada</p>
+            <p className="mt-1 text-sm text-slate-300">{leadSummary.recommendedAction}</p>
+          </article>
+          <p className="text-xs text-slate-400">Resumen orientativo generado por reglas locales. No usa IA ni servicios externos.</p>
         </section>
 
         <LeadNotesPanel leadId={lead.id} notes={lead.notes} />

@@ -4,16 +4,23 @@ import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/
 import {
   getInternalAuthCookieValue,
   INTERNAL_AUTH_COOKIE_NAME,
+  isInternalAuthConfigured,
   isValidInternalDashboardPassword,
+  normalizeInternalRedirect,
 } from '@/lib/internal-auth';
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { password?: unknown };
+    if (!isInternalAuthConfigured()) {
+      return errorResponse('La autenticación interna no está configurada correctamente.', 503);
+    }
+
+    const body = (await request.json()) as { password?: unknown; redirect?: unknown };
     const password = typeof body.password === 'string' ? body.password : '';
+    const redirect = typeof body.redirect === 'string' ? body.redirect : null;
 
     if (!isValidInternalDashboardPassword(password)) {
-      return errorResponse('Contraseña inválida.', 401);
+      return errorResponse('Credenciales inválidas.', 401);
     }
 
     const cookieStore = await cookies();
@@ -25,7 +32,7 @@ export async function POST(request: Request) {
       maxAge: 60 * 60 * 8,
     });
 
-    return successResponse({ message: 'Acceso interno habilitado.' });
+    return successResponse({ message: 'Acceso interno habilitado.', redirectTo: normalizeInternalRedirect(redirect) });
   } catch {
     return errorResponse('No se pudo procesar el login interno.', 500);
   }

@@ -3,8 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function InternalLoginForm() {
+type InternalLoginFormProps = {
+  redirect: string;
+};
+
+export function InternalLoginForm({ redirect }: InternalLoginFormProps) {
   const router = useRouter();
+
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,17 +23,19 @@ export function InternalLoginForm() {
       const response = await fetch('/api/internal/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, redirect }),
       });
 
-      const data = (await response.json().catch(() => null)) as { ok?: boolean; message?: string } | null;
+      const data = (await response.json().catch(() => null)) as
+        | { ok?: boolean; message?: string; redirectTo?: string }
+        | null;
 
       if (!response.ok || !data?.ok) {
         setError(data?.message ?? 'No se pudo iniciar sesión interna.');
         return;
       }
 
-      router.replace('/internal/leads');
+      router.replace(data.redirectTo ?? '/internal/leads');
       router.refresh();
     } finally {
       setIsSubmitting(false);

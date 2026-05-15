@@ -102,7 +102,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           <p className="text-xs uppercase tracking-wide text-slate-400">Detalle de lead</p>
           <h1 className="text-2xl font-semibold tracking-tight text-[#FFFBF5] sm:text-3xl">{lead.name}</h1>
           <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-            Vista interna local. Debe protegerse con autenticación antes de producción.
+            Vista interna protegida con autenticación local mínima. Antes de producción debe reforzarse con usuarios, roles y controles de acceso.
           </p>
           <div className="flex justify-end">
             <InternalLogoutButton />

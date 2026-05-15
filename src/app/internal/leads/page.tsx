@@ -156,7 +156,7 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
           <h1 className="text-2xl font-semibold tracking-tight text-[#FFFBF5] sm:text-3xl">Leads internos</h1>
           <p className="text-sm text-slate-300 sm:text-base">Vista local para revisar consultas recibidas.</p>
           <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-            Vista interna local. Debe protegerse con autenticación antes de producción.
+            Vista interna protegida con autenticación local mínima. Antes de producción debe reforzarse con usuarios, roles y controles de acceso.
           </p>
           <div className="flex justify-end">
             <InternalLogoutButton />

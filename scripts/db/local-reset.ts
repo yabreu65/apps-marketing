@@ -1,6 +1,7 @@
 import { basename, join } from 'node:path';
 
 import {
+  applyBackupRetentionPolicy,
   assertConfirmFlag,
   ensureBackupsDir,
   ensureDockerContainerRunning,
@@ -8,6 +9,7 @@ import {
   resolveLocalDbConfig,
   runCommand,
   streamCommandToFile,
+  writeSha256File,
 } from './local-db-utils';
 
 const RESET_CONFIRM_TOKEN = 'RESET_LOCAL_DB';
@@ -45,7 +47,20 @@ async function createPreResetBackup(skipBackup: boolean) {
     outputPath,
   });
 
+  const checksum = await writeSha256File(outputPath);
+  const retention = applyBackupRetentionPolicy({
+    backupsDir: config.backupsDir,
+    keepCount: config.backupRetentionCount,
+  });
+
   console.info(`[db:reset:local] Backup previo generado: ${basename(outputPath)}`);
+  console.info(`[db:reset:local] Checksum: ${basename(checksum.checksumFilePath)}`);
+
+  if (retention.deleted.length > 0) {
+    console.info(
+      `[db:reset:local] Retención aplicada (keep=${config.backupRetentionCount}). Eliminados: ${retention.deleted.join(', ')}`,
+    );
+  }
 }
 
 async function main() {

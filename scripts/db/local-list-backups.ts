@@ -1,7 +1,7 @@
-import { readdirSync, statSync } from 'node:fs';
 import { basename, join } from 'node:path';
+import { statSync } from 'node:fs';
 
-import { ensureBackupsDir, getBackupsDir } from './local-db-utils';
+import { ensureBackupsDir, getBackupsDir, getChecksumFilePath, getBackupDumpFiles, verifySha256File } from './local-db-utils';
 
 function formatSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -9,13 +9,11 @@ function formatSize(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function main() {
+async function main() {
   const backupsDir = getBackupsDir();
   ensureBackupsDir(backupsDir);
 
-  const files = readdirSync(backupsDir)
-    .filter((file) => file.endsWith('.dump'))
-    .sort((a, b) => b.localeCompare(a));
+  const files = getBackupDumpFiles(backupsDir);
 
   if (!files.length) {
     console.info('[db:backup:list:local] No hay backups en backups/local.');
@@ -23,11 +21,20 @@ function main() {
   }
 
   console.info('[db:backup:list:local] Backups encontrados:');
-  for (const file of files) {
-    const abs = join(backupsDir, file);
+  for (const abs of files) {
     const stats = statSync(abs);
-    console.info(`- ${basename(file)} | ${formatSize(stats.size)} | ${stats.mtime.toISOString()}`);
+    const checksumStatus = await verifySha256File(abs);
+    const checksumFileName = basename(getChecksumFilePath(abs));
+
+    const checksumLabel = checksumStatus.ok
+      ? `checksum=ok (${checksumFileName})`
+      : `checksum=error (${checksumStatus.reason ?? 'desconocido'})`;
+
+    console.info(`- ${basename(abs)} | ${formatSize(stats.size)} | ${stats.mtime.toISOString()} | ${checksumLabel}`);
   }
 }
 
-main();
+main().catch((error) => {
+  console.error('[db:backup:list:local] Error:', error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});

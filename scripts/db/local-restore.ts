@@ -6,12 +6,14 @@ import {
   resolveBackupFileArg,
   resolveLocalDbConfig,
   streamFileToCommand,
+  verifyBackupArchiveIntegrity,
 } from './local-db-utils';
 
 const RESTORE_CONFIRM_TOKEN = 'RESTORE_LOCAL_DB';
 
 async function main() {
   const args = process.argv.slice(2);
+  const skipVerify = args.includes('--skip-verify');
   const config = resolveLocalDbConfig();
   ensureDockerContainerRunning(config.containerName);
 
@@ -22,6 +24,13 @@ async function main() {
 
   if (!existsSync(backupPath)) {
     throw new Error(`No existe el backup indicado: ${backupPath}`);
+  }
+
+  if (!skipVerify) {
+    await verifyBackupArchiveIntegrity({ backupPath, config });
+    console.info('[db:restore:local] Verificación OK (checksum + formato archive).');
+  } else {
+    console.info('[db:restore:local] Verificación omitida por --skip-verify');
   }
 
   const dockerArgs = [

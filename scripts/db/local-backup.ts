@@ -1,11 +1,13 @@
 import { basename, join } from 'node:path';
 
 import {
+  applyBackupRetentionPolicy,
   ensureBackupsDir,
   ensureDockerContainerRunning,
   nowStamp,
   resolveLocalDbConfig,
   streamCommandToFile,
+  writeSha256File,
 } from './local-db-utils';
 
 function parseTag(args: string[]) {
@@ -47,7 +49,24 @@ async function main() {
     outputPath,
   });
 
+  const checksum = await writeSha256File(outputPath);
+
+  const retention = applyBackupRetentionPolicy({
+    backupsDir: config.backupsDir,
+    keepCount: config.backupRetentionCount,
+  });
+
   console.info(`[db:backup:local] Backup creado: ${basename(outputPath)}`);
+  console.info(`[db:backup:local] Checksum: ${basename(checksum.checksumFilePath)} (${checksum.checksum})`);
+
+  if (retention.deleted.length > 0) {
+    console.info(
+      `[db:backup:local] Retención aplicada (keep=${config.backupRetentionCount}). Eliminados: ${retention.deleted.join(', ')}`,
+    );
+  } else {
+    console.info(`[db:backup:local] Retención OK (keep=${config.backupRetentionCount}). Sin eliminaciones.`);
+  }
+
   console.info(`[db:backup:local] Ruta: ${outputPath}`);
 }
 

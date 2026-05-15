@@ -7,7 +7,7 @@ export const siteMetadata: SiteMetadata = {
 };
 
 export const navItems: NavItem[] = [
-  { label: 'Servicios', href: '#servicios' },
+  { label: 'Soluciones', href: '#soluciones' },
   { label: 'Casos de uso', href: '#casos' },
   { label: 'Beneficios', href: '#beneficios' },
   { label: 'Contacto', href: '#contacto' },

@@ -14,8 +14,8 @@ export function ProblemSection() {
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Problema"
-          title="Una web linda no alcanza si no convierte"
-          description="Muchos negocios invierten en presencia digital, pero sin una estructura comercial clara pierden oportunidades todos los días."
+          title="El problema no es tener web: es no tener sistema comercial digital"
+          description="Cuando el canal digital no está diseñado como sistema de captación y seguimiento, el crecimiento se vuelve impredecible."
         />
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

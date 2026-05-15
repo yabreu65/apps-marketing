@@ -12,7 +12,7 @@ export function FinalCtaSection() {
     <section id="contacto" className="border-b border-[#26324A] bg-gradient-to-br from-[#4C1D95] via-[#2E1065] to-[#0B1020] py-16 sm:py-20">
       <Container className="space-y-5 text-center">
         <p className="text-xs font-semibold uppercase tracking-wider text-[#C4B5FD]">CTA final</p>
-        <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#FFFBF5] sm:text-4xl">¿Tenés una idea, servicio o proceso que querés llevar a la web?</h2>
+        <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#FFFBF5] sm:text-4xl">¿Listo para transformar tu operación digital en una ventaja competitiva?</h2>
         <p className="mx-auto max-w-2xl text-sm text-[#E2E8F0] sm:text-base">
           Podemos ayudarte a definir el camino correcto: landing, sitio web, sistema interno, SaaS o automatización según la etapa de tu negocio.
         </p>

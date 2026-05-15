@@ -5,12 +5,12 @@ import { services } from '@/data/services';
 
 export function ServicesSection() {
   return (
-    <section id="servicios" className="border-b border-[#26324A] bg-[#111827] py-16 sm:py-20">
+    <section id="soluciones" className="border-b border-[#26324A] bg-[#111827] py-16 sm:py-20">
       <Container className="space-y-8">
         <SectionHeading
           eyebrow="Servicios"
-          title="Desarrollo web y productos digitales para cada etapa de crecimiento"
-          description="Desde soluciones comerciales de entrada hasta proyectos a medida y evoluciones avanzadas, según tu objetivo y el momento de tu negocio."
+          title="Soluciones web y producto digital para escalar con estructura"
+          description="Diseñamos soluciones orientadas a conversión, operación y crecimiento: desde entregables rápidos hasta arquitectura evolutiva de producto."
         />
         <p className="text-xs text-[#94A3B8]">
           <span className="font-semibold text-[#FDBA74]">Disponible ahora:</span> entregas que podés iniciar hoy.{' '}

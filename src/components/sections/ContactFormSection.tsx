@@ -173,7 +173,7 @@ export function ContactFormSection() {
         <SectionHeading
           eyebrow="Contacto"
           title="Contanos qué proyecto querés desarrollar"
-          description="Completá este formulario y te respondemos de forma manual para ayudarte a definir el mejor camino para tu proyecto digital."
+          description="Completá el formulario y te respondemos de forma manual para definir el mejor camino para tu proyecto digital."
         />
 
         <Card className="p-0">

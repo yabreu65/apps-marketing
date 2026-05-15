@@ -28,7 +28,7 @@ export function AILeadIntelligenceSection() {
         <SectionHeading
           eyebrow="AI Lead Intelligence"
           title="Inteligencia comercial para leads"
-          description="Combinamos estructura comercial y capacidades de IA local para priorizar oportunidades de forma controlada, sin depender de automatizaciones externas."
+          description="Combinamos estructura comercial y soporte de IA local opcional para priorizar oportunidades con criterio humano, sin automatizaciones externas."
         />
 
         <div className="grid gap-4 md:grid-cols-2">

@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { LeadNotesPanel } from '@/components/internal/LeadNotesPanel';
 import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
+import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
 import { getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
@@ -103,6 +104,9 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
             Vista interna local. Debe protegerse con autenticación antes de producción.
           </p>
+          <div className="flex justify-end">
+            <InternalLogoutButton />
+          </div>
           <div className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
             <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getLeadStatusBadgeClass(lead.status)}`}>
               {getLeadStatusLabel(lead.status)}

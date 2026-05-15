@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
 import { LEAD_STATUSES, getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
@@ -157,6 +158,9 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
           <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
             Vista interna local. Debe protegerse con autenticación antes de producción.
           </p>
+          <div className="flex justify-end">
+            <InternalLogoutButton />
+          </div>
           <p className="text-sm text-slate-300">
             Mostrando <span className="font-semibold text-orange-300">{leads.length}</span> de{' '}
             <span className="font-semibold text-orange-300">{totalLeads}</span> leads.

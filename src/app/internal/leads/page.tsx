@@ -121,6 +121,7 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
   const totalLeads = await prisma.lead.count({ where });
   const totalPages = Math.max(1, Math.ceil(totalLeads / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
+  const pageAdjusted = safePage !== page;
 
   const leads = await prisma.lead.findMany({
     where,
@@ -262,8 +263,8 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
 
         {leads.length === 0 ? (
           <section className="rounded-2xl border border-dashed border-[#26324A] bg-[#151B2E] p-8 text-center">
-            <h2 className="text-lg font-semibold text-slate-100">No hay leads para estos filtros</h2>
-            <p className="mt-2 text-sm text-slate-300">Probá cambiando búsqueda o filtros para ver resultados.</p>
+            <h2 className="text-lg font-semibold text-slate-100">No encontramos leads con los criterios actuales</h2>
+            <p className="mt-2 text-sm text-slate-300">Probá ajustando búsqueda o filtros, o limpiá los criterios para ver todos los leads.</p>
           </section>
         ) : (
           <>
@@ -363,10 +364,15 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
             </section>
 
             <nav className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#26324A] bg-[#111827] p-4 text-sm text-slate-300">
-              <p>
-                Página <span className="font-semibold text-slate-100">{safePage}</span> de{' '}
-                <span className="font-semibold text-slate-100">{totalPages}</span>
-              </p>
+              <div className="space-y-1">
+                <p>
+                  Página <span className="font-semibold text-slate-100">{safePage}</span> de{' '}
+                  <span className="font-semibold text-slate-100">{totalPages}</span>
+                </p>
+                {pageAdjusted ? (
+                  <p className="text-xs text-amber-200">La página solicitada no estaba disponible y se ajustó automáticamente.</p>
+                ) : null}
+              </div>
 
               <div className="flex items-center gap-2">
                 <Link

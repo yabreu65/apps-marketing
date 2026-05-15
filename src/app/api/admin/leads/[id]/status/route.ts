@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
-
-import { isLeadStatus } from '@/lib/lead-status';
+import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { isLeadStatus, LEAD_STATUSES } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
 
 /**
@@ -11,17 +10,15 @@ import { prisma } from '@/lib/prisma';
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
+
+    if (!id || id.length < 10) {
+      return errorResponse('ID de lead inválido.', 400);
+    }
+
     const body = (await request.json()) as { status?: unknown };
 
     if (!isLeadStatus(body?.status)) {
-      return NextResponse.json(
-        {
-          ok: false,
-          message: 'Status inválido.',
-          allowedStatuses: ['new', 'contacted', 'qualified', 'proposal', 'closed', 'archived'],
-        },
-        { status: 400 },
-      );
+      return errorResponse('Estado inválido.', 400, { allowedStatuses: LEAD_STATUSES });
     }
 
     const nextStatus = body.status;
@@ -29,7 +26,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const lead = await prisma.lead.findUnique({ where: { id }, select: { id: true, status: true } });
 
     if (!lead) {
-      return NextResponse.json({ ok: false, message: 'Lead no encontrado.' }, { status: 404 });
+      return errorResponse('Lead no encontrado.', 404);
     }
 
     const updated = await prisma.$transaction(async (tx) => {
@@ -52,8 +49,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       return next;
     });
 
-    return NextResponse.json({ ok: true, lead: updated }, { status: 200 });
+    return successResponse({ lead: updated, message: 'Estado actualizado correctamente.' });
   } catch {
-    return NextResponse.json({ ok: false, message: 'No se pudo actualizar el status del lead.' }, { status: 500 });
+    return errorResponse('No se pudo actualizar el estado del lead.', 500);
   }
+}
+
+export async function GET() {
+  return methodNotAllowedResponse(['PATCH']);
 }

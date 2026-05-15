@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
-
-import { prisma } from "@/lib/prisma";
+import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { prisma } from '@/lib/prisma';
 
 /**
  * INTERNAL/LOCAL ONLY:
@@ -10,7 +9,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
   try {
     const leads = await prisma.lead.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
       take: 50,
       select: {
         id: true,
@@ -27,14 +26,12 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({ ok: true, leads }, { status: 200 });
+    return successResponse({ leads });
   } catch {
-    return NextResponse.json(
-      {
-        ok: false,
-        message: "No se pudieron listar los leads en este momento.",
-      },
-      { status: 500 },
-    );
+    return errorResponse('No se pudieron listar los leads en este momento.', 500);
   }
+}
+
+export async function POST() {
+  return methodNotAllowedResponse(['GET']);
 }

@@ -1,8 +1,6 @@
-import { NextResponse } from 'next/server';
-
+import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
 import { normalizeLeadPayload, validateLeadPayload } from '@/lib/lead-validation';
 import { prisma } from '@/lib/prisma';
-import type { LeadApiResponse } from '@/types/lead';
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -10,23 +8,14 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    const response: LeadApiResponse = {
-      ok: false,
-      message: 'Payload JSON inválido.',
-    };
-    return NextResponse.json(response, { status: 400 });
+    return errorResponse('Payload JSON inválido.', 400);
   }
 
   const payload = normalizeLeadPayload(body);
   const errors = validateLeadPayload(payload);
 
   if (errors.length > 0) {
-    const response: LeadApiResponse = {
-      ok: false,
-      message: 'No pudimos validar tu consulta. Revisá los campos e intentá nuevamente.',
-      errors,
-    };
-    return NextResponse.json(response, { status: 400 });
+    return errorResponse('No pudimos validar tu consulta. Revisá los campos e intentá nuevamente.', 400, { errors });
   }
 
   try {
@@ -44,32 +33,18 @@ export async function POST(request: Request) {
       select: { id: true },
     });
 
-    const response: LeadApiResponse = {
-      ok: true,
-      message: 'Consulta recibida correctamente. Te contactaremos de forma manual.',
-      leadId: lead.id,
-    };
-
-    return NextResponse.json(response, { status: 201 });
+    return successResponse(
+      {
+        message: 'Consulta recibida correctamente. Te contactaremos de forma manual.',
+        leadId: lead.id,
+      },
+      201,
+    );
   } catch {
-    const response: LeadApiResponse = {
-      ok: false,
-      message: 'No pudimos registrar tu consulta en este momento. Intentá nuevamente.',
-    };
-
-    return NextResponse.json(response, { status: 500 });
+    return errorResponse('No pudimos registrar tu consulta en este momento. Intentá nuevamente.', 500);
   }
 }
 
 export async function GET() {
-  return NextResponse.json(
-    {
-      ok: false,
-      message: 'Método no permitido.',
-    },
-    {
-      status: 405,
-      headers: { Allow: 'POST' },
-    },
-  );
+  return methodNotAllowedResponse(['POST']);
 }

@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-
+import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { validateLeadNoteContent } from '@/lib/lead-note-validation';
 import { prisma } from '@/lib/prisma';
 
 /**
@@ -10,6 +10,10 @@ import { prisma } from '@/lib/prisma';
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
+
+    if (!id || id.length < 10) {
+      return errorResponse('ID de lead inválido.', 400);
+    }
 
     const notes = await prisma.leadNote.findMany({
       where: { leadId: id },
@@ -23,40 +27,37 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
       },
     });
 
-    return NextResponse.json({ ok: true, notes }, { status: 200 });
+    return successResponse({ notes });
   } catch {
-    return NextResponse.json({ ok: false, message: 'No se pudieron listar las notas.' }, { status: 500 });
+    return errorResponse('No se pudieron listar las notas.', 500);
   }
 }
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const body = (await request.json()) as { content?: unknown };
 
-    if (typeof body.content !== 'string') {
-      return NextResponse.json({ ok: false, message: 'El contenido de la nota es requerido.' }, { status: 400 });
+    if (!id || id.length < 10) {
+      return errorResponse('ID de lead inválido.', 400);
     }
 
-    const content = body.content.trim();
+    const body = (await request.json()) as { content?: unknown };
+    const noteValidation = validateLeadNoteContent(body.content);
 
-    if (content.length < 3 || content.length > 1000) {
-      return NextResponse.json(
-        { ok: false, message: 'La nota debe tener entre 3 y 1000 caracteres.' },
-        { status: 400 },
-      );
+    if (!noteValidation.ok) {
+      return errorResponse(noteValidation.message ?? 'No se pudo validar la nota.', 400);
     }
 
     const leadExists = await prisma.lead.findUnique({ where: { id }, select: { id: true } });
 
     if (!leadExists) {
-      return NextResponse.json({ ok: false, message: 'Lead no encontrado.' }, { status: 404 });
+      return errorResponse('Lead no encontrado.', 404);
     }
 
     const note = await prisma.leadNote.create({
       data: {
         leadId: id,
-        content,
+        content: noteValidation.content,
       },
       select: {
         id: true,
@@ -66,8 +67,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       },
     });
 
-    return NextResponse.json({ ok: true, note }, { status: 201 });
+    return successResponse({ note, message: 'Nota interna guardada correctamente.' }, 201);
   } catch {
-    return NextResponse.json({ ok: false, message: 'No se pudo crear la nota.' }, { status: 500 });
+    return errorResponse('No se pudo crear la nota.', 500);
   }
+}
+
+export async function PATCH() {
+  return methodNotAllowedResponse(['GET', 'POST']);
 }

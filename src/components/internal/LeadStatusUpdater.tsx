@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { LEAD_STATUSES, getLeadStatusLabel, type LeadStatus } from '@/lib/lead-status';
+import { LEAD_STATUSES, getLeadStatusLabel } from '@/lib/lead-status';
 
 type LeadStatusUpdaterProps = {
   leadId: string;
@@ -17,10 +17,21 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
   const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  useEffect(() => {
+    setSelectedStatus(currentStatus);
+  }, [currentStatus]);
+
+  const hasRealChange = useMemo(() => selectedStatus !== currentStatus, [selectedStatus, currentStatus]);
+
   async function handleUpdate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
     setMessage(null);
+
+    if (!hasRealChange) {
+      setMessage('Seleccioná un estado diferente para actualizar.');
+      return;
+    }
 
     const response = await fetch(`/api/admin/leads/${leadId}/status`, {
       method: 'PATCH',
@@ -31,11 +42,11 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
     const data = (await response.json().catch(() => null)) as { ok?: boolean; message?: string } | null;
 
     if (!response.ok || !data?.ok) {
-      setError(data?.message ?? 'No se pudo actualizar el status.');
+      setError(data?.message ?? 'No se pudo actualizar el estado del lead.');
       return;
     }
 
-    setMessage('Status actualizado correctamente.');
+    setMessage('Estado actualizado correctamente.');
     startTransition(() => {
       router.refresh();
     });
@@ -43,7 +54,7 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
 
   return (
     <form onSubmit={handleUpdate} className="space-y-3 rounded-xl border border-[#26324A] bg-[#151B2E] p-4">
-      <p className="text-xs uppercase tracking-wide text-slate-400">Actualizar status (local)</p>
+      <p className="text-xs uppercase tracking-wide text-slate-400">Actualizar estado (local)</p>
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <select
@@ -61,10 +72,10 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
 
         <button
           type="submit"
-          disabled={isPending}
-          className="rounded-lg border border-orange-500/40 bg-orange-500/20 px-4 py-2 text-sm font-medium text-orange-100 hover:bg-orange-500/30 disabled:opacity-60"
+          disabled={isPending || !hasRealChange}
+          className="rounded-lg border border-orange-500/40 bg-orange-500/20 px-4 py-2 text-sm font-medium text-orange-100 hover:bg-orange-500/30 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isPending ? 'Actualizando...' : 'Guardar status'}
+          {isPending ? 'Actualizando...' : 'Guardar estado'}
         </button>
       </div>
 

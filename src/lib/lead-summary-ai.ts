@@ -1,5 +1,5 @@
 import { buildLeadSummaryPrompt } from '@/lib/ai/lead-summary-prompt';
-import { isLocalAISummaryEnabled, OllamaProvider } from '@/lib/ai/ollama-provider';
+import { isLocalAISummaryEnabled, OllamaProvider, OllamaSummaryError } from '@/lib/ai/ollama-provider';
 import { buildLeadSummary, type LeadSummaryInput, type LeadSummaryResult } from '@/lib/lead-summary';
 
 type LeadSummarySource = 'rules' | 'ollama' | 'rules_fallback';
@@ -14,14 +14,25 @@ type LeadSummaryAIInput = LeadSummaryInput & {
   statusHistory?: Array<{ fromStatus?: string | null; toStatus: string; createdAt?: string | Date }>;
 };
 
-function isValidPriority(priority: string): priority is 'low' | 'medium' | 'high' {
-  return priority === 'low' || priority === 'medium' || priority === 'high';
+function isDev() {
+  return process.env.NODE_ENV !== 'production';
 }
 
 export async function buildLeadSummaryWithOptionalAI(lead: LeadSummaryAIInput): Promise<LeadSummaryWithSource> {
   const rulesSummary = buildLeadSummary(lead);
+  const enabled = isLocalAISummaryEnabled();
 
-  if (!isLocalAISummaryEnabled()) {
+  if (isDev()) {
+    console.info('[lead-summary] mode', {
+      aiEnabled: enabled,
+      source: lead.source,
+      status: lead.status,
+      hasNotes: Boolean(lead.notes?.length),
+      hasStatusHistory: Boolean(lead.statusHistory?.length),
+    });
+  }
+
+  if (!enabled) {
     return { summary: rulesSummary, source: 'rules' };
   }
 
@@ -48,10 +59,6 @@ export async function buildLeadSummaryWithOptionalAI(lead: LeadSummaryAIInput): 
       }),
     });
 
-    if (!isValidPriority(aiResult.priority)) {
-      return { summary: rulesSummary, source: 'rules_fallback' };
-    }
-
     return {
       summary: {
         opportunityType: aiResult.opportunityType,
@@ -61,7 +68,21 @@ export async function buildLeadSummaryWithOptionalAI(lead: LeadSummaryAIInput): 
       },
       source: 'ollama',
     };
-  } catch {
+  } catch (error) {
+    if (isDev()) {
+      if (error instanceof OllamaSummaryError) {
+        console.warn('[lead-summary] ollama:fallback', {
+          code: error.code,
+          message: error.message,
+        });
+      } else {
+        console.warn('[lead-summary] ollama:fallback', {
+          code: 'unknown',
+          message: 'Error no controlado',
+        });
+      }
+    }
+
     return { summary: rulesSummary, source: 'rules_fallback' };
   }
 }

@@ -4,14 +4,15 @@ function formatStatusHistory(input: LeadSummaryAIInput) {
   if (!input.statusHistory?.length) return 'Sin historial de status relevante.';
 
   return input.statusHistory
-    .slice(0, 5)
+    .slice(0, 3)
     .map((item, index) => `${index + 1}. ${item.fromStatus ?? 'sin_status'} -> ${item.toStatus}`)
     .join('\n');
 }
 
 function formatNotes(input: LeadSummaryAIInput) {
   if (!input.notes?.length) return 'Sin notas recientes.';
-  return input.notes.slice(0, 5).map((note, index) => `${index + 1}. ${note.content}`).join('\n');
+  return input.notes
+    .slice(0, 3).map((note, index) => `${index + 1}. ${note.content}`).join('\n');
 }
 
 export function buildLeadSummaryPrompt(input: LeadSummaryAIInput) {

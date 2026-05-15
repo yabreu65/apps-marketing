@@ -1,4 +1,5 @@
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { internalNoStoreHeaders, isSameOriginRequest } from '@/lib/internal-security';
 import { validateLeadNoteContent } from '@/lib/lead-note-validation';
 import { prisma } from '@/lib/prisma';
 
@@ -8,11 +9,13 @@ import { prisma } from '@/lib/prisma';
  * Debe protegerse con autenticación/autorización antes de producción.
  */
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const headers = internalNoStoreHeaders();
+
   try {
     const { id } = await params;
 
     if (!id || id.length < 10) {
-      return errorResponse('ID de lead inválido.', 400);
+      return errorResponse('ID de lead inválido.', 400, undefined, headers);
     }
 
     const notes = await prisma.leadNote.findMany({
@@ -27,31 +30,37 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
       },
     });
 
-    return successResponse({ notes });
+    return successResponse({ notes }, 200, headers);
   } catch {
-    return errorResponse('No se pudieron listar las notas.', 500);
+    return errorResponse('No se pudieron listar las notas.', 500, undefined, headers);
   }
 }
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const headers = internalNoStoreHeaders();
+
   try {
+    if (!isSameOriginRequest(request)) {
+      return errorResponse('Solicitud de origen inválida.', 403, undefined, headers);
+    }
+
     const { id } = await params;
 
     if (!id || id.length < 10) {
-      return errorResponse('ID de lead inválido.', 400);
+      return errorResponse('ID de lead inválido.', 400, undefined, headers);
     }
 
     const body = (await request.json()) as { content?: unknown };
     const noteValidation = validateLeadNoteContent(body.content);
 
     if (!noteValidation.ok) {
-      return errorResponse(noteValidation.message ?? 'No se pudo validar la nota.', 400);
+      return errorResponse(noteValidation.message ?? 'No se pudo validar la nota.', 400, undefined, headers);
     }
 
     const leadExists = await prisma.lead.findUnique({ where: { id }, select: { id: true } });
 
     if (!leadExists) {
-      return errorResponse('Lead no encontrado.', 404);
+      return errorResponse('Lead no encontrado.', 404, undefined, headers);
     }
 
     const note = await prisma.leadNote.create({
@@ -67,12 +76,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       },
     });
 
-    return successResponse({ note, message: 'Nota interna guardada correctamente.' }, 201);
+    return successResponse({ note, message: 'Nota interna guardada correctamente.' }, 201, headers);
   } catch {
-    return errorResponse('No se pudo crear la nota.', 500);
+    return errorResponse('No se pudo crear la nota.', 500, undefined, headers);
   }
 }
 
 export async function PATCH() {
-  return methodNotAllowedResponse(['GET', 'POST']);
+  return methodNotAllowedResponse(['GET', 'POST'], internalNoStoreHeaders());
 }

@@ -1,4 +1,5 @@
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { internalNoStoreHeaders, isSameOriginRequest } from '@/lib/internal-security';
 import { isLeadStatus, LEAD_STATUSES } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
 
@@ -8,17 +9,23 @@ import { prisma } from '@/lib/prisma';
  * Debe protegerse con autenticación/autorización antes de producción.
  */
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const headers = internalNoStoreHeaders();
+
   try {
+    if (!isSameOriginRequest(request)) {
+      return errorResponse('Solicitud de origen inválida.', 403, undefined, headers);
+    }
+
     const { id } = await params;
 
     if (!id || id.length < 10) {
-      return errorResponse('ID de lead inválido.', 400);
+      return errorResponse('ID de lead inválido.', 400, undefined, headers);
     }
 
     const body = (await request.json()) as { status?: unknown };
 
     if (!isLeadStatus(body?.status)) {
-      return errorResponse('Estado inválido.', 400, { allowedStatuses: LEAD_STATUSES });
+      return errorResponse('Estado inválido.', 400, { allowedStatuses: LEAD_STATUSES }, headers);
     }
 
     const nextStatus = body.status;
@@ -26,7 +33,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const lead = await prisma.lead.findUnique({ where: { id }, select: { id: true, status: true } });
 
     if (!lead) {
-      return errorResponse('Lead no encontrado.', 404);
+      return errorResponse('Lead no encontrado.', 404, undefined, headers);
     }
 
     const updated = await prisma.$transaction(async (tx) => {
@@ -49,12 +56,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       return next;
     });
 
-    return successResponse({ lead: updated, message: 'Estado actualizado correctamente.' });
+    return successResponse({ lead: updated, message: 'Estado actualizado correctamente.' }, 200, headers);
   } catch {
-    return errorResponse('No se pudo actualizar el estado del lead.', 500);
+    return errorResponse('No se pudo actualizar el estado del lead.', 500, undefined, headers);
   }
 }
 
 export async function GET() {
-  return methodNotAllowedResponse(['PATCH']);
+  return methodNotAllowedResponse(['PATCH'], internalNoStoreHeaders());
 }

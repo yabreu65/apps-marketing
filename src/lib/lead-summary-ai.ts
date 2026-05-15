@@ -18,6 +18,16 @@ function isDev() {
   return process.env.NODE_ENV !== 'production';
 }
 
+function inferPriorityFromLead(lead: LeadSummaryAIInput): 'low' | 'medium' | 'high' {
+  const status = `${lead.status}`.toLowerCase();
+  const text = `${lead.message}`.toLowerCase();
+
+  if (status === 'proposal') return 'high';
+  if (status === 'closed' || status === 'archived') return 'low';
+  if (status === 'new' && /(urgente|esta semana|hoy|rápido|asap)/.test(text)) return 'high';
+  return 'medium';
+}
+
 export async function buildLeadSummaryWithOptionalAI(lead: LeadSummaryAIInput): Promise<LeadSummaryWithSource> {
   const rulesSummary = buildLeadSummary(lead);
   const enabled = isLocalAISummaryEnabled();
@@ -62,7 +72,7 @@ export async function buildLeadSummaryWithOptionalAI(lead: LeadSummaryAIInput): 
     return {
       summary: {
         opportunityType: aiResult.opportunityType,
-        priority: aiResult.priority,
+        priority: inferPriorityFromLead(lead),
         summary: aiResult.summary,
         recommendedAction: aiResult.recommendedAction,
       },

@@ -160,6 +160,7 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
   const metrics = buildLeadDashboardMetrics(metricsInput);
 
   const hasFilters = Boolean(statusFilter || sourceFilter || serviceInterestFilter || queryFilter);
+  const hasAnyLead = metrics.total > 0;
 
   return (
     <main className="min-h-screen bg-[#0B1020] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
@@ -234,7 +235,9 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
                     <p className="text-xs text-slate-400">{metrics.topServiceInterest.count} lead(s)</p>
                   </>
                 ) : (
-                  <p className="mt-1 text-sm text-slate-300">Sin datos suficientes</p>
+                  <p className="mt-1 text-sm text-slate-300">
+                    {hasAnyLead ? 'Sin datos suficientes para este corte' : 'Aún sin consultas registradas'}
+                  </p>
                 )}
               </article>
             </div>
@@ -341,8 +344,21 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
 
         {leads.length === 0 ? (
           <section className="rounded-2xl border border-dashed border-[#26324A] bg-[#151B2E] p-8 text-center">
-            <h2 className="text-lg font-semibold text-slate-100">No encontramos leads con los criterios actuales</h2>
-            <p className="mt-2 text-sm text-slate-300">Probá ajustando búsqueda o filtros, o limpiá los criterios para ver todos los leads.</p>
+            {hasFilters ? (
+              <>
+                <h2 className="text-lg font-semibold text-slate-100">No encontramos leads con los criterios actuales</h2>
+                <p className="mt-2 text-sm text-slate-300">
+                  Probá ajustando búsqueda o filtros, o limpiá los criterios para ver todos los leads.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="text-lg font-semibold text-slate-100">Todavía no hay leads cargados</h2>
+                <p className="mt-2 text-sm text-slate-300">
+                  Podés generar datos de prueba con el seed local o enviar una consulta desde la landing para comenzar.
+                </p>
+              </>
+            )}
           </section>
         ) : (
           <>

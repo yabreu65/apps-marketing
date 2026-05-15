@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const errors = validateLeadPayload(payload);
 
   if (errors.length > 0) {
-    return errorResponse('No pudimos validar tu consulta. Revisá los campos e intentá nuevamente.', 400, { errors });
+    return errorResponse('No pudimos validar tu consulta. Revisá los campos e intentá nuevamente.', 400, errors);
   }
 
   try {

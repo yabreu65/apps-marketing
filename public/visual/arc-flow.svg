@@ -1,0 +1,19 @@
+<svg width="2200" height="1200" viewBox="0 0 2200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lineA" x1="180" y1="1100" x2="2060" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA" stop-opacity="0"/>
+      <stop offset="0.35" stop-color="#A78BFA" stop-opacity="0.55"/>
+      <stop offset="0.72" stop-color="#7C3AED" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#A78BFA" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="lineB" x1="0" y1="900" x2="2200" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F97316" stop-opacity="0"/>
+      <stop offset="0.4" stop-color="#F97316" stop-opacity="0.24"/>
+      <stop offset="0.65" stop-color="#A78BFA" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M-120 980C420 760 760 1080 1300 780C1660 580 1910 430 2320 440" stroke="url(#lineA)" stroke-width="3"/>
+  <path d="M-40 1090C410 880 810 1160 1380 870C1720 700 1970 530 2260 560" stroke="url(#lineB)" stroke-width="2"/>
+  <path d="M220 1160C760 890 1070 1210 1600 900C1910 720 2150 580 2380 620" stroke="url(#lineA)" stroke-opacity="0.55" stroke-width="1.5"/>
+</svg>

@@ -19,8 +19,10 @@ const pillars = [
 
 export function SolutionSection() {
   return (
-    <section className="border-b border-[#26324A] bg-[#0B1020] py-16 sm:py-20">
-      <Container className="space-y-8">
+    <section className="section-violet-depth relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
+      <div className="pointer-events-none absolute left-1/3 top-0 h-40 w-40 sm:h-64 sm:w-64 rounded-full bg-[#A78BFA]/12 blur-2xl sm:blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-8 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[#7C3AED]/18 blur-2xl sm:blur-3xl" />
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Solución"
           title="Soluciones digitales orientadas a acción"
@@ -30,6 +32,7 @@ export function SolutionSection() {
         <div className="grid gap-4 md:grid-cols-3">
           {pillars.map((pillar) => (
             <Card key={pillar.title}>
+              <div className="mb-4 h-9 w-9 rounded-2xl border border-[#7C3AED]/40 bg-[#7C3AED]/16 shadow-[0_0_24px_rgba(124,58,237,0.25)]" />
               <h3 className="text-lg font-semibold text-[#FFFBF5]">{pillar.title}</h3>
               <p className="mt-2 text-sm text-[#CBD5E1]">{pillar.description}</p>
             </Card>

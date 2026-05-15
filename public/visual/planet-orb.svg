@@ -1,0 +1,20 @@
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="planet" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(640 590) rotate(110) scale(420)">
+      <stop offset="0" stop-color="#EDE9FE" stop-opacity="0.62"/>
+      <stop offset="0.42" stop-color="#A78BFA" stop-opacity="0.48"/>
+      <stop offset="0.8" stop-color="#4C1D95" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#050816" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="140" y1="700" x2="1070" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA" stop-opacity="0.12"/>
+      <stop offset="0.32" stop-color="#C4B5FD" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#F97316" stop-opacity="0.34"/>
+      <stop offset="0.86" stop-color="#A78BFA" stop-opacity="0.48"/>
+      <stop offset="1" stop-color="#A78BFA" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="640" cy="610" r="300" fill="url(#planet)"/>
+  <ellipse cx="620" cy="690" rx="470" ry="130" transform="rotate(-14 620 690)" stroke="url(#ring)" stroke-width="20"/>
+  <ellipse cx="620" cy="690" rx="470" ry="130" transform="rotate(-14 620 690)" stroke="#C4B5FD" stroke-opacity="0.25" stroke-width="6"/>
+</svg>

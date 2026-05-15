@@ -5,8 +5,9 @@ import { useCases } from '@/data/use-cases';
 
 export function UseCasesSection() {
   return (
-    <section id="casos" className="border-b border-[#26324A] bg-[#0B1020] py-16 sm:py-20">
-      <Container className="space-y-8">
+    <section id="casos" className="section-violet-depth relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
+      <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 rounded-full bg-[#F97316]/8 blur-3xl" />
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Casos de uso"
           title="Casos de uso para cada tipo de proyecto digital"

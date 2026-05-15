@@ -6,9 +6,5 @@ type CardProps = {
 };
 
 export function Card({ children, className = '' }: CardProps) {
-  return (
-    <article className={`rounded-2xl border border-[#26324A] bg-[#151B2E] p-5 shadow-[0_10px_30px_rgba(11,16,32,0.35)] ${className}`.trim()}>
-      {children}
-    </article>
-  );
+  return <article className={`glass-card rounded-2xl p-5 ${className}`.trim()}>{children}</article>;
 }

@@ -168,15 +168,17 @@ export function ContactFormSection() {
   }
 
   return (
-    <section id="contact-form" className="border-b border-[#26324A] bg-[#111827] py-16 sm:py-20">
-      <Container className="space-y-8">
+    <section id="contact-form" className="section-form-cosmos relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
+      <div className="pointer-events-none absolute -left-24 top-8 h-48 w-48 sm:h-80 sm:w-80 rounded-full bg-[#7C3AED]/18 blur-2xl sm:blur-3xl" />
+      <div className="pointer-events-none absolute right-[-8rem] bottom-0 h-56 w-56 sm:h-96 sm:w-96 rounded-full bg-[#F97316]/10 blur-2xl sm:blur-3xl" />
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Contacto"
           title="Contanos qué proyecto querés desarrollar"
           description="Completá el formulario y te respondemos de forma manual para definir el mejor camino para tu proyecto digital."
         />
 
-        <Card className="p-0">
+        <Card className="overflow-hidden p-0">
           <form noValidate onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-8" aria-describedby="privacy-note">
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
@@ -316,10 +318,10 @@ export function ContactFormSection() {
                 aria-describedby={errors.message ? 'message-error' : 'message-help'}
               />
               <div className="flex items-center justify-between gap-3">
-                <p id="message-help" className="text-xs text-[#94A3B8]">
+                <p id="message-help" className="text-xs text-[#A8B6CC]">
                   No compartas contraseñas, datos bancarios ni información sensible.
                 </p>
-                <span className="text-xs text-[#94A3B8]">{messageLength}/1000</span>
+                <span className="text-xs text-[#A8B6CC]">{messageLength}/1000</span>
               </div>
               {errors.message ? (
                 <p id="message-error" className="text-xs text-[#FDBA74]">
@@ -341,7 +343,7 @@ export function ContactFormSection() {
             ) : null}
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p id="privacy-note" className="max-w-2xl text-xs text-[#94A3B8]">
+              <p id="privacy-note" className="max-w-2xl text-xs text-[#A8B6CC]">
                 Usaremos tus datos solo para responder tu consulta comercial. No pedimos información sensible.
               </p>
               <Button type="submit" variant="primary" className="w-full sm:w-auto" disabled={isSubmitting}>

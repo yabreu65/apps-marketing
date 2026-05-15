@@ -5,8 +5,9 @@ import { benefits } from '@/data/benefits';
 
 export function BenefitsSection() {
   return (
-    <section id="beneficios" className="border-b border-[#26324A] bg-[#111827] py-16 sm:py-20">
-      <Container className="space-y-8">
+    <section id="beneficios" className="section-aurora-grid relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
+      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#7C3AED]/16 blur-3xl" />
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Beneficios"
           title="Beneficios concretos para vender mejor y crecer con orden"

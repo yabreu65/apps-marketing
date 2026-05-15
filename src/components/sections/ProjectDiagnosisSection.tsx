@@ -96,8 +96,10 @@ export function ProjectDiagnosisSection() {
   }, [result]);
 
   return (
-    <section id="project-diagnosis" className="border-b border-[#26324A] bg-[#0B1020] py-16 sm:py-20">
-      <Container className="space-y-8">
+    <section id="project-diagnosis" className="section-cosmic relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
+      <div className="pointer-events-none absolute left-[-6rem] top-10 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[#7C3AED]/18 blur-2xl sm:blur-3xl" />
+      <div className="pointer-events-none absolute right-[-4rem] bottom-0 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[#F97316]/8 blur-2xl sm:blur-3xl" />
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Diagnóstico orientativo"
           title="Descubrí qué tipo de solución digital te conviene"
@@ -120,7 +122,7 @@ export function ProjectDiagnosisSection() {
                       className={`rounded-md border px-3 py-2 text-left text-sm transition ${
                         isSelected
                           ? 'border-[#F97316] bg-[#F97316]/15 text-[#FFFBF5]'
-                          : 'border-[#26324A] bg-[#111827] text-[#CBD5E1] hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/10'
+                          : 'border-[#A78BFA]/20 bg-[#0B1020]/70 text-[#CBD5E1] hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/10'
                       }`}
                     >
                       {option.label}
@@ -140,8 +142,8 @@ export function ProjectDiagnosisSection() {
                 Según tus respuestas, el mejor punto de partida sería: <span className="font-semibold text-[#FDBA74]">{result.recommendedSolution}</span>
               </p>
               <p className="mt-3 text-sm text-[#E2E8F0]">{result.nextAction}</p>
-              <p className="mt-3 text-xs text-[#94A3B8]">{result.rationale}</p>
-              <p className="mt-3 text-xs text-[#94A3B8]">
+              <p className="mt-3 text-xs text-[#A8B6CC]">{result.rationale}</p>
+              <p className="mt-3 text-xs text-[#A8B6CC]">
                 Podés continuar por WhatsApp o completar el formulario para que revisemos tu caso.
               </p>
             </>

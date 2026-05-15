@@ -11,8 +11,9 @@ const STATUS_STYLES = {
 
 export function OfferPackagesSection() {
   return (
-    <section id="paquetes" className="border-b border-[#26324A] bg-[#111827] py-16 sm:py-20">
-      <Container className="space-y-8">
+    <section id="paquetes" className="section-cosmic relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
+      <div className="pointer-events-none absolute right-[-5rem] top-10 h-72 w-72 rounded-full bg-[#7C3AED]/18 blur-3xl" />
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Paquetes"
           title="Caminos comerciales para contratar"

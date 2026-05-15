@@ -12,12 +12,14 @@ import { ProjectTypesSection } from '@/components/sections/ProjectTypesSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { SolutionSection } from '@/components/sections/SolutionSection';
+import { WhyUsSection } from '@/components/sections/WhyUsSection';
 
 export default function HomePage() {
   return (
     <main className="bg-[#0B1020] text-[#F8FAFC]">
       <HeroSection />
       <CredibilityStripSection />
+      <WhyUsSection />
       <ProblemSection />
       <SolutionSection />
       <ServicesSection />

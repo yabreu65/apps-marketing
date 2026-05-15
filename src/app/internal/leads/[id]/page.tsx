@@ -5,7 +5,7 @@ import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
 import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
 import { getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
-import { buildLeadSummary } from '@/lib/lead-summary';
+import { buildLeadSummaryWithOptionalAI } from '@/lib/lead-summary-ai';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -92,14 +92,22 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     );
   }
 
-  const leadSummary = buildLeadSummary({
+  const leadSummaryResult = await buildLeadSummaryWithOptionalAI({
+    name: lead.name,
     serviceInterest: lead.serviceInterest,
     businessType: lead.businessType,
     message: lead.message,
     source: lead.source,
     status: lead.status,
     notes: lead.notes,
+    statusHistory: lead.statusHistory.map((item) => ({
+      fromStatus: item.fromStatus,
+      toStatus: item.toStatus,
+      createdAt: item.createdAt,
+    })),
   });
+
+  const leadSummary = leadSummaryResult.summary;
 
   const timeline: TimelineItem[] = [
     ...lead.statusHistory.map((item) => ({
@@ -199,7 +207,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
             <p className="text-xs uppercase tracking-wide text-slate-400">Siguiente acción recomendada</p>
             <p className="mt-1 text-sm text-slate-300">{leadSummary.recommendedAction}</p>
           </article>
-          <p className="text-xs text-slate-400">Resumen orientativo generado por reglas locales. No usa IA ni servicios externos.</p>
+          <p className="text-xs text-slate-400">{leadSummaryResult.source === 'rules' ? 'Resumen orientativo generado por reglas locales. No usa IA ni servicios externos.' : null}{leadSummaryResult.source === 'ollama' ? 'Resumen generado con IA local mediante Ollama. No se enviaron datos a servicios externos.' : null}{leadSummaryResult.source === 'rules_fallback' ? 'Ollama no estuvo disponible. Se mostró resumen por reglas locales.' : null}</p>
         </section>
 
         <LeadNotesPanel leadId={lead.id} notes={lead.notes} />

@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
+import { buildLeadDashboardMetrics } from '@/lib/lead-metrics';
 import { LEAD_STATUSES, getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
 import type { Prisma } from '@prisma/client';
@@ -144,6 +145,20 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
     },
   });
 
+  const metricsInput = await prisma.lead.findMany({
+    where,
+    select: {
+      status: true,
+      serviceInterest: true,
+      message: true,
+      source: true,
+      email: true,
+      phone: true,
+      businessType: true,
+    },
+  });
+  const metrics = buildLeadDashboardMetrics(metricsInput);
+
   const hasFilters = Boolean(statusFilter || sourceFilter || serviceInterestFilter || queryFilter);
 
   return (
@@ -165,6 +180,65 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
             Mostrando <span className="font-semibold text-orange-300">{leads.length}</span> de{' '}
             <span className="font-semibold text-orange-300">{totalLeads}</span> leads.
           </p>
+
+          <section className="space-y-3 rounded-xl border border-[#26324A] bg-[#151B2E] p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-300">Métricas comerciales locales</p>
+              <p className="text-xs text-slate-400">
+                {hasFilters ? 'Calculadas sobre la búsqueda y filtros actuales.' : 'Calculadas sobre todas las consultas actuales.'}
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Total de leads</p>
+                <p className="mt-1 text-xl font-semibold text-slate-100">{metrics.total}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads nuevos</p>
+                <p className="mt-1 text-xl font-semibold text-orange-300">{metrics.byStatus.new}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads contactados</p>
+                <p className="mt-1 text-xl font-semibold text-sky-300">{metrics.byStatus.contacted}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads calificados</p>
+                <p className="mt-1 text-xl font-semibold text-emerald-300">{metrics.byStatus.qualified}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads en propuesta</p>
+                <p className="mt-1 text-xl font-semibold text-violet-300">{metrics.byStatus.proposal}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads cerrados</p>
+                <p className="mt-1 text-xl font-semibold text-teal-300">{metrics.byStatus.closed}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads archivados</p>
+                <p className="mt-1 text-xl font-semibold text-slate-300">{metrics.byStatus.archived}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Alto potencial</p>
+                <p className="mt-1 text-xl font-semibold text-fuchsia-300">{metrics.highPotential}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Leads sin contactar</p>
+                <p className="mt-1 text-xl font-semibold text-amber-300">{metrics.uncontacted}</p>
+              </article>
+              <article className="rounded-lg border border-[#2E3A57] bg-[#0F172A]/80 p-3">
+                <p className="text-xs text-slate-400">Servicio más consultado</p>
+                {metrics.topServiceInterest ? (
+                  <>
+                    <p className="mt-1 text-sm font-semibold text-slate-100">{metrics.topServiceInterest.name}</p>
+                    <p className="text-xs text-slate-400">{metrics.topServiceInterest.count} lead(s)</p>
+                  </>
+                ) : (
+                  <p className="mt-1 text-sm text-slate-300">Sin datos suficientes</p>
+                )}
+              </article>
+            </div>
+          </section>
 
           <section className="space-y-3 rounded-xl border border-[#26324A] bg-[#151B2E] p-4">
             <p className="text-xs font-medium uppercase tracking-wide text-slate-300">Búsqueda y filtros</p>

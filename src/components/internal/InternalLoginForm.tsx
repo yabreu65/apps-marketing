@@ -7,6 +7,13 @@ type InternalLoginFormProps = {
   redirect: string;
 };
 
+function getLoginErrorMessage(status: number | undefined, apiMessage?: string) {
+  if (status === 401) return 'Credenciales inválidas.';
+  if (status === 429) return 'Demasiados intentos. Esperá unos minutos antes de volver a intentar.';
+  if (status === 503) return 'La autenticación interna no está configurada correctamente.';
+  return apiMessage ?? 'No se pudo iniciar sesión interna.';
+}
+
 export function InternalLoginForm({ redirect }: InternalLoginFormProps) {
   const router = useRouter();
 
@@ -31,7 +38,7 @@ export function InternalLoginForm({ redirect }: InternalLoginFormProps) {
         | null;
 
       if (!response.ok || !data?.ok) {
-        setError(data?.message ?? 'No se pudo iniciar sesión interna.');
+        setError(getLoginErrorMessage(response.status, data?.message));
         return;
       }
 
@@ -66,7 +73,7 @@ export function InternalLoginForm({ redirect }: InternalLoginFormProps) {
         disabled={isSubmitting}
         className="rounded-lg border border-orange-500/40 bg-orange-500/20 px-4 py-2 text-sm font-medium text-orange-100 hover:bg-orange-500/30 disabled:opacity-60"
       >
-        {isSubmitting ? 'Validando...' : 'Ingresar al dashboard interno'}
+        {isSubmitting ? 'Validando acceso...' : 'Ingresar al dashboard interno'}
       </button>
     </form>
   );

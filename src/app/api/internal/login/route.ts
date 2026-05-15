@@ -8,9 +8,25 @@ import {
   isValidInternalDashboardPassword,
   normalizeInternalRedirect,
 } from '@/lib/internal-auth';
+import {
+  clearLoginAttempts,
+  getLoginRateLimitKey,
+  getRemainingBlockSeconds,
+  isLoginBlocked,
+  recordFailedLoginAttempt,
+} from '@/lib/login-rate-limit';
 
 export async function POST(request: Request) {
+  const rateLimitKey = getLoginRateLimitKey(request);
+
   try {
+    if (isLoginBlocked(rateLimitKey)) {
+      const retryAfterSeconds = getRemainingBlockSeconds(rateLimitKey);
+      return errorResponse('Demasiados intentos. Esperá unos minutos antes de volver a intentar.', 429, {
+        retryAfterSeconds,
+      });
+    }
+
     if (!isInternalAuthConfigured()) {
       return errorResponse('La autenticación interna no está configurada correctamente.', 503);
     }
@@ -20,8 +36,11 @@ export async function POST(request: Request) {
     const redirect = typeof body.redirect === 'string' ? body.redirect : null;
 
     if (!isValidInternalDashboardPassword(password)) {
+      recordFailedLoginAttempt(rateLimitKey);
       return errorResponse('Credenciales inválidas.', 401);
     }
+
+    clearLoginAttempts(rateLimitKey);
 
     const cookieStore = await cookies();
     cookieStore.set(INTERNAL_AUTH_COOKIE_NAME, getInternalAuthCookieValue(), {

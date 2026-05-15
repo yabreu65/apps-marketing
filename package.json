@@ -9,7 +9,12 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "db:seed:local": "tsx scripts/seed-local-demo-data.ts"
+    "db:seed:local": "tsx scripts/seed-local-demo-data.ts",
+    "db:backup:local": "tsx scripts/db/local-backup.ts",
+    "db:backup:list:local": "tsx scripts/db/local-list-backups.ts",
+    "db:restore:local": "tsx scripts/db/local-restore.ts",
+    "db:reset:local": "tsx scripts/db/local-reset.ts",
+    "db:reset:local:seed": "tsx scripts/db/local-reset.ts --seed-demo"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",

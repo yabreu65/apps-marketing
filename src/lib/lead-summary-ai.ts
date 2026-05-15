@@ -2,7 +2,7 @@ import { buildLeadSummaryPrompt } from '@/lib/ai/lead-summary-prompt';
 import { isLocalAISummaryEnabled, OllamaProvider, OllamaSummaryError } from '@/lib/ai/ollama-provider';
 import { buildLeadSummary, type LeadSummaryInput, type LeadSummaryResult } from '@/lib/lead-summary';
 
-type LeadSummarySource = 'rules' | 'ollama' | 'rules_fallback';
+export type LeadSummarySource = 'rules' | 'ollama' | 'rules_fallback';
 
 export type LeadSummaryWithSource = {
   summary: LeadSummaryResult;

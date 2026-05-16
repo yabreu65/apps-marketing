@@ -59,6 +59,19 @@ describe('lead-conversation-validation', () => {
     expect(errors.some((error) => error.field === 'content')).toBe(true);
   });
 
+  it('rechaza contenido solo espacios tras normalización', () => {
+    const normalized = normalizeLeadConversationPayload({
+      direction: 'inbound',
+      content: '   ',
+      channel: 'whatsapp_simulated',
+    });
+
+    const errors = validateLeadConversationPayload(normalized);
+
+    expect(normalized.content).toBe('');
+    expect(errors.some((error) => error.field === 'content')).toBe(true);
+  });
+
   it('rechaza contenido muy corto', () => {
     const errors = validateLeadConversationPayload({
       direction: 'inbound',

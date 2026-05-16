@@ -111,6 +111,40 @@ describe('GET/POST /api/admin/leads/[id]/conversation', () => {
     expect(prismaMock.lead.findUnique).not.toHaveBeenCalled();
   });
 
+  it('POST responde 400 para contenido solo espacios', async () => {
+    const request = createJsonRequest(
+      `http://localhost:3000/api/admin/leads/${validId}/conversation`,
+      'POST',
+      { direction: 'inbound', content: '   ' },
+      sameOriginHeaders(),
+    );
+
+    const response = await POST(request, { params: Promise.resolve({ id: validId }) });
+    const data = await readJsonResponse<{ ok: boolean; errors?: Array<{ field: string }> }>(response);
+
+    expect(response.status).toBe(400);
+    expect(data.ok).toBe(false);
+    expect(data.errors?.some((error) => error.field === 'content')).toBe(true);
+  });
+
+  it('POST responde 400 para JSON inválido', async () => {
+    const request = new Request(`http://localhost:3000/api/admin/leads/${validId}/conversation`, {
+      method: 'POST',
+      headers: {
+        ...sameOriginHeaders(),
+        'content-type': 'application/json',
+      },
+      body: '{not-valid-json',
+    });
+
+    const response = await POST(request, { params: Promise.resolve({ id: validId }) });
+    const data = await readJsonResponse<{ ok: boolean; message: string }>(response);
+
+    expect(response.status).toBe(400);
+    expect(data.ok).toBe(false);
+    expect(data.message).toContain('JSON');
+  });
+
   it('POST responde 404 cuando lead no existe', async () => {
     prismaMock.lead.findUnique.mockResolvedValueOnce(null);
 
@@ -147,11 +181,12 @@ describe('GET/POST /api/admin/leads/[id]/conversation', () => {
     );
 
     const response = await POST(request, { params: Promise.resolve({ id: validId }) });
-    const data = await readJsonResponse<{ ok: boolean; message?: { id: string } }>(response);
+    const data = await readJsonResponse<{ ok: boolean; conversationMessage?: { id: string }; message?: string }>(response);
 
     expect(response.status).toBe(201);
     expect(data.ok).toBe(true);
-    expect(data.message?.id).toBe('msg_2');
+    expect(data.conversationMessage?.id).toBe('msg_2');
+    expect(data.message).toContain('guardado');
   });
 
   it('PATCH responde 405 método no permitido', async () => {

@@ -90,7 +90,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       },
     });
 
-    return successResponse({ message, info: 'Mensaje simulado guardado correctamente.' }, 201, headers);
+    return successResponse(
+      {
+        message: 'Mensaje simulado guardado correctamente.',
+        conversationMessage: message,
+      },
+      201,
+      headers,
+    );
   } catch {
     return errorResponse('No se pudo guardar el mensaje simulado.', 500, undefined, headers);
   }

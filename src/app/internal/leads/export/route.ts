@@ -41,10 +41,11 @@ export async function GET(request: Request) {
     });
 
     const csv = buildLeadsCsv(leads);
+    const filename = buildLeadsCsvFilename();
     const headers = new Headers({
       ...noStoreHeaders,
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': `attachment; filename="${buildLeadsCsvFilename()}"`,
+      'Content-Disposition': `attachment; filename="${filename}"; filename*=UTF-8''${encodeURIComponent(filename)}`,
       'X-Content-Type-Options': 'nosniff',
     });
 

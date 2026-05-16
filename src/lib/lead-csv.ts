@@ -71,6 +71,7 @@ export function buildLeadsCsvFilename() {
   const dd = pad(now.getDate());
   const hh = pad(now.getHours());
   const min = pad(now.getMinutes());
+  const sec = pad(now.getSeconds());
 
-  return `leads-export-${yyyy}${mm}${dd}-${hh}${min}.csv`;
+  return `leads-export-${yyyy}${mm}${dd}-${hh}${min}${sec}.csv`;
 }

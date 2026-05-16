@@ -42,10 +42,13 @@ describe('GET /internal/leads/export', () => {
 
     const response = await GET(request);
     const body = await response.text();
+    const disposition = response.headers.get('content-disposition') ?? '';
 
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toContain('text/csv');
-    expect(response.headers.get('content-disposition')).toContain('attachment; filename=');
+    expect(disposition).toContain('attachment; filename=');
+    expect(disposition).toContain("filename*=UTF-8''");
+    expect(disposition).toMatch(/leads-export-\d{8}-\d{6}\.csv/);
     expect(body).toContain('id,nombre,email,telefono,tipo_negocio,servicio_interes,fuente,estado,fecha_creacion_iso,mensaje');
     expect(body).toContain('lead_123');
 

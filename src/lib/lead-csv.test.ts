@@ -47,6 +47,6 @@ describe('lead-csv', () => {
 
   it('genera nombre de archivo con patrón esperado', () => {
     const filename = buildLeadsCsvFilename();
-    expect(filename).toMatch(/^leads-export-\d{8}-\d{4}\.csv$/);
+    expect(filename).toMatch(/^leads-export-\d{8}-\d{6}\.csv$/);
   });
 });

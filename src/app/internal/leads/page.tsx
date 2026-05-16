@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 import { InternalLogoutButton } from '@/components/internal/InternalLogoutButton';
 import { formatDateTime } from '@/lib/format';
+import { buildLeadWhereInput, extractLeadFiltersFromRecord, getSingleSearchParam } from '@/lib/lead-dashboard-filters';
 import { buildLeadDashboardMetrics } from '@/lib/lead-metrics';
 import { LEAD_STATUSES, getLeadStatusBadgeClass, getLeadStatusLabel } from '@/lib/lead-status';
 import { prisma } from '@/lib/prisma';
-import type { Prisma } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -46,20 +46,6 @@ const SERVICE_OPTIONS: FilterOption[] = [
   { label: 'No estoy seguro', value: 'No estoy seguro' },
 ];
 
-function getSingleParam(value: string | string[] | undefined): string | undefined {
-  if (typeof value === 'string') {
-    const trimmed = value.trim();
-    return trimmed.length > 0 ? trimmed : undefined;
-  }
-
-  if (Array.isArray(value) && typeof value[0] === 'string') {
-    const trimmed = value[0].trim();
-    return trimmed.length > 0 ? trimmed : undefined;
-  }
-
-  return undefined;
-}
-
 function getPage(value: string | undefined): number {
   if (!value) return 1;
 
@@ -85,14 +71,23 @@ function buildHref(current: Record<string, string | undefined>, updates: Record<
   return query ? `/internal/leads?${query}` : '/internal/leads';
 }
 
+function buildExportHref(current: Record<string, string | undefined>) {
+  const params = new URLSearchParams();
+
+  if (current.status) params.set('status', current.status);
+  if (current.source) params.set('source', current.source);
+  if (current.serviceInterest) params.set('serviceInterest', current.serviceInterest);
+  if (current.q) params.set('q', current.q);
+
+  const query = params.toString();
+  return query ? `/internal/leads/export?${query}` : '/internal/leads/export';
+}
+
 export default async function InternalLeadsPage({ searchParams }: LeadsPageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
-
-  const statusFilter = getSingleParam(resolvedSearchParams.status);
-  const sourceFilter = getSingleParam(resolvedSearchParams.source);
-  const serviceInterestFilter = getSingleParam(resolvedSearchParams.serviceInterest);
-  const queryFilter = getSingleParam(resolvedSearchParams.q);
-  const page = getPage(getSingleParam(resolvedSearchParams.page));
+  const { status: statusFilter, source: sourceFilter, serviceInterest: serviceInterestFilter, q: queryFilter } =
+    extractLeadFiltersFromRecord(resolvedSearchParams);
+  const page = getPage(getSingleSearchParam(resolvedSearchParams.page));
 
   const currentFilters = {
     status: statusFilter,
@@ -102,23 +97,12 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
     page: String(page),
   };
 
-  const where: Prisma.LeadWhereInput = {
-    ...(statusFilter ? { status: statusFilter } : {}),
-    ...(sourceFilter ? { source: sourceFilter } : {}),
-    ...(serviceInterestFilter ? { serviceInterest: serviceInterestFilter } : {}),
-    ...(queryFilter
-      ? {
-          OR: [
-            { name: { contains: queryFilter, mode: 'insensitive' } },
-            { email: { contains: queryFilter, mode: 'insensitive' } },
-            { phone: { contains: queryFilter, mode: 'insensitive' } },
-            { businessType: { contains: queryFilter, mode: 'insensitive' } },
-            { serviceInterest: { contains: queryFilter, mode: 'insensitive' } },
-            { message: { contains: queryFilter, mode: 'insensitive' } },
-          ],
-        }
-      : {}),
-  };
+  const where = buildLeadWhereInput({
+    status: statusFilter,
+    source: sourceFilter,
+    serviceInterest: serviceInterestFilter,
+    q: queryFilter,
+  });
 
   const totalLeads = await prisma.lead.count({ where });
   const totalPages = Math.max(1, Math.ceil(totalLeads / PAGE_SIZE));
@@ -174,7 +158,13 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
           <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
             Vista interna protegida con autenticación local mínima. Antes de producción debe reforzarse con usuarios, roles y controles de acceso.
           </p>
-          <div className="flex justify-end">
+          <div className="flex flex-wrap justify-end gap-2">
+            <Link
+              href={buildExportHref(currentFilters)}
+              className="inline-flex items-center rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-100 hover:bg-emerald-500/20"
+            >
+              Exportar CSV
+            </Link>
             <InternalLogoutButton />
           </div>
           <p className="text-sm text-slate-300">

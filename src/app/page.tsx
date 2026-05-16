@@ -1,4 +1,3 @@
-import { InternalChatWidget } from '@/components/chat/InternalChatWidget';
 import { AILeadIntelligenceSection } from '@/components/sections/AILeadIntelligenceSection';
 import { ContactFormSection } from '@/components/sections/ContactFormSection';
 import { CredibilityStripSection } from '@/components/sections/CredibilityStripSection';
@@ -13,6 +12,7 @@ import { ProcessSection } from '@/components/sections/ProcessSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { SolutionSection } from '@/components/sections/SolutionSection';
 import { WhyUsSection } from '@/components/sections/WhyUsSection';
+import { PublicLeadAssistantWidget } from '@/modules/lead-assistant/components/PublicLeadAssistantWidget';
 
 export default function HomePage() {
   return (
@@ -31,7 +31,7 @@ export default function HomePage() {
       <ContactFormSection />
       <FinalCtaSection />
       <Footer />
-      <InternalChatWidget />
+      <PublicLeadAssistantWidget />
     </main>
   );
 }

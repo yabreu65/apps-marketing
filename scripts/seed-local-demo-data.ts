@@ -22,6 +22,12 @@ type DemoLeadSeed = {
     toStatus: string;
     createdAtOffsetDays: number;
   }>;
+  conversations?: Array<{
+    direction: 'inbound' | 'outbound';
+    content: string;
+    createdAtOffsetDays: number;
+    channel?: 'whatsapp_simulated';
+  }>;
 };
 
 function daysAgo(days: number) {
@@ -44,6 +50,13 @@ const demoLeads: DemoLeadSeed[] = [
     notes: [
       {
         content: 'Lead reciente. Falta calificar presupuesto y urgencia real.',
+        createdAtOffsetDays: 1,
+      },
+    ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Hola, quiero una landing para captar consultas este mes. ¿Me orientan con alcance?',
         createdAtOffsetDays: 1,
       },
     ],
@@ -71,6 +84,18 @@ const demoLeads: DemoLeadSeed[] = [
     statusHistory: [
       { fromStatus: 'new', toStatus: 'contacted', createdAtOffsetDays: 3 },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Tenemos web vieja, necesitamos algo profesional y simple para servicios.',
+        createdAtOffsetDays: 4,
+      },
+      {
+        direction: 'outbound',
+        content: 'Perfecto, podemos empezar por arquitectura de páginas y propuesta por etapas.',
+        createdAtOffsetDays: 3,
+      },
+    ],
   },
   {
     name: '[DEMO] MVP SaaS Alto Potencial',
@@ -97,6 +122,18 @@ const demoLeads: DemoLeadSeed[] = [
       { fromStatus: 'new', toStatus: 'contacted', createdAtOffsetDays: 8 },
       { fromStatus: 'contacted', toStatus: 'qualified', createdAtOffsetDays: 6 },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Queremos lanzar MVP SaaS rápido. ¿Pueden ayudarnos a priorizar módulos?',
+        createdAtOffsetDays: 9,
+      },
+      {
+        direction: 'outbound',
+        content: 'Sí. Armemos discovery de usuarios y roadmap de 8 semanas para validación.',
+        createdAtOffsetDays: 8,
+      },
+    ],
   },
   {
     name: '[DEMO] Sistema Interno Operaciones',
@@ -120,6 +157,18 @@ const demoLeads: DemoLeadSeed[] = [
     ],
     statusHistory: [
       { fromStatus: 'new', toStatus: 'contacted', createdAtOffsetDays: 6 },
+    ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Hoy manejamos pedidos por planillas y WhatsApp. Necesitamos ordenarlo.',
+        createdAtOffsetDays: 7,
+      },
+      {
+        direction: 'outbound',
+        content: 'Entendido, proponemos mapear procesos y definir un sistema interno por módulos.',
+        createdAtOffsetDays: 6,
+      },
     ],
   },
   {
@@ -147,6 +196,18 @@ const demoLeads: DemoLeadSeed[] = [
       { fromStatus: 'contacted', toStatus: 'qualified', createdAtOffsetDays: 9 },
       { fromStatus: 'qualified', toStatus: 'proposal', createdAtOffsetDays: 4 },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Necesitamos panel ejecutivo para ver pipeline y conversiones semanales.',
+        createdAtOffsetDays: 12,
+      },
+      {
+        direction: 'outbound',
+        content: 'Te compartimos propuesta inicial del dashboard y próximos hitos.',
+        createdAtOffsetDays: 4,
+      },
+    ],
   },
   {
     name: '[DEMO] IA Automatización',
@@ -173,6 +234,18 @@ const demoLeads: DemoLeadSeed[] = [
       { fromStatus: 'new', toStatus: 'contacted', createdAtOffsetDays: 9 },
       { fromStatus: 'contacted', toStatus: 'qualified', createdAtOffsetDays: 7 },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Queremos automatizar clasificación inicial de consultas, pero con revisión humana.',
+        createdAtOffsetDays: 10,
+      },
+      {
+        direction: 'outbound',
+        content: 'Podemos plantearlo por fases, empezando por procesos y datos antes de automatizar.',
+        createdAtOffsetDays: 9,
+      },
+    ],
   },
   {
     name: '[DEMO] SEO Marketing',
@@ -190,6 +263,13 @@ const demoLeads: DemoLeadSeed[] = [
         createdAtOffsetDays: 1,
       },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Necesito mejorar SEO y captar más consultas de calidad.',
+        createdAtOffsetDays: 2,
+      },
+    ],
   },
   {
     name: '[DEMO] No Estoy Seguro',
@@ -204,6 +284,13 @@ const demoLeads: DemoLeadSeed[] = [
     notes: [
       {
         content: 'Mensaje corto. Recomendado diagnóstico inicial por alcance.',
+        createdAtOffsetDays: 1,
+      },
+    ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'No sé bien qué necesito, ¿me orientan?',
         createdAtOffsetDays: 1,
       },
     ],
@@ -228,6 +315,18 @@ const demoLeads: DemoLeadSeed[] = [
       { fromStatus: 'new', toStatus: 'contacted', createdAtOffsetDays: 21 },
       { fromStatus: 'contacted', toStatus: 'archived', createdAtOffsetDays: 18 },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Quiero una landing nueva, pero estoy reordenando prioridades internas.',
+        createdAtOffsetDays: 22,
+      },
+      {
+        direction: 'outbound',
+        content: 'Gracias por el contexto. Cuando quieras retomarlo, te ayudamos a definir el alcance.',
+        createdAtOffsetDays: 21,
+      },
+    ],
   },
   {
     name: '[DEMO] Lead Cerrado',
@@ -251,6 +350,18 @@ const demoLeads: DemoLeadSeed[] = [
       { fromStatus: 'qualified', toStatus: 'proposal', createdAtOffsetDays: 20 },
       { fromStatus: 'proposal', toStatus: 'closed', createdAtOffsetDays: 12 },
     ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Estamos listos para avanzar con implementación por etapas.',
+        createdAtOffsetDays: 13,
+      },
+      {
+        direction: 'outbound',
+        content: 'Excelente, dejamos cierre de alcance demo y próximos entregables coordinados.',
+        createdAtOffsetDays: 12,
+      },
+    ],
   },
   {
     name: '[DEMO] Lead Sin Teléfono',
@@ -266,6 +377,13 @@ const demoLeads: DemoLeadSeed[] = [
       {
         content: 'Tiene email válido, falta canal de WhatsApp para seguimiento rápido.',
         createdAtOffsetDays: 2,
+      },
+    ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Podemos coordinar por email, todavía no uso WhatsApp comercial.',
+        createdAtOffsetDays: 3,
       },
     ],
   },
@@ -291,6 +409,18 @@ const demoLeads: DemoLeadSeed[] = [
     ],
     statusHistory: [
       { fromStatus: 'new', toStatus: 'contacted', createdAtOffsetDays: 4 },
+    ],
+    conversations: [
+      {
+        direction: 'inbound',
+        content: 'Solo puedo responder por WhatsApp. ¿Cómo sería el proceso?',
+        createdAtOffsetDays: 5,
+      },
+      {
+        direction: 'outbound',
+        content: 'Genial, podemos trabajar flujo comercial con seguimiento manual por etapas.',
+        createdAtOffsetDays: 4,
+      },
     ],
   },
 ];
@@ -325,6 +455,7 @@ async function seedLocalDemoData() {
       demoLead.createdAtOffsetDays,
       ...(demoLead.notes?.map((note) => note.updatedAtOffsetDays ?? note.createdAtOffsetDays) ?? []),
       ...(demoLead.statusHistory?.map((item) => item.createdAtOffsetDays) ?? []),
+      ...(demoLead.conversations?.map((message) => message.createdAtOffsetDays) ?? []),
     ];
 
     const updatedAt = daysAgo(Math.min(...latestTimelineOffsets));
@@ -356,6 +487,16 @@ async function seedLocalDemoData() {
                 fromStatus: statusTransition.fromStatus,
                 toStatus: statusTransition.toStatus,
                 createdAt: daysAgo(statusTransition.createdAtOffsetDays),
+              })),
+            }
+          : undefined,
+        conversations: demoLead.conversations?.length
+          ? {
+              create: demoLead.conversations.map((conversation) => ({
+                channel: conversation.channel ?? 'whatsapp_simulated',
+                direction: conversation.direction,
+                content: conversation.content,
+                createdAt: daysAgo(conversation.createdAtOffsetDays),
               })),
             }
           : undefined,

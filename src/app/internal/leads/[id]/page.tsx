@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { LeadNotesPanel } from '@/components/internal/LeadNotesPanel';
+import { LeadConversationPanel } from '@/components/internal/LeadConversationPanel';
 import { LeadScorePanel } from '@/components/internal/LeadScorePanel';
 import { LeadSummaryPanel } from '@/components/internal/LeadSummaryPanel';
 import { LeadStatusUpdater } from '@/components/internal/LeadStatusUpdater';
@@ -19,7 +20,7 @@ type LeadDetailPageProps = {
 
 type TimelineItem = {
   id: string;
-  kind: 'status' | 'note';
+  kind: 'status' | 'note' | 'conversation';
   createdAt: Date;
   title: string;
   description: string;
@@ -80,6 +81,17 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           id: true,
           fromStatus: true,
           toStatus: true,
+          createdAt: true,
+        },
+      },
+      conversations: {
+        orderBy: { createdAt: 'desc' },
+        take: 100,
+        select: {
+          id: true,
+          channel: true,
+          direction: true,
+          content: true,
           createdAt: true,
         },
       },
@@ -144,6 +156,13 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       createdAt: note.createdAt,
       title: 'Nota interna',
       description: note.content,
+    })),
+    ...lead.conversations.map((conversation) => ({
+      id: `conversation-${conversation.id}`,
+      kind: 'conversation' as const,
+      createdAt: conversation.createdAt,
+      title: conversation.direction === 'inbound' ? 'Mensaje entrante simulado' : 'Respuesta manual simulada',
+      description: conversation.content,
     })),
   ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
@@ -237,6 +256,20 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
         <LeadSummaryPanel leadId={lead.id} initialSummary={leadSummaryResult.summary} initialSource={leadSummaryResult.source} />
 
+        <section>
+          <LeadConversationPanel
+            leadId={lead.id}
+            messages={lead.conversations.map((message) => ({
+              id: message.id,
+              leadId: lead.id,
+              channel: message.channel as 'whatsapp_simulated',
+              direction: message.direction as 'inbound' | 'outbound',
+              content: message.content,
+              createdAt: message.createdAt,
+            }))}
+          />
+        </section>
+
         <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <LeadNotesPanel leadId={lead.id} notes={lead.notes} />
 
@@ -252,7 +285,11 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                       <div className="flex items-center gap-2">
                         <span
                           className={`inline-flex h-2.5 w-2.5 rounded-full ${
-                            item.kind === 'status' ? 'bg-violet-400' : 'bg-emerald-400'
+                            item.kind === 'status'
+                              ? 'bg-violet-400'
+                              : item.kind === 'note'
+                                ? 'bg-emerald-400'
+                                : 'bg-sky-400'
                           }`}
                           aria-hidden
                         />

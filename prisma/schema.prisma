@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Lead {
-  id              String              @id @default(cuid())
+  id              String                    @id @default(cuid())
   name            String
   email           String?
   phone           String?
@@ -16,11 +16,12 @@ model Lead {
   serviceInterest String
   message         String
   source          String
-  status          String              @default("new")
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
+  status          String                    @default("new")
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
   notes           LeadNote[]
   statusHistory   LeadStatusHistory[]
+  conversations   LeadConversationMessage[]
 }
 
 model LeadNote {
@@ -41,6 +42,18 @@ model LeadStatusHistory {
   toStatus   String
   createdAt  DateTime @default(now())
   lead       Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId, createdAt])
+}
+
+model LeadConversationMessage {
+  id        String   @id @default(cuid())
+  leadId    String
+  channel   String   @default("whatsapp_simulated")
+  direction String
+  content   String
+  createdAt DateTime @default(now())
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
 
   @@index([leadId, createdAt])
 }

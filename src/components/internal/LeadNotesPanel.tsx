@@ -24,6 +24,8 @@ export function LeadNotesPanel({ leadId, notes }: LeadNotesPanelProps) {
   const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  const nearLimit = content.length > 900;
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -52,7 +54,10 @@ export function LeadNotesPanel({ leadId, notes }: LeadNotesPanelProps) {
 
   return (
     <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
-      <h2 className="text-lg font-semibold text-slate-100">Notas internas</h2>
+      <div className="space-y-1">
+        <h2 className="text-lg font-semibold text-slate-100">Notas internas</h2>
+        <p className="text-sm text-slate-300">Registrá seguimiento comercial para mantener contexto en el equipo.</p>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-2">
         <textarea
@@ -60,18 +65,19 @@ export function LeadNotesPanel({ leadId, notes }: LeadNotesPanelProps) {
           onChange={(event) => setContent(event.target.value)}
           rows={4}
           maxLength={1000}
-          placeholder="Agregá una nota interna de seguimiento para este lead"
-          className="w-full rounded-lg border border-slate-600 bg-slate-900/70 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none"
+          placeholder="Ej: Cliente pidió propuesta por etapas. Reagendar contacto en 48h."
+          className="w-full resize-y rounded-lg border border-slate-600 bg-slate-900/70 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none"
           disabled={isPending}
         />
-        <div className="flex items-center justify-between gap-2">
-          <p className="text-xs text-slate-400">{content.length}/1000</p>
+
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className={`text-xs ${nearLimit ? 'text-amber-300' : 'text-slate-400'}`}>{content.length}/1000</p>
           <button
             type="submit"
             disabled={isPending}
             className="rounded-lg border border-orange-500/40 bg-orange-500/20 px-4 py-2 text-sm font-medium text-orange-100 hover:bg-orange-500/30 disabled:opacity-60"
           >
-            {isPending ? 'Guardando...' : 'Guardar nota'}
+            {isPending ? 'Guardando nota...' : 'Guardar nota'}
           </button>
         </div>
       </form>
@@ -81,12 +87,14 @@ export function LeadNotesPanel({ leadId, notes }: LeadNotesPanelProps) {
 
       <div className="space-y-3">
         {notes.length === 0 ? (
-          <p className="text-sm text-slate-300">Aún no hay notas internas para este lead.</p>
+          <p className="rounded-xl border border-dashed border-[#33415f] bg-[#111827] p-3 text-sm text-slate-300">
+            Aún no hay notas internas para este lead.
+          </p>
         ) : (
           notes.map((note) => (
             <article key={note.id} className="rounded-xl border border-[#26324A] bg-[#111827] p-3 text-sm text-slate-200">
-              <p className="whitespace-pre-wrap break-words">{note.content}</p>
-              <p className="mt-2 text-xs text-slate-400">{formatDateTime(note.createdAt)}</p>
+              <p className="whitespace-pre-wrap break-words leading-relaxed">{note.content}</p>
+              <p className="mt-2 text-xs text-slate-400">Registrada: {formatDateTime(note.createdAt)}</p>
             </article>
           ))
         )}

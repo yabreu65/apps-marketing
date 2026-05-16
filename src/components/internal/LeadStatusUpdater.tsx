@@ -14,7 +14,8 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
   const router = useRouter();
   const [selectedStatus, setSelectedStatus] = useState(currentStatus);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -26,10 +27,11 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
   async function handleUpdate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
-    setMessage(null);
+    setSuccessMessage(null);
+    setInfoMessage(null);
 
     if (!hasRealChange) {
-      setMessage('Seleccioná un estado diferente para actualizar.');
+      setInfoMessage('Seleccioná un estado diferente para actualizar.');
       return;
     }
 
@@ -46,17 +48,20 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
       return;
     }
 
-    setMessage('Estado actualizado correctamente.');
+    setSuccessMessage('Estado actualizado correctamente.');
     startTransition(() => {
       router.refresh();
     });
   }
 
   return (
-    <form onSubmit={handleUpdate} className="space-y-3 rounded-xl border border-[#26324A] bg-[#151B2E] p-4">
-      <p className="text-xs uppercase tracking-wide text-slate-400">Actualizar estado (local)</p>
+    <form onSubmit={handleUpdate} className="space-y-3 rounded-2xl border border-[#26324A] bg-[#151B2E] p-5">
+      <div className="space-y-1">
+        <p className="text-xs uppercase tracking-wide text-slate-400">Estado comercial</p>
+        <p className="text-sm text-slate-300">Actualizá el estado del lead para reflejar el avance del seguimiento.</p>
+      </div>
 
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-2">
         <select
           value={selectedStatus}
           onChange={(event) => setSelectedStatus(event.target.value)}
@@ -75,12 +80,13 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
           disabled={isPending || !hasRealChange}
           className="rounded-lg border border-orange-500/40 bg-orange-500/20 px-4 py-2 text-sm font-medium text-orange-100 hover:bg-orange-500/30 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isPending ? 'Actualizando...' : 'Guardar estado'}
+          {isPending ? 'Actualizando estado...' : 'Guardar estado'}
         </button>
       </div>
 
+      {infoMessage ? <p className="text-sm text-slate-300">{infoMessage}</p> : null}
+      {successMessage ? <p className="text-sm text-emerald-300">{successMessage}</p> : null}
       {error ? <p className="text-sm text-rose-300">{error}</p> : null}
-      {message ? <p className="text-sm text-emerald-300">{message}</p> : null}
     </form>
   );
 }

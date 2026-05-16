@@ -30,6 +30,12 @@ function getPriorityLabel(priority: 'low' | 'medium' | 'high') {
   return 'Baja';
 }
 
+function getSourceBadge(source: LeadSummarySource) {
+  if (source === 'ollama') return 'IA local (Ollama)';
+  if (source === 'rules_fallback') return 'Reglas locales (fallback)';
+  return 'Reglas locales';
+}
+
 function getSourceNote(source: LeadSummarySource) {
   if (source === 'ollama') {
     return 'Resumen generado con IA local mediante Ollama. No se enviaron datos a servicios externos.';
@@ -76,25 +82,31 @@ export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: Lead
   return (
     <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold text-slate-100">Resumen comercial sugerido</h2>
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold text-slate-100">Resumen comercial sugerido</h2>
+          <span className="inline-flex rounded-full border border-violet-400/30 bg-violet-500/10 px-2.5 py-1 text-[11px] font-medium text-violet-100">
+            {getSourceBadge(source)}
+          </span>
+        </div>
+
         <button
           type="button"
           onClick={regenerateSummary}
           disabled={isPending}
           className="rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-xs font-medium text-violet-100 hover:bg-violet-500/20 disabled:opacity-60"
         >
-          {isPending ? 'Regenerando...' : 'Regenerar resumen IA local'}
+          {isPending ? 'Regenerando resumen...' : 'Regenerar resumen IA local'}
         </button>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
         <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">Tipo de oportunidad</p>
-          <p className="mt-1 text-sm text-slate-100">{summary.opportunityType}</p>
+          <p className="mt-2 text-sm text-slate-100">{summary.opportunityType}</p>
         </article>
         <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">Prioridad sugerida</p>
-          <span className={`mt-1 inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getPriorityBadgeClass(summary.priority)}`}>
+          <span className={`mt-2 inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getPriorityBadgeClass(summary.priority)}`}>
             {getPriorityLabel(summary.priority)}
           </span>
         </article>
@@ -102,16 +114,22 @@ export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: Lead
 
       <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
         <p className="text-xs uppercase tracking-wide text-slate-400">Resumen</p>
-        <p className="mt-1 text-sm text-slate-300">{summary.summary}</p>
+        <p className="mt-2 whitespace-pre-wrap break-words text-sm text-slate-300">{summary.summary}</p>
       </article>
 
       <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
         <p className="text-xs uppercase tracking-wide text-slate-400">Siguiente acción recomendada</p>
-        <p className="mt-1 text-sm text-slate-300">{summary.recommendedAction}</p>
+        <p className="mt-2 whitespace-pre-wrap break-words text-sm text-slate-300">{summary.recommendedAction}</p>
       </article>
 
+      {error ? (
+        <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p>
+      ) : null}
+
       <p className="text-xs text-slate-400">{getSourceNote(source)}</p>
-      {error ? <p className="text-sm text-rose-300">{error}</p> : null}
+      <p className="text-xs text-slate-500">
+        Este resumen es solo de apoyo: no modifica el lead, no persiste cambios y no ejecuta acciones automáticas.
+      </p>
     </section>
   );
 }

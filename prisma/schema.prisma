@@ -57,3 +57,45 @@ model LeadConversationMessage {
 
   @@index([leadId, createdAt])
 }
+
+model PublicChatVisitor {
+  id         String               @id @default(cuid())
+  visitorKey String               @unique
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+  sessions   PublicChatSession[]
+  memory     PublicVisitorMemory?
+}
+
+model PublicChatSession {
+  id        String              @id @default(cuid())
+  visitorId String
+  visitor   PublicChatVisitor   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  messages  PublicChatMessage[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  @@index([visitorId, createdAt])
+}
+
+model PublicChatMessage {
+  id        String            @id @default(cuid())
+  sessionId String
+  session   PublicChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role      String
+  content   String
+  createdAt DateTime          @default(now())
+
+  @@index([sessionId, createdAt])
+}
+
+model PublicVisitorMemory {
+  id        String            @id @default(cuid())
+  visitorId String            @unique
+  visitor   PublicChatVisitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  summary   String?
+  interests Json?
+  lastTopic String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}

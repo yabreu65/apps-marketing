@@ -1,87 +1,145 @@
 # Apps Marketing / Yoryi AI Studio
 
-Landing comercial de `apps-marketing` orientada a conversión para validar mensaje, captar oportunidades y preparar el crecimiento digital por fases.
+`apps-marketing` is a local-first commercial product baseline:
+- premium public landing,
+- lead capture API,
+- internal leads dashboard,
+- local conversational assistant with memory,
+- manual WhatsApp handoff (no real WhatsApp integration).
 
-## Alcance actual
+> Current status: **ready for local demo and deploy preparation** (no production deploy in this repo phase).
 
-Este repositorio está en **Fase 1 local**: landing comercial frontend-first para revisión y trabajo en entorno local.
+## Current Local Scope
 
-## Qué incluye
+### Public side
+- Marketing landing (`/`)
+- Public chat assistant widget (intent detection, local memory, CTA guidance)
+- Lead handoff summary in chat
+- Copy summary action
+- WhatsApp manual link with prefilled context
+- Contact form connected to `POST /api/leads`
 
-- Landing comercial (Home)
-- Hero, problema, solución, servicios, casos de uso, beneficios y proceso
-- CTA a WhatsApp manual (`wa.me`)
-- Formulario de contacto con validación frontend
-- Mensaje de éxito simulado en formulario
-- SEO básico
-- Responsive design
-- Base visual y técnica para evolución futura
+### Internal side
+- Local auth-protected dashboard (`/internal/*`)
+- Leads list with filters, search, pagination, metrics
+- CSV export (local, filtered scope)
+- Lead detail with:
+  - status update,
+  - internal notes,
+  - timeline/activity,
+  - simulated conversation,
+  - local lead score,
+  - local lead summary (rules / optional Ollama fallback-safe)
 
-## Qué NO incluye
+### Local ops/testing
+- Demo seed dataset
+- Local backup/restore/reset tooling
+- Unit tests + API contract tests (Vitest)
 
-- AI Lead Assistant
-- WhatsApp Cloud API
-- Ollama / OpenAI API
-- Backend completo
-- Base de datos
-- Dashboard
-- Pagos
-- Automatizaciones
-- Lead scoring automático
-- Deploy (por ahora)
+## Out of Scope (Current Phase)
 
-## Stack técnico
+- Production deploy
+- Vercel production setup
+- External/managed production database configuration
+- OpenAI integration
+- WhatsApp Cloud API / Meta integration
+- Real outbound message automation
+- Roles/users enterprise auth model
+- Payments
+- Full CRM scope
 
-- Next.js
+## Stack
+
+- Next.js App Router
 - TypeScript
 - Tailwind CSS
-- App Router (`src/app`)
+- Prisma + PostgreSQL (local Docker)
+- Vitest
 
-## Instalación
+## Local Setup
+
+1) Install dependencies
 
 ```bash
 npm install
 ```
 
-## Ejecutar en local
+2) Prepare env file
+
+```bash
+cp .env.example .env
+```
+
+3) Start local PostgreSQL
+
+```bash
+docker compose -f docker-compose.local.yml up -d postgres
+```
+
+4) Generate Prisma client
+
+```bash
+npx prisma generate
+```
+
+5) Apply local migrations (when needed)
+
+```bash
+npx prisma migrate dev
+```
+
+6) Seed local demo data
+
+```bash
+npm run db:seed:local
+```
+
+7) Start app
 
 ```bash
 npm run dev -- --port 3000
 ```
 
-Abrir: [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000)
 
-## Validaciones
+## Verified Local Commands
 
 ```bash
+npm run db:seed:local
+npm run test
 npm run lint
 npm run build
 ```
 
-## Notas importantes
+## Local DB Operations
 
-- No hay backend implementado en esta fase.
-- No hay IA activa en runtime.
-- No hay integración con WhatsApp Cloud API.
-- El formulario tiene envío simulado (sin persistencia).
-- El proyecto queda **sin deploy por ahora** (solo uso local).
+```bash
+npm run db:backup:local
+npm run db:backup:list:local
+npm run db:backup:verify:local
+npm run db:restore:local -- --confirm=RESTORE_LOCAL_DB --file=<backup.dump>
+npm run db:reset:local -- --confirm=RESET_LOCAL_DB
+npm run db:reset:local:seed -- --confirm=RESET_LOCAL_DB
+```
 
-## Troubleshooting local
+## Security and Safety Notes
 
-### Limpiar caché de Next
+- Internal dashboard auth is local-minimum (not production-grade yet).
+- Public chat memory is local app scope only.
+- WhatsApp action is manual link open only.
+- No automatic outbound messaging.
+- No external AI required for baseline behavior.
+
+## Troubleshooting
+
+Clear Next cache:
 
 ```bash
 rm -rf .next
 ```
 
-### Liberar puerto 3000
+Free port 3000:
 
 ```bash
 lsof -ti:3000 | xargs -r kill -9
-```
-
-### Levantar dev en puerto 3000
-
-```bash
-npm run dev -- --port 3000
 ```

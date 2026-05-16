@@ -18,6 +18,20 @@ describe('detectLeadAssistantIntent', () => {
     expect(result.intent).toBe('pricing');
   });
 
+  it('no clasifica lead_followup_priority solo por mencionar WhatsApp', () => {
+    const result = detectLeadAssistantIntent('Quiero una landing para captar más consultas desde WhatsApp.');
+
+    expect(result.intent).toBe('landing');
+  });
+
+  it('detecta not_sure cuando el visitante compara varias opciones', () => {
+    const result = detectLeadAssistantIntent(
+      'Tengo un negocio de servicios y no sé si necesito landing, web o IA para empezar.',
+    );
+
+    expect(result.intent).toBe('not_sure');
+  });
+
   it('cae en not_sure cuando no hay señales claras', () => {
     const result = detectLeadAssistantIntent('Quiero mejorar mi negocio pero no sé por dónde empezar.');
 

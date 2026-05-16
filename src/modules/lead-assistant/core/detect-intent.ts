@@ -10,9 +10,22 @@ type IntentRule = {
 const INTENT_RULES: IntentRule[] = [
   {
     intent: 'lead_followup_priority',
-    patterns: [/(pierdo|olv(i|í)do|seguimiento|prioridad|pipeline|ordenar consultas|whatsapp|instagram)/i],
+    patterns: [
+      /(pierdo|se me van|se enfr[ií]an|se me pasan|olvid|seguimiento|prioridad|pipeline|ordenar consultas)/i,
+      /(consultas|leads|mensajes).*(sin responder|sin seguimiento|sin ordenar)|(sin responder|sin seguimiento|sin ordenar).*(consultas|leads|mensajes)/i,
+      /(no s[eé] a cu[aá]les|no sabemos cu[aá]les|no llego a responder|no damos abasto)/i,
+    ],
     confidence: 0.93,
     signals: ['seguimiento', 'priorización', 'canales inbound'],
+  },
+  {
+    intent: 'not_sure',
+    patterns: [
+      /(no s[eé] si|no estoy seguro|no tengo claro|no s[eé] por d[oó]nde empezar)/i,
+      /(landing|web|dashboard|ia|mvp).*(landing|web|dashboard|ia|mvp)/i,
+    ],
+    confidence: 0.87,
+    signals: ['diagnóstico inicial', 'múltiples alternativas'],
   },
   {
     intent: 'pricing',

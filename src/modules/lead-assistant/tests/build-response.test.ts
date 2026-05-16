@@ -39,5 +39,25 @@ describe('buildPublicLeadAssistantResponse', () => {
 
     expect(reply.text.toLowerCase()).toContain('depende');
     expect(reply.text).not.toMatch(/\$\d+/);
+    expect(reply.text.toLowerCase()).toContain('siguiente paso recomendado');
+    expect(reply.text.toLowerCase()).toMatch(/formulario|whatsapp manual/);
+  });
+
+  it('en not_sure orienta a diagnóstico como próximo paso', () => {
+    const reply = buildPublicLeadAssistantResponse(
+      {
+        visitorMessage: 'No sé qué necesito para empezar',
+        detectedIntent: {
+          intent: 'not_sure',
+          confidence: 0.87,
+          signals: ['diagnóstico inicial'],
+        },
+        memory: null,
+      },
+      appsMarketingAssistantConfig,
+    );
+
+    expect(reply.text.toLowerCase()).toContain('siguiente paso recomendado');
+    expect(reply.text.toLowerCase()).toContain('diagnóstico');
   });
 });

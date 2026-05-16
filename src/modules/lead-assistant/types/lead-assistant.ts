@@ -53,6 +53,14 @@ export type PublicAssistantReply = {
   ctas: AssistantCta[];
 };
 
+export type PublicLeadHandoffSummary = {
+  projectType: string;
+  mainGoalOrProblem: string;
+  probableService: string;
+  urgencyLevel: string;
+  nextRecommendedStep: string;
+};
+
 export type DetectIntentResult = {
   intent: PublicAssistantIntent;
   confidence: number;
@@ -84,4 +92,22 @@ export type PublicChatAIInput = {
   visitorMessage: string;
   detectedIntent: PublicAssistantIntent;
   memorySummary?: string;
+};
+
+export type PublicChatTurnRequest = {
+  visitorKey: string;
+  message: string;
+};
+
+export type PublicChatApiResponse = {
+  ok: boolean;
+  message: string;
+  state?: PublicAssistantState;
+  reply?: PublicAssistantReply;
+  suggestedActions?: AssistantCta[];
+};
+
+export type PublicMemoryApiResponse = {
+  ok: boolean;
+  message: string;
 };

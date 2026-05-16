@@ -1,7 +1,6 @@
 import type { PublicAssistantState } from '@/modules/lead-assistant/types/lead-assistant';
 
 const VISITOR_KEY_STORAGE_KEY = 'apps-marketing:public-assistant:visitor-key';
-const ASSISTANT_STATE_STORAGE_PREFIX = 'apps-marketing:public-assistant:state';
 
 function canUseBrowserStorage() {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
@@ -28,29 +27,23 @@ export function getOrCreateVisitorKey() {
   return created;
 }
 
-function buildStateStorageKey(visitorKey: string) {
-  return `${ASSISTANT_STATE_STORAGE_PREFIX}:${visitorKey}`;
-}
-
-export function loadPublicAssistantState(visitorKey: string): PublicAssistantState | null {
-  if (!canUseBrowserStorage()) return null;
-
-  const raw = window.localStorage.getItem(buildStateStorageKey(visitorKey));
-  if (!raw) return null;
-
-  try {
-    return JSON.parse(raw) as PublicAssistantState;
-  } catch {
-    return null;
-  }
-}
-
-export function savePublicAssistantState(state: PublicAssistantState) {
+export function clearStoredVisitorKey() {
   if (!canUseBrowserStorage()) return;
-  window.localStorage.setItem(buildStateStorageKey(state.visitorKey), JSON.stringify(state));
+  window.localStorage.removeItem(VISITOR_KEY_STORAGE_KEY);
 }
 
-export function clearPublicAssistantMemory(visitorKey: string) {
-  if (!canUseBrowserStorage()) return;
-  window.localStorage.removeItem(buildStateStorageKey(visitorKey));
+export function createFallbackState(visitorKey: string, greeting: string): PublicAssistantState {
+  return {
+    visitorKey,
+    memory: null,
+    messages: [
+      {
+        id: 'assistant-greeting',
+        role: 'assistant',
+        content: greeting,
+        createdAt: new Date().toISOString(),
+        intent: 'not_sure',
+      },
+    ],
+  };
 }

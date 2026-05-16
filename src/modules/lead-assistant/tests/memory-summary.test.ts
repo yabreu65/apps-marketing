@@ -21,7 +21,7 @@ describe('memory-summary', () => {
     );
 
     expect(memory.interests).toContain('dashboard');
-    expect(memory.summary.toLowerCase()).toContain('dashboard');
+    expect(memory.summary.toLowerCase()).toContain('dashboard interno');
   });
 
   it('describe memoria previa para continuidad', () => {

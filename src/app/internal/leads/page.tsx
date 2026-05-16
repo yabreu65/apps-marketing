@@ -226,7 +226,11 @@ export default async function InternalLeadsPage({ searchParams }: LeadsPageProps
                   </>
                 ) : (
                   <p className="mt-1 text-sm text-slate-300">
-                    {hasAnyLead ? 'Sin datos suficientes para este corte' : 'Aún sin consultas registradas'}
+                    {hasFilters
+                      ? 'Sin datos para este corte (revisá filtros o búsqueda).'
+                      : hasAnyLead
+                        ? 'Sin datos suficientes para este corte'
+                        : 'Aún sin consultas registradas'}
                   </p>
                 )}
               </article>

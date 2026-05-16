@@ -32,6 +32,7 @@ export function PublicLeadAssistantWidget() {
   const [error, setError] = useState<string | null>(null);
   const [lastReply, setLastReply] = useState<PublicAssistantReply | null>(null);
   const [isCopySuccess, setIsCopySuccess] = useState(false);
+  const [isHandoffExpanded, setIsHandoffExpanded] = useState(false);
 
   useEffect(() => {
     async function bootstrap() {
@@ -80,6 +81,12 @@ export function PublicLeadAssistantWidget() {
 
     return buildWhatsAppLink(config.whatsappNumber, buildPublicLeadHandoffWhatsAppMessage(handoffSummary));
   }, [config.whatsappNumber, handoffSummary]);
+  const hasConversationHistory = useMemo(
+    () => messages.filter((message) => message.role === 'visitor').length >= 2,
+    [messages],
+  );
+  const showQuickReplies = !hasConversationHistory;
+  const hasPendingHandoffData = Boolean(handoffSummaryText && handoffSummaryText.includes('Dato pendiente'));
 
   async function handleSend(rawMessage?: string) {
     if (!state) return;
@@ -110,6 +117,7 @@ export function PublicLeadAssistantWidget() {
       setState(data.state);
       setLastReply(data.reply);
       setInput('');
+      setIsHandoffExpanded(false);
     } catch {
       setError('No pude responder en este momento. Probá nuevamente en unos segundos.');
     } finally {
@@ -140,6 +148,7 @@ export function PublicLeadAssistantWidget() {
       const fallback = createFallbackState(nextVisitorKey, config.greeting);
       setState(fallback);
       setLastReply(null);
+      setIsHandoffExpanded(false);
     } catch {
       setError('No se pudo borrar la memoria en este momento.');
     }
@@ -158,17 +167,17 @@ export function PublicLeadAssistantWidget() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-4 z-50 w-[calc(100vw-1rem)] max-w-[420px] sm:w-[calc(100vw-2rem)] sm:bottom-6 sm:right-6">
       {isOpen ? (
         <section
           id="public-lead-assistant-widget"
           aria-label="Asistente comercial público"
-          className="w-[calc(100vw-2rem)] max-w-md rounded-2xl border border-[#26324A] bg-[#0F172A] shadow-[0_18px_45px_rgba(2,6,23,0.55)]"
+          className="flex max-h-[85vh] w-full flex-col overflow-hidden rounded-2xl border border-[#26324A] bg-[#0F172A] shadow-2xl sm:max-h-[82vh]"
         >
-          <header className="flex items-center justify-between border-b border-[#26324A] px-4 py-3">
+          <header className="flex items-center justify-between border-b border-[#26324A] bg-[#0f172a] px-4 py-3">
             <div>
               <p className="text-sm font-semibold text-[#FFFBF5]">Asistente comercial</p>
-              <p className="text-xs text-[#94A3B8]">Local-first · sin WhatsApp automático</p>
+              <p className="text-xs text-[#94A3B8]">Te orienta antes de contactar</p>
             </div>
             <button
               type="button"
@@ -180,13 +189,13 @@ export function PublicLeadAssistantWidget() {
             </button>
           </header>
 
-          <div className="max-h-80 space-y-3 overflow-y-auto px-4 py-3">
+          <div className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-3">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.role === 'assistant' ? 'justify-start' : 'justify-end'}`}>
                 <p
                   className={`max-w-[88%] whitespace-pre-wrap rounded-xl px-3 py-2 text-sm leading-relaxed ${
                     message.role === 'assistant'
-                      ? 'border border-[#26324A] bg-[#111827] text-[#E2E8F0]'
+                      ? 'bg-[#111827] text-[#E2E8F0]'
                       : 'bg-[#F97316] text-[#FFFBF5]'
                   }`}
                 >
@@ -198,22 +207,24 @@ export function PublicLeadAssistantWidget() {
             {isResponding ? <p className="text-xs text-[#A78BFA]">Analizando contexto y preparando respuesta...</p> : null}
           </div>
 
-          <div className="border-t border-[#26324A] px-4 py-3">
-            <div className="mb-3 flex flex-wrap gap-2">
-              {quickReplies.map((reply) => (
-                <button
-                  key={reply.id}
-                  type="button"
-                  onClick={() => {
-                    void handleSend(reply.label);
-                  }}
-                  className="rounded-full border border-[#7C3AED]/40 bg-[#7C3AED]/10 px-3 py-1 text-xs text-[#C4B5FD] hover:bg-[#7C3AED]/20"
-                  disabled={isResponding || !state}
-                >
-                  {reply.label}
-                </button>
-              ))}
-            </div>
+          <div className="border-t border-[#26324A] bg-[#0f172a] px-4 py-3">
+            {showQuickReplies ? (
+              <div className="mb-3 flex flex-wrap gap-1.5">
+                {quickReplies.map((reply) => (
+                  <button
+                    key={reply.id}
+                    type="button"
+                    onClick={() => {
+                      void handleSend(reply.label);
+                    }}
+                    className="rounded-full border border-[#7C3AED]/35 bg-[#7C3AED]/10 px-2.5 py-1 text-[11px] text-[#C4B5FD] hover:bg-[#7C3AED]/20"
+                    disabled={isResponding || !state}
+                  >
+                    {reply.label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             <form
               onSubmit={(event) => {
@@ -246,75 +257,81 @@ export function PublicLeadAssistantWidget() {
             </form>
 
             {lastReply ? (
-              <div className="mt-3 rounded-lg border border-[#26324A] bg-[#101827] px-3 py-2">
+              <div className="mt-3 rounded-lg bg-[#101827] px-3 py-2">
                 <p className="text-[11px] uppercase tracking-wide text-slate-400">Siguiente paso sugerido</p>
                 <p className="mt-1 text-xs text-slate-200">{lastReply.followUpQuestion}</p>
                 {handoffSummary ? (
-                  <div className="mt-3 rounded-md border border-[#334155] bg-[#0b1220] p-2.5">
-                    <p className="text-[11px] font-semibold uppercase tracking-wide text-[#a78bfa]">
-                      Resumen para contacto
-                    </p>
-                    <ul className="mt-2 space-y-1 text-[11px] leading-relaxed text-slate-200">
-                      <li>
-                        <span className="text-slate-400">Tipo de proyecto:</span> {handoffSummary.projectType}
-                      </li>
-                      <li>
-                        <span className="text-slate-400">Objetivo/problema:</span> {handoffSummary.mainGoalOrProblem}
-                      </li>
-                      <li>
-                        <span className="text-slate-400">Servicio probable:</span> {handoffSummary.probableService}
-                      </li>
-                      <li>
-                        <span className="text-slate-400">Urgencia:</span> {handoffSummary.urgencyLevel}
-                      </li>
-                      <li>
-                        <span className="text-slate-400">Siguiente paso:</span> {handoffSummary.nextRecommendedStep}
-                      </li>
-                    </ul>
-                    <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-3 rounded-md border border-[#334155]/80 bg-[#0b1220] p-2.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-[#a78bfa]">Resumen para contacto</p>
                       <button
                         type="button"
-                        onClick={() => {
-                          void handleCopySummary();
-                        }}
-                        className="rounded-md border border-[#7C3AED]/50 px-2.5 py-1.5 text-[11px] font-semibold text-[#DDD6FE] hover:bg-[#7C3AED]/15"
+                        onClick={() => setIsHandoffExpanded((previous) => !previous)}
+                        className="text-[10px] font-medium text-slate-300 hover:text-white"
                       >
-                        Copiar resumen
+                        {isHandoffExpanded ? 'Ocultar' : 'Ver resumen'}
                       </button>
-                      {handoffWhatsAppHref ? (
-                        <a
-                          href={handoffWhatsAppHref}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="rounded-md bg-[#F97316] px-2.5 py-1.5 text-[11px] font-semibold text-[#FFFBF5] hover:bg-[#EA580C]"
-                        >
-                          Enviar por WhatsApp manual
-                        </a>
-                      ) : null}
                     </div>
-                    <p className="mt-2 text-[10px] text-slate-400">
-                      Contacto manual: este enlace solo abre WhatsApp con el resumen precargado.
-                    </p>
-                    {isCopySuccess ? <p className="mt-1 text-[10px] text-emerald-300">Resumen copiado.</p> : null}
+
+                    {isHandoffExpanded ? (
+                      <>
+                        <ul className="mt-2 space-y-1 text-[11px] leading-relaxed text-slate-200">
+                          <li>
+                            <span className="text-slate-400">Tipo de proyecto:</span> {handoffSummary.projectType}
+                          </li>
+                          <li>
+                            <span className="text-slate-400">Objetivo/problema:</span> {handoffSummary.mainGoalOrProblem}
+                          </li>
+                          <li>
+                            <span className="text-slate-400">Servicio probable:</span> {handoffSummary.probableService}
+                          </li>
+                          <li>
+                            <span className="text-slate-400">Urgencia:</span> {handoffSummary.urgencyLevel}
+                          </li>
+                          <li>
+                            <span className="text-slate-400">Siguiente paso:</span> {handoffSummary.nextRecommendedStep}
+                          </li>
+                        </ul>
+
+                        {hasPendingHandoffData ? (
+                          <p className="mt-2 text-[10px] text-amber-200">Faltan algunos datos para completar el resumen.</p>
+                        ) : null}
+                      </>
+                    ) : null}
                   </div>
                 ) : null}
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {lastReply.ctas.map((cta) => (
+
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {handoffWhatsAppHref ? (
                     <a
-                      key={`${cta.kind}-${cta.href}`}
-                      href={cta.href}
-                      target={cta.kind === 'whatsapp_manual' ? '_blank' : undefined}
-                      rel={cta.kind === 'whatsapp_manual' ? 'noreferrer' : undefined}
-                      className={`rounded-md px-2.5 py-1.5 text-[11px] font-semibold ${
-                        cta.kind === 'whatsapp_manual'
-                          ? 'bg-[#F97316] text-[#FFFBF5] hover:bg-[#EA580C]'
-                          : 'border border-[#7C3AED]/50 text-[#CBD5E1] hover:bg-[#7C3AED]/15'
-                      }`}
+                      href={handoffWhatsAppHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-md bg-[#F97316] px-2.5 py-2 text-center text-xs font-semibold text-[#FFFBF5] hover:bg-[#EA580C]"
                     >
-                      {cta.label}
+                      Enviar por WhatsApp manual
                     </a>
-                  ))}
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void handleCopySummary();
+                    }}
+                    className="rounded-md border border-[#7C3AED]/50 px-2.5 py-2 text-xs font-semibold text-[#DDD6FE] hover:bg-[#7C3AED]/15"
+                  >
+                    Copiar resumen
+                  </button>
+                  <a
+                    href={config.contactFormAnchor}
+                    className="rounded-md border border-[#334155] px-2.5 py-2 text-center text-xs font-medium text-slate-200 hover:bg-slate-700/20 sm:col-span-2"
+                  >
+                    Completar formulario
+                  </a>
                 </div>
+                <p className="mt-2 text-[10px] text-slate-400">
+                  Contacto manual: este enlace solo abre WhatsApp con el resumen precargado.
+                </p>
+                {isCopySuccess ? <p className="mt-1 text-[10px] text-emerald-300">Resumen copiado.</p> : null}
               </div>
             ) : null}
 
@@ -338,15 +355,17 @@ export function PublicLeadAssistantWidget() {
         </section>
       ) : null}
 
-      <button
-        type="button"
-        onClick={() => setIsOpen((previous) => !previous)}
-        className="rounded-full bg-[#7C3AED] px-4 py-3 text-sm font-semibold text-[#FFFBF5] shadow-[0_12px_30px_rgba(124,58,237,0.35)] hover:bg-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#A78BFA]"
-        aria-expanded={isOpen}
-        aria-controls="public-lead-assistant-widget"
-      >
-        {isOpen ? 'Ocultar asistente' : 'Abrir asistente'}
-      </button>
+      <div className="mt-3 flex justify-end">
+        <button
+          type="button"
+          onClick={() => setIsOpen((previous) => !previous)}
+          className="rounded-full bg-[#7C3AED] px-4 py-3 text-sm font-semibold text-[#FFFBF5] shadow-[0_12px_30px_rgba(124,58,237,0.35)] hover:bg-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#A78BFA]"
+          aria-expanded={isOpen}
+          aria-controls="public-lead-assistant-widget"
+        >
+          {isOpen ? 'Ocultar asistente' : 'Abrir asistente'}
+        </button>
+      </div>
     </div>
   );
 }

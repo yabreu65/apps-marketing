@@ -1,5 +1,3 @@
-import type { Prisma } from '@prisma/client';
-
 export type LeadDashboardFilters = {
   status?: string;
   source?: string;
@@ -39,22 +37,24 @@ export function extractLeadFiltersFromUrl(url: URL): LeadDashboardFilters {
   };
 }
 
-export function buildLeadWhereInput(filters: LeadDashboardFilters): Prisma.LeadWhereInput {
+export function buildLeadWhereInput(filters: LeadDashboardFilters) {
+  const searchFilter = filters.q
+    ? {
+        OR: [
+          { name: { contains: filters.q, mode: 'insensitive' as const } },
+          { email: { contains: filters.q, mode: 'insensitive' as const } },
+          { phone: { contains: filters.q, mode: 'insensitive' as const } },
+          { businessType: { contains: filters.q, mode: 'insensitive' as const } },
+          { serviceInterest: { contains: filters.q, mode: 'insensitive' as const } },
+          { message: { contains: filters.q, mode: 'insensitive' as const } },
+        ],
+      }
+    : {};
+
   return {
     ...(filters.status ? { status: filters.status } : {}),
     ...(filters.source ? { source: filters.source } : {}),
     ...(filters.serviceInterest ? { serviceInterest: filters.serviceInterest } : {}),
-    ...(filters.q
-      ? {
-          OR: [
-            { name: { contains: filters.q, mode: 'insensitive' } },
-            { email: { contains: filters.q, mode: 'insensitive' } },
-            { phone: { contains: filters.q, mode: 'insensitive' } },
-            { businessType: { contains: filters.q, mode: 'insensitive' } },
-            { serviceInterest: { contains: filters.q, mode: 'insensitive' } },
-            { message: { contains: filters.q, mode: 'insensitive' } },
-          ],
-        }
-      : {}),
+    ...searchFilter,
   };
 }

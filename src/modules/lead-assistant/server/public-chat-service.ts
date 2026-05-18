@@ -1,5 +1,3 @@
-import { Prisma } from '@prisma/client';
-
 import { appsMarketingAssistantConfig } from '@/modules/lead-assistant/config/appsMarketingAssistantConfig';
 import { resolvePublicSalesAgentReply } from '@/modules/lead-assistant/agent/public-sales-agent';
 import { buildPublicLeadAssistantResponse } from '@/modules/lead-assistant/core/build-response';
@@ -24,9 +22,14 @@ import type {
   PublicChatTurnRequest,
 } from '@/modules/lead-assistant/types/lead-assistant';
 
+type TransactionClient = Omit<
+  typeof prisma,
+  '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'
+>;
+
 function mapMemoryFromDb(memory: {
   summary: string | null;
-  interests: Prisma.JsonValue | null;
+  interests: unknown;
   lastTopic: string | null;
   updatedAt: Date;
 } | null): PublicAssistantMemory | null {
@@ -53,7 +56,7 @@ function mapStateFromDb(params: {
   visitorKey: string;
   memory: {
     summary: string | null;
-    interests: Prisma.JsonValue | null;
+    interests: unknown;
     lastTopic: string | null;
     updatedAt: Date;
   } | null;
@@ -215,7 +218,7 @@ export async function processPersistentPublicChatTurn(
     baseReply,
   });
 
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx: TransactionClient) => {
     await tx.publicChatMessage.create({
       data: { sessionId, role: 'visitor', content: sanitizedInput },
     });
@@ -284,7 +287,7 @@ export async function clearPublicChatMemoryByVisitorKey(visitorKey: string) {
     return;
   }
 
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx: TransactionClient) => {
     await tx.publicVisitorMemory.deleteMany({ where: { visitorId: visitor.id } });
     await tx.publicChatSession.deleteMany({ where: { visitorId: visitor.id } });
   });

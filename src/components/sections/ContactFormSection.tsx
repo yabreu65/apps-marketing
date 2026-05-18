@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 
 import { trackChatFunnelEvent } from "@/lib/chat-funnel";
+import { buildPublicApiUrl } from "@/lib/public-api-url";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
@@ -16,6 +17,7 @@ type FormValues = {
 	businessType: string;
 	serviceInterest: string;
 	message: string;
+	website: string;
 };
 
 type FormErrors = Partial<Record<keyof FormValues, string>> & {
@@ -29,6 +31,7 @@ const INITIAL_VALUES: FormValues = {
 	businessType: "",
 	serviceInterest: "",
 	message: "",
+	website: "",
 };
 
 const SERVICE_OPTIONS = [
@@ -132,10 +135,13 @@ export function ContactFormSection() {
 		setIsSubmitting(true);
 
 		try {
-			const response = await fetch("/api/leads", {
+			const response = await fetch(buildPublicApiUrl("/api/leads"), {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(payload),
+				body: JSON.stringify({
+					...payload,
+					website: values.website.trim(),
+				}),
 			});
 
 			const data = (await response.json()) as LeadApiResponse;
@@ -209,6 +215,17 @@ export function ContactFormSection() {
 						aria-describedby="privacy-note"
 					>
 						<div className="grid gap-5 sm:grid-cols-2">
+							<div className="hidden" aria-hidden="true">
+								<label htmlFor="website">Website</label>
+								<input
+									id="website"
+									name="website"
+									tabIndex={-1}
+									autoComplete="off"
+									value={values.website}
+									onChange={(e) => handleChange("website", e.target.value)}
+								/>
+							</div>
 							<div className="space-y-2">
 								<label
 									htmlFor="name"

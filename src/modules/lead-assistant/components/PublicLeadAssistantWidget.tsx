@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { trackChatFunnelEvent } from "@/lib/chat-funnel";
+import { buildPublicApiUrl } from "@/lib/public-api-url";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { appsMarketingAssistantConfig } from "@/modules/lead-assistant/config/appsMarketingAssistantConfig";
 import { buildTechnicalAIErrorReply } from "@/modules/lead-assistant/core/technical-error-reply";
@@ -92,7 +93,7 @@ export function PublicLeadAssistantWidget() {
 
 			try {
 				const response = await fetch(
-					`/api/public/chat?visitorKey=${encodeURIComponent(key)}`,
+					`${buildPublicApiUrl("/api/public/chat")}?visitorKey=${encodeURIComponent(key)}`,
 				);
 				const data = (await response.json().catch(() => null)) as
 					| PublicChatApiResponse
@@ -257,7 +258,7 @@ export function PublicLeadAssistantWidget() {
 		}
 
 		try {
-			const response = await fetch("/api/public/chat", {
+			const response = await fetch(buildPublicApiUrl("/api/public/chat"), {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ visitorKey: state.visitorKey, message: content }),
@@ -286,7 +287,7 @@ export function PublicLeadAssistantWidget() {
 
 		try {
 			const response = await fetch(
-				`/api/public/chat/memory?visitorKey=${encodeURIComponent(visitorKey)}`,
+				`${buildPublicApiUrl("/api/public/chat/memory")}?visitorKey=${encodeURIComponent(visitorKey)}`,
 				{ method: "DELETE" },
 			);
 			const data = (await response.json().catch(() => null)) as

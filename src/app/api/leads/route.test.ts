@@ -8,8 +8,14 @@ const prismaMock = vi.hoisted(() => ({
   },
 }));
 
+const isAllowedPublicApiRequestMock = vi.hoisted(() => vi.fn(() => true));
+
 vi.mock('@/lib/prisma', () => ({
   prisma: prismaMock,
+}));
+
+vi.mock('@/lib/public-security', () => ({
+  isAllowedPublicApiRequest: isAllowedPublicApiRequestMock,
 }));
 
 import { GET, POST } from '@/app/api/leads/route';
@@ -17,6 +23,7 @@ import { GET, POST } from '@/app/api/leads/route';
 describe('POST /api/leads', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    isAllowedPublicApiRequestMock.mockReturnValue(true);
   });
 
   it('responde 201 con payload válido y leadId', async () => {
@@ -106,5 +113,25 @@ describe('POST /api/leads', () => {
     expect(response.status).toBe(405);
     expect(response.headers.get('Allow')).toBe('POST');
     expect(data.ok).toBe(false);
+  });
+
+  it('responde 202 y no crea lead cuando honeypot tiene valor', async () => {
+    const request = createJsonRequest('http://localhost:3000/api/leads', 'POST', {
+      name: 'Bot',
+      email: 'bot@test.com',
+      phone: '',
+      businessType: 'spam',
+      serviceInterest: 'Landing comercial',
+      message: 'spam message content',
+      source: 'contact_form',
+      website: 'http://spam.example',
+    });
+
+    const response = await POST(request);
+    const data = await readJsonResponse<{ ok: boolean }>(response);
+
+    expect(response.status).toBe(202);
+    expect(data.ok).toBe(true);
+    expect(prismaMock.lead.create).not.toHaveBeenCalled();
   });
 });

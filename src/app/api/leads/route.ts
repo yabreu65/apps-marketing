@@ -1,8 +1,55 @@
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { isAllowedPublicApiRequest } from '@/lib/public-security';
 import { normalizeLeadPayload, validateLeadPayload } from '@/lib/lead-validation';
 import { prisma } from '@/lib/prisma';
 
+const CONTACT_FORM_RATE_LIMIT_MAX_ATTEMPTS = 8;
+const CONTACT_FORM_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+
+type PublicLeadRateRecord = {
+  attempts: number[];
+};
+
+const attemptsByKey = new Map<string, PublicLeadRateRecord>();
+
+function getPublicRateLimitKey(request: Request) {
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    const first = forwardedFor.split(',')[0]?.trim();
+    if (first) return first;
+  }
+
+  const realIp = request.headers.get('x-real-ip')?.trim();
+  if (realIp) return realIp;
+
+  return 'unknown';
+}
+
+function isRateLimited(request: Request) {
+  const key = getPublicRateLimitKey(request);
+  const now = Date.now();
+  const record = attemptsByKey.get(key) ?? { attempts: [] };
+  record.attempts = record.attempts.filter((value) => now - value <= CONTACT_FORM_RATE_LIMIT_WINDOW_MS);
+
+  if (record.attempts.length >= CONTACT_FORM_RATE_LIMIT_MAX_ATTEMPTS) {
+    attemptsByKey.set(key, record);
+    return true;
+  }
+
+  record.attempts.push(now);
+  attemptsByKey.set(key, record);
+  return false;
+}
+
 export async function POST(request: Request) {
+  if (!isAllowedPublicApiRequest(request)) {
+    return errorResponse('Solicitud de origen inválida.', 403);
+  }
+
+  if (isRateLimited(request)) {
+    return errorResponse('Demasiadas solicitudes. Intentá nuevamente en unos minutos.', 429);
+  }
+
   let body: unknown;
 
   try {
@@ -12,6 +59,17 @@ export async function POST(request: Request) {
   }
 
   const payload = normalizeLeadPayload(body);
+  const honeypot = String((body as Record<string, unknown>)?.website ?? '').trim();
+
+  if (honeypot.length > 0) {
+    return successResponse(
+      {
+        message: 'Consulta recibida correctamente. Te contactaremos de forma manual.',
+      },
+      202,
+    );
+  }
+
   const errors = validateLeadPayload(payload);
 
   if (errors.length > 0) {

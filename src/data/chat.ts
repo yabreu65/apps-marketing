@@ -17,7 +17,7 @@ export const quickReplies: QuickReply[] = [
 
 export const intentResponses: Record<ChatIntent, string> = {
   landing:
-    'Perfecto. Si querés captar consultas rápido, una landing comercial con propuesta clara y CTA fuerte suele ser el mejor primer paso. Si querés, te recomiendo el paquete más conveniente.',
+    'Perfecto. Si querés captar consultas rápido, una landing comercial con propuesta clara y acción de contacto clara suele ser el mejor primer paso. Si querés, te recomiendo el paquete más conveniente.',
   web:
     'Excelente. Una web profesional te ayuda a presentar servicios con más credibilidad, ordenar tu mensaje y mejorar la experiencia comercial.',
   system:

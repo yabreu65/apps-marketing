@@ -53,7 +53,7 @@ export function LeadNotesPanel({ leadId, notes }: LeadNotesPanelProps) {
   }
 
   return (
-    <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+    <section className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-6">
       <div className="space-y-1">
         <h2 className="text-lg font-semibold text-slate-100">Notas internas</h2>
         <p className="text-sm text-slate-300">Registrá seguimiento comercial para mantener contexto en el equipo.</p>
@@ -87,12 +87,12 @@ export function LeadNotesPanel({ leadId, notes }: LeadNotesPanelProps) {
 
       <div className="space-y-3">
         {notes.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-[#33415f] bg-[#111827] p-3 text-sm text-slate-300">
+          <p className="rounded-xl border border-dashed border-[var(--border-strong-alt)] bg-[var(--bg-secondary)] p-3 text-sm text-slate-300">
             Aún no hay notas internas para este lead.
           </p>
         ) : (
           notes.map((note) => (
-            <article key={note.id} className="rounded-xl border border-[#26324A] bg-[#111827] p-3 text-sm text-slate-200">
+            <article key={note.id} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3 text-sm text-slate-200">
               <p className="whitespace-pre-wrap break-words leading-relaxed">{note.content}</p>
               <p className="mt-2 text-xs text-slate-400">Registrada: {formatDateTime(note.createdAt)}</p>
             </article>

@@ -12,7 +12,7 @@ const prismaMock = vi.hoisted(() => ({
   },
   publicChatMessage: {
     findMany: vi.fn(),
-    createMany: vi.fn(),
+    create: vi.fn(),
   },
   publicVisitorMemory: {
     findUnique: vi.fn(),
@@ -26,9 +26,11 @@ vi.mock('@/lib/prisma', () => ({
   prisma: prismaMock,
 }));
 
-vi.mock('@/modules/lead-assistant/ai/public-chat-ai', () => ({
-  buildPublicLeadReplyWithOptionalAI: vi.fn(async (_input, baseReply) => ({
+vi.mock('@/modules/lead-assistant/agent/public-sales-agent', () => ({
+  resolvePublicSalesAgentReply: vi.fn(async ({ baseReply }) => ({
     source: 'rules',
+    summary: '',
+    leadAction: 'none',
     reply: { ...baseReply, source: 'rules' },
   })),
 }));
@@ -99,7 +101,7 @@ describe('public-chat-service', () => {
       message: 'Necesito un dashboard para priorizar leads',
     });
 
-    expect(prismaMock.publicChatMessage.createMany).toHaveBeenCalled();
+    expect(prismaMock.publicChatMessage.create).toHaveBeenCalledTimes(2);
     expect(prismaMock.publicVisitorMemory.upsert).toHaveBeenCalled();
     expect(result.reply.intent).toBe('dashboard');
     expect(result.state.messages.length).toBeGreaterThan(0);

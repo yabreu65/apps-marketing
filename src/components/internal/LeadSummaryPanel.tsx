@@ -80,7 +80,7 @@ export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: Lead
   }
 
   return (
-    <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+    <section className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <h2 className="text-lg font-semibold text-slate-100">Resumen comercial sugerido</h2>
@@ -100,11 +100,11 @@ export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: Lead
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+        <article className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">Tipo de oportunidad</p>
           <p className="mt-2 text-sm text-slate-100">{summary.opportunityType}</p>
         </article>
-        <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+        <article className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">Prioridad sugerida</p>
           <span className={`mt-2 inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getPriorityBadgeClass(summary.priority)}`}>
             {getPriorityLabel(summary.priority)}
@@ -112,12 +112,12 @@ export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: Lead
         </article>
       </div>
 
-      <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+      <article className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3">
         <p className="text-xs uppercase tracking-wide text-slate-400">Resumen</p>
         <p className="mt-2 whitespace-pre-wrap break-words text-sm text-slate-300">{summary.summary}</p>
       </article>
 
-      <article className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+      <article className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3">
         <p className="text-xs uppercase tracking-wide text-slate-400">Siguiente acción recomendada</p>
         <p className="mt-2 whitespace-pre-wrap break-words text-sm text-slate-300">{summary.recommendedAction}</p>
       </article>

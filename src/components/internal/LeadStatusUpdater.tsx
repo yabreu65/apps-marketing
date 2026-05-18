@@ -55,7 +55,7 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
   }
 
   return (
-    <form onSubmit={handleUpdate} className="space-y-3 rounded-2xl border border-[#26324A] bg-[#151B2E] p-5">
+    <form onSubmit={handleUpdate} className="space-y-3 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-5">
       <div className="space-y-1">
         <p className="text-xs uppercase tracking-wide text-slate-400">Estado comercial</p>
         <p className="text-sm text-slate-300">Actualizá el estado del lead para reflejar el avance del seguimiento.</p>

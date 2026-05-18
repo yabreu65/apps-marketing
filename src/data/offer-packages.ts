@@ -6,7 +6,7 @@ export const offerPackages: OfferPackageItem[] = [
     title: 'Landing Comercial',
     subtitle: 'Validación y captación inicial',
     idealFor: 'Negocios que necesitan comunicar mejor su oferta y generar consultas.',
-    includes: ['Estructura comercial de la landing', 'Copy orientado a conversión', 'CTA WhatsApp/formulario manual'],
+    includes: ['Estructura comercial de la landing', 'Copy orientado a conversión', 'WhatsApp/formulario manual'],
     outcome: 'Base clara para captar oportunidades con bajo nivel de complejidad.',
     statusLabel: 'Disponible ahora',
   },

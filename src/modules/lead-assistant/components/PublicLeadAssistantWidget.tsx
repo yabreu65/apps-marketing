@@ -5,26 +5,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { trackChatFunnelEvent } from "@/lib/chat-funnel";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { appsMarketingAssistantConfig } from "@/modules/lead-assistant/config/appsMarketingAssistantConfig";
-import { buildPublicLeadAssistantResponse } from "@/modules/lead-assistant/core/build-response";
-import { determinePublicAssistantConversationStage } from "@/modules/lead-assistant/core/conversation-stage";
-import { detectLeadAssistantIntent } from "@/modules/lead-assistant/core/detect-intent";
+import { buildTechnicalAIErrorReply } from "@/modules/lead-assistant/core/technical-error-reply";
 import {
 	buildPublicLeadHandoffSummary,
 	buildPublicLeadHandoffWhatsAppMessage,
 	formatPublicLeadHandoffSummary,
 	getLatestVisitorMessage,
 } from "@/modules/lead-assistant/core/handoff-summary";
-import { buildPublicAssistantMemorySummary } from "@/modules/lead-assistant/core/memory-summary";
-import {
-	buildWidgetShellClasses,
-	getFloatingTriggerMetadata,
-	getHandoffActionHierarchy,
-	getHeaderLayoutMetadata,
-	getMessageBubblePresentation,
-	getQuickRepliesPresentation,
-	getScrollAndComposerLayout,
-	resolveComposerAvailability,
-} from "@/modules/lead-assistant/core/public-widget-behavior";
 import { prioritizeAssistantCtas } from "@/modules/lead-assistant/core/suggested-actions";
 import {
 	clearStoredVisitorKey,
@@ -37,6 +24,33 @@ import type {
 	PublicChatApiResponse,
 	PublicMemoryApiResponse,
 } from "@/modules/lead-assistant/types/lead-assistant";
+
+
+function inferPublicDataPoints(params: { latestVisitorMessage: string | null; memorySummary: string | null }) {
+	const message = (params.latestVisitorMessage ?? '').toLowerCase();
+	const summary = (params.memorySummary ?? '').toLowerCase();
+	const text = `${message} ${summary}`;
+	let points = 0;
+	if (/(ropa|zapatos|farmacia|restaurante|peluquer[ií]a|consultorio|tienda|negocio|servicio)/i.test(text)) points += 1;
+	if (/(instagram|whatsapp|local|web|formulario|carrito)/i.test(text)) points += 1;
+	if (/(pierdo|desorden|consultas|objetivo|captar|presupuesto|precio|propuesta|urgente|r[aá]pido)/i.test(text)) points += 1;
+	return points;
+}
+
+function shouldShowPublicHandoff(params: {
+	lastReply: PublicAssistantReply | null;
+	latestVisitorMessage: string | null;
+	memorySummary: string | null;
+	visitorTurns: number;
+}) {
+	if (!params.lastReply) return false;
+	const message = (params.latestVisitorMessage ?? '').toLowerCase();
+	const highIntent = /(quiero avanzar|presupuesto|precio|propuesta|contacten|me interesa|quiero contratar|c[oó]mo seguimos|urgente|pasame info|pierdo muchas consultas|no puedo responder)/i.test(message);
+	const dataPoints = inferPublicDataPoints({ latestVisitorMessage: params.latestVisitorMessage, memorySummary: params.memorySummary });
+	if (highIntent) return true;
+	if (params.visitorTurns < 2) return false;
+	return dataPoints >= 2 && params.lastReply.intent !== 'not_sure';
+}
 
 export function PublicLeadAssistantWidget() {
 	const config = appsMarketingAssistantConfig;
@@ -57,12 +71,8 @@ export function PublicLeadAssistantWidget() {
 			setVisitorKey(key);
 
 			try {
-				const response = await fetch(
-					`/api/public/chat?visitorKey=${encodeURIComponent(key)}`,
-				);
-				const data = (await response
-					.json()
-					.catch(() => null)) as PublicChatApiResponse | null;
+				const response = await fetch(`/api/public/chat?visitorKey=${encodeURIComponent(key)}`);
+				const data = (await response.json().catch(() => null)) as PublicChatApiResponse | null;
 
 				if (!response.ok || !data?.ok || !data.state) {
 					setState(createFallbackState(key, config.greeting));
@@ -80,128 +90,74 @@ export function PublicLeadAssistantWidget() {
 
 	const quickReplies = config.quickReplies;
 	const messages = useMemo(() => state?.messages ?? [], [state]);
-	const latestVisitorMessage = useMemo(
-		() => getLatestVisitorMessage(messages),
-		[messages],
-	);
+	const latestVisitorMessage = useMemo(() => getLatestVisitorMessage(messages), [messages]);
 	const handoffSummary = useMemo(() => {
 		if (!lastReply || !state) return null;
-
 		return buildPublicLeadHandoffSummary({
 			intent: lastReply.intent,
 			memory: state.memory,
 			latestVisitorMessage,
 		});
 	}, [lastReply, latestVisitorMessage, state]);
-	const handoffSummaryText = useMemo(
-		() =>
-			handoffSummary ? formatPublicLeadHandoffSummary(handoffSummary) : "",
-		[handoffSummary],
-	);
+	const handoffSummaryText = useMemo(() => (handoffSummary ? formatPublicLeadHandoffSummary(handoffSummary) : ""), [handoffSummary]);
 	const handoffWhatsAppHref = useMemo(() => {
 		if (!handoffSummary) return null;
-
-		return buildWhatsAppLink(
-			config.whatsappNumber,
-			buildPublicLeadHandoffWhatsAppMessage(handoffSummary),
-		);
+		return buildWhatsAppLink(config.whatsappNumber, buildPublicLeadHandoffWhatsAppMessage(handoffSummary));
 	}, [config.whatsappNumber, handoffSummary]);
-	const hasUserMessage = useMemo(
-		() => messages.some((message) => message.role === "visitor"),
-		[messages],
-	);
-	const visitorTurns = useMemo(
-		() => messages.filter((message) => message.role === "visitor").length,
-		[messages],
-	);
+
+	const hasUserMessage = useMemo(() => messages.some((message) => message.role === "visitor"), [messages]);
 	const showQuickReplies = !hasUserMessage;
-	const hasPendingHandoffData = Boolean(
-		handoffSummaryText && handoffSummaryText.includes("Dato pendiente"),
-	);
-	const shouldShowMiniClose =
-		visitorTurns >= 2 && visitorTurns <= 3 && Boolean(lastReply);
-	const prioritizedCtas = useMemo(
-		() => prioritizeAssistantCtas(lastReply?.ctas ?? []),
-		[lastReply?.ctas],
-	);
+	const visitorTurns = useMemo(() => messages.filter((message) => message.role === "visitor").length, [messages]);
+	const prioritizedCtas = useMemo(() => prioritizeAssistantCtas(lastReply?.ctas ?? []), [lastReply?.ctas]);
 	const primaryFormCta = prioritizedCtas[0] ?? null;
 	const secondaryWhatsAppCta = prioritizedCtas[1] ?? null;
-	const triggerMetadata = getFloatingTriggerMetadata();
-	const headerLayout = getHeaderLayoutMetadata();
-	const quickRepliesPresentation = getQuickRepliesPresentation({
-		hasUserMessage,
-		quickReplyCount: quickReplies.length,
-	});
-	const composerAvailability = resolveComposerAvailability({
-		hasState: Boolean(state),
-		isResponding,
-	});
-	const handoffActionHierarchy = getHandoffActionHierarchy({
-		hasPrimaryFormCta: Boolean(primaryFormCta),
-		hasSecondaryWhatsAppCta: Boolean(secondaryWhatsAppCta),
-	});
-	const isCopySummaryTertiary = handoffActionHierarchy.some(
-		(action) => action.kind === "copy_summary" && action.tier === "tertiary",
+	const showHandoffCtas = useMemo(() =>
+		shouldShowPublicHandoff({
+			lastReply,
+			latestVisitorMessage,
+			memorySummary: state?.memory?.summary ?? null,
+			visitorTurns,
+		}),
+		[lastReply, latestVisitorMessage, state?.memory?.summary, visitorTurns],
 	);
-	const scrollAndComposerLayout = getScrollAndComposerLayout();
 
 	useEffect(() => {
 		if (!isOpen) return;
 		const container = messagesContainerRef.current;
 		if (!container) return;
-		container.scrollTop = container.scrollHeight;
-	}, [isOpen, messages, isResponding, lastReply]);
 
-	function applyLocalFallbackReply(content: string) {
+		requestAnimationFrame(() => {
+			container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+		});
+	}, [isOpen, messages.length, isResponding]);
+
+	function applyLocalFallbackReply() {
 		if (!state) return;
 
-		const now = new Date().toISOString();
-		const detectedIntent = detectLeadAssistantIntent(content);
-		const conversationStage = determinePublicAssistantConversationStage({
-			visitorMessage: content,
-			detectedIntent,
-			memory: state.memory,
-			previousVisitorMessages: visitorTurns,
+		const technicalReply = buildTechnicalAIErrorReply();
+		setState((previous) => {
+			if (!previous) return previous;
+			return {
+				...previous,
+				messages: [
+					...previous.messages,
+					{
+						id: `local-assistant-${Date.now()}`,
+						role: "assistant",
+						content: technicalReply,
+						createdAt: new Date().toISOString(),
+					},
+				],
+			};
 		});
-		const reply = buildPublicLeadAssistantResponse(
-			{
-				visitorMessage: content,
-				detectedIntent,
-				memory: state.memory,
-				conversationStage,
-			},
-			config,
-		);
-		const nextMessages = [
-			...messages,
-			{
-				id: `local-visitor-${Date.now()}`,
-				role: "visitor" as const,
-				content,
-				createdAt: now,
-			},
-			{
-				id: `local-assistant-${Date.now()}`,
-				role: "assistant" as const,
-				content: reply.text,
-				intent: reply.intent,
-				createdAt: new Date().toISOString(),
-			},
-		];
 
-		setState({
-			...state,
-			messages: nextMessages,
-			memory: buildPublicAssistantMemorySummary(
-				state.memory,
-				nextMessages,
-				reply.intent,
-				conversationStage,
-			),
+		setLastReply({
+			text: technicalReply,
+			intent: "not_sure",
+			rationale: "Fallback técnico local del widget",
+			source: "rules_fallback",
+			ctas: [],
 		});
-		setLastReply(reply);
-		setInput("");
-		setIsHandoffExpanded(false);
 		setError(null);
 	}
 
@@ -209,12 +165,30 @@ export function PublicLeadAssistantWidget() {
 		if (!state) return;
 
 		const content = (rawMessage ?? input).trim();
-		if (!content) return;
+		if (!content || isResponding) return;
 
 		setError(null);
 		setIsResponding(true);
+		setInput("");
+		setIsHandoffExpanded(false);
 
-		if (visitorTurns === 0) {
+		setState((previous) => {
+			if (!previous) return previous;
+			return {
+				...previous,
+				messages: [
+					...previous.messages,
+					{
+						id: `pending-visitor-${Date.now()}`,
+						role: "visitor",
+						content,
+						createdAt: new Date().toISOString(),
+					},
+				],
+			};
+		});
+
+		if (!hasUserMessage) {
 			trackChatFunnelEvent("chat_first_message", {
 				intentHint: lastReply?.intent ?? "unknown",
 			});
@@ -224,32 +198,19 @@ export function PublicLeadAssistantWidget() {
 			const response = await fetch("/api/public/chat", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					visitorKey: state.visitorKey,
-					message: content,
-				}),
+				body: JSON.stringify({ visitorKey: state.visitorKey, message: content }),
 			});
 
-			const data = (await response
-				.json()
-				.catch(() => null)) as PublicChatApiResponse | null;
-
+			const data = (await response.json().catch(() => null)) as PublicChatApiResponse | null;
 			if (!response.ok || !data?.ok || !data.state || !data.reply) {
-				console.warn("[public-chat] API response failed, using local fallback", {
-					status: response.status,
-					message: data?.message,
-				});
-				applyLocalFallbackReply(content);
+				applyLocalFallbackReply();
 				return;
 			}
 
 			setState(data.state);
 			setLastReply(data.reply);
-			setInput("");
-			setIsHandoffExpanded(false);
 		} catch {
-			console.warn("[public-chat] API request failed, using local fallback");
-			applyLocalFallbackReply(content);
+			applyLocalFallbackReply();
 		} finally {
 			setIsResponding(false);
 		}
@@ -257,46 +218,30 @@ export function PublicLeadAssistantWidget() {
 
 	async function handleResetMemory() {
 		if (!visitorKey) return;
-
 		setError(null);
 
 		try {
-			const response = await fetch(
-				`/api/public/chat/memory?visitorKey=${encodeURIComponent(visitorKey)}`,
-				{
-					method: "DELETE",
-				},
-			);
-
-			const data = (await response
-				.json()
-				.catch(() => null)) as PublicMemoryApiResponse | null;
+			const response = await fetch(`/api/public/chat/memory?visitorKey=${encodeURIComponent(visitorKey)}`, { method: "DELETE" });
+			const data = (await response.json().catch(() => null)) as PublicMemoryApiResponse | null;
 
 			if (!response.ok || !data?.ok) {
-				setError(
-					data?.message ??
-						"No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.",
-				);
+				setError(data?.message ?? "No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.");
 				return;
 			}
 
 			clearStoredVisitorKey();
 			const nextVisitorKey = getOrCreateVisitorKey();
 			setVisitorKey(nextVisitorKey);
-			const fallback = createFallbackState(nextVisitorKey, config.greeting);
-			setState(fallback);
+			setState(createFallbackState(nextVisitorKey, config.greeting));
 			setLastReply(null);
 			setIsHandoffExpanded(false);
 		} catch {
-			setError(
-				"No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.",
-			);
+			setError("No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.");
 		}
 	}
 
 	async function handleCopySummary() {
 		if (!handoffSummaryText) return;
-
 		try {
 			await navigator.clipboard.writeText(handoffSummaryText);
 			setIsCopySuccess(true);
@@ -306,267 +251,135 @@ export function PublicLeadAssistantWidget() {
 		}
 	}
 
+	const composerDisabled = !state || isResponding;
+	const sendDisabled = composerDisabled || !input.trim();
+
 	return (
-		<div className={triggerMetadata.containerClass}>
+		<div className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] right-3 z-40 sm:bottom-5 sm:right-5">
 			<section
 				id="public-lead-assistant-widget"
 				aria-label="Asistente comercial público"
 				aria-hidden={!isOpen}
-				className={buildWidgetShellClasses(isOpen)}
+				className={`overflow-hidden rounded-3xl border border-[#26324A] bg-[#111827] shadow-[0_24px_70px_rgba(0,0,0,0.55)] transition-all duration-200 ${
+					isOpen
+						? "pointer-events-auto h-[min(78vh,680px)] w-[min(94vw,420px)] opacity-100"
+						: "pointer-events-none h-0 w-[min(94vw,420px)] opacity-0"
+				}`}
 			>
-				<header
-					className={`relative overflow-hidden border-b border-violet-300/15 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.22),transparent_34%),linear-gradient(135deg,rgba(15,23,42,0.98),rgba(17,24,39,0.96))] ${headerLayout.compactPaddingClass}`}
-				>
-					<div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-violet-500/15 blur-2xl" />
-					<div className="relative flex items-center justify-between gap-3">
+				<header className="sticky top-0 z-10 border-b border-[#26324A] bg-[#151B2E]/95 px-4 py-3 backdrop-blur">
+					<div className="flex items-center justify-between gap-3">
 						<div className="flex min-w-0 items-center gap-3">
-							<div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-violet-300/25 bg-violet-500/15 text-sm font-bold text-violet-100 shadow-[0_0_24px_rgba(139,92,246,0.25)]">
-								AI
+							<div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-[#7C3AED]/40 bg-[#7C3AED]/15 text-xs font-bold text-[#F8FAFC]">
+								AM
 							</div>
 							<div className="min-w-0">
-								<p className="truncate text-sm font-semibold tracking-tight text-[var(--warm-white)]">
-									Asistente comercial
-								</p>
-								<p className="truncate text-[11px] text-[var(--text-soft)]">
-									Diagnóstico guiado · contacto manual
-								</p>
+								<p className="truncate text-sm font-semibold text-[#F8FAFC]">Apps Marketing AI</p>
+								<p className="truncate text-[11px] text-[#CBD5E1]">Diagnóstico guiado · contacto manual</p>
 							</div>
 						</div>
 						<button
 							type="button"
 							onClick={() => setIsOpen(false)}
-							className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-300 hover:bg-white/10 hover:text-white"
-							aria-label="Cerrar chat"
+							className="rounded-full border border-[#26324A] bg-[#111827] px-2.5 py-1 text-[11px] text-[#CBD5E1] hover:bg-[#151B2E]"
+							aria-label="Minimizar chat"
 						>
 							Cerrar
 						</button>
 					</div>
-					<div className={headerLayout.statusClass}>
-						<span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.9)]" />
-						<span>Modo guía activo · contacto manual</span>
-					</div>
 				</header>
 
-				<div
-					ref={messagesContainerRef}
-					className={scrollAndComposerLayout.messagesClass}
-				>
+				<div ref={messagesContainerRef} className="h-[calc(100%-152px)] overflow-y-auto bg-[#0B1020] px-3 py-3">
+
 					{messages.length === 0 && !isResponding ? (
-						<p className="rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-xs text-slate-300">
-							Todavía no hay mensajes. Contame tu objetivo y te sugiero el
-							próximo paso comercial.
-						</p>
+						<p className="mb-2.5 text-xs text-[#CBD5E1]">Todavía no hay mensajes.</p>
 					) : null}
-
-					{messages.map((message, index) => {
-						const isLatest = index === messages.length - 1;
-						const bubblePresentation = getMessageBubblePresentation(
-							message.role,
-							isLatest,
-						);
-
+					{messages.map((message) => {
+						const isAssistant = message.role === "assistant";
 						return (
-							<div
-								key={message.id}
-								className={`flex ${bubblePresentation.wrapperClass}`}
-							>
-								<p
-									className={bubblePresentation.bubbleClass}
-									style={
-										bubblePresentation.animationStyle
-											? { animation: bubblePresentation.animationStyle }
-											: undefined
-									}
+							<div key={message.id} className={`mb-2.5 flex ${isAssistant ? "justify-start" : "justify-end"}`}>
+								<div
+									className={`max-w-[84%] whitespace-pre-wrap break-words rounded-2xl px-3 py-2 text-[13px] leading-relaxed ${
+										isAssistant
+											? "border border-[#26324A] bg-[#151B2E] text-[#F8FAFC]"
+											: "bg-[#F97316] text-[#fff7ed]"
+									}`}
 								>
 									{message.content}
-								</p>
+								</div>
 							</div>
 						);
 					})}
 
 					{isResponding ? (
-						<div className="flex justify-start">
-							<p className="rounded-full border border-violet-300/15 bg-violet-500/10 px-3 py-1.5 text-xs text-[var(--purple-soft)]">
-								Revisando tu contexto para sugerirte el próximo paso...
-							</p>
-						</div>
-					) : null}
-					{lastReply ? (
-						<div className="mt-1 rounded-2xl border border-white/10 bg-white/[0.045] px-3 py-3 shadow-[0_14px_32px_rgba(0,0,0,0.2)]">
-							<p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-violet-200/80">
-								Siguiente paso sugerido
-							</p>
-							<p className="mt-1.5 text-xs leading-relaxed text-slate-200">
-								{lastReply.followUpQuestion}
-							</p>
-							{handoffSummary ? (
-								<div className="mt-3 rounded-xl border border-violet-300/15 bg-slate-950/45 p-2.5">
-									<div className="flex items-center justify-between gap-2">
-										<p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
-											Resumen para contacto
-										</p>
-										<button
-											type="button"
-											onClick={() =>
-												setIsHandoffExpanded((previous) => !previous)
-											}
-											className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] font-medium text-slate-300 hover:bg-white/10 hover:text-white"
-										>
-											{isHandoffExpanded ? "Ocultar" : "Ver resumen"}
-										</button>
-									</div>
-
-									{isHandoffExpanded ? (
-										<>
-											<ul className="mt-2 space-y-1.5 text-[11px] leading-relaxed text-slate-200">
-												<li>
-													<span className="text-slate-400">
-														Tipo de proyecto:
-													</span>{" "}
-													{handoffSummary.projectType}
-												</li>
-												<li>
-													<span className="text-slate-400">
-														Objetivo/problema:
-													</span>{" "}
-													{handoffSummary.mainGoalOrProblem}
-												</li>
-												<li>
-													<span className="text-slate-400">
-														Servicio probable:
-													</span>{" "}
-													{handoffSummary.probableService}
-												</li>
-												<li>
-													<span className="text-slate-400">Urgencia:</span>{" "}
-													{handoffSummary.urgencyLevel}
-												</li>
-												<li>
-													<span className="text-slate-400">Claridad:</span>{" "}
-													{handoffSummary.clarityLevel}
-												</li>
-												<li>
-													<span className="text-slate-400">Plazo:</span>{" "}
-													{handoffSummary.timelineSignal}
-												</li>
-												<li>
-													<span className="text-slate-400">
-														Prioridad comercial:
-													</span>{" "}
-													{handoffSummary.commercialPriority}
-												</li>
-												<li>
-													<span className="text-slate-400">
-														Siguiente paso:
-													</span>{" "}
-													{handoffSummary.nextRecommendedStep}
-												</li>
-											</ul>
-
-											{hasPendingHandoffData ? (
-												<p className="mt-2 text-[10px] text-amber-200">
-													Faltan algunos datos para completar el resumen.
-												</p>
-											) : null}
-										</>
-									) : null}
-								</div>
-							) : null}
-
-							{shouldShowMiniClose ? (
-								<p className="mt-2 text-[11px] text-[var(--text-secondary)]">
-									Si querés, en este paso ya te conviene continuar por un canal
-									de contacto para avanzar más rápido.
-								</p>
-							) : null}
-
-							<div className="mt-3 rounded-xl border border-violet-300/15 bg-slate-950/40 p-2.5">
-								<p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-violet-200/80">
-									Prioridad recomendada
-								</p>
-								<p className="mt-1 text-[11px] text-slate-300">
-									Completá el formulario para recibir un diagnóstico más claro
-									y accionable.
-								</p>
-								<div className="mt-2.5 grid gap-2">
-									<a
-										href={primaryFormCta?.href ?? config.contactFormAnchor}
-										onClick={() => {
-											trackChatFunnelEvent("chat_cta_click", {
-												kind: primaryFormCta?.kind ?? "form",
-												position: "primary",
-											});
-											setIsOpen(false);
-										}}
-										className="rounded-xl bg-[var(--orange-cta)] px-3 py-2.5 text-center text-xs font-semibold text-[var(--warm-white)] shadow-[0_10px_24px_rgba(249,115,22,0.2)] hover:bg-[var(--orange-hover)]"
-									>
-										{primaryFormCta?.label ??
-											"Completar formulario de diagnóstico"}
-									</a>
-
-									{secondaryWhatsAppCta ? (
-										<a
-											href={handoffWhatsAppHref ?? secondaryWhatsAppCta.href}
-											target="_blank"
-											rel="noreferrer"
-											onClick={() => {
-												trackChatFunnelEvent("chat_cta_click", {
-													kind: secondaryWhatsAppCta.kind,
-													position: "secondary",
-												});
-											}}
-											className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-center text-xs font-medium text-slate-200 hover:bg-white/[0.07]"
-										>
-											Alternativa rápida: {secondaryWhatsAppCta.label}
-										</a>
-									) : null}
-								</div>
-
-								<div className="mt-2.5">
-									<button
-										type="button"
-										onClick={() => {
-											void handleCopySummary();
-										}}
-										className={
-											isCopySummaryTertiary
-												? "text-[11px] font-medium text-[var(--text-accent-soft)] underline-offset-2 hover:underline"
-												: "text-xs text-slate-300"
-										}
-									>
-										Copiar resumen
-									</button>
-								</div>
+						<div className="mb-2.5 flex justify-start">
+							<div className="flex items-center gap-1 rounded-2xl border border-[#26324A] bg-[#151B2E] px-3 py-2 text-xs text-[#CBD5E1]">
+								<span>Revisando tu contexto para sugerirte el próximo paso...</span>
+								<span className="chat-dot" />
+								<span className="chat-dot animation-delay-150" />
+								<span className="chat-dot animation-delay-300" />
 							</div>
-							<p className="mt-2 text-[10px] leading-relaxed text-slate-500">
-								Contacto manual: este enlace solo abre WhatsApp con el resumen
-								precargado.
-							</p>
-							{isCopySuccess ? (
-								<p className="mt-1 text-[10px] text-emerald-300">
-									Resumen copiado.
-								</p>
-							) : null}
 						</div>
 					) : null}
 
-					<p className="mt-3 text-[10px] leading-relaxed text-slate-500">
-						{config.privacyNote}
-					</p>
+					{showHandoffCtas && lastReply && handoffSummary ? (
+						<div className="mt-3 rounded-2xl border border-[#26324A] bg-[#111827] p-3">
+							<p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#CBD5E1]">Prioridad recomendada</p>
+							<div className="mb-2 flex items-center justify-between gap-2">
+								<p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#CBD5E1]">Resumen</p>
+								<button
+									type="button"
+									onClick={() => setIsHandoffExpanded((previous) => !previous)}
+									className="rounded-full border border-[#26324A] px-2 py-0.5 text-[10px] text-[#CBD5E1] hover:bg-[#151B2E]"
+								>
+									{isHandoffExpanded ? "Ocultar" : "Ver resumen"}
+								</button>
+							</div>
+							{isHandoffExpanded ? (
+								<p className="mb-2 text-[11px] leading-relaxed text-[#CBD5E1]">{handoffSummaryText}</p>
+							) : null}
+							<div className="grid gap-2 sm:grid-cols-2">
+								<a
+									href={handoffWhatsAppHref ?? secondaryWhatsAppCta?.href ?? "#"}
+									target="_blank"
+									rel="noreferrer"
+									className="rounded-xl bg-[#F97316] px-3 py-2 text-center text-xs font-semibold text-[#fff7ed] hover:bg-[#EA580C]"
+								>
+									Alternativa rápida: Enviar por WhatsApp
+								</a>
+								<button
+									type="button"
+									onClick={() => {
+										void handleCopySummary();
+									}}
+									className="rounded-xl border border-[#26324A] px-3 py-2 text-xs font-medium text-[#CBD5E1] hover:bg-[#151B2E]"
+								>
+									Copiar resumen
+								</button>
+							</div>
+							<a
+								href={primaryFormCta?.href ?? config.contactFormAnchor}
+								onClick={() => setIsOpen(false)}
+								className="mt-2 block rounded-xl border border-[#26324A] px-3 py-2 text-center text-xs font-medium text-[#CBD5E1] hover:bg-[#151B2E]"
+							>
+								Completá el formulario
+							</a>
+							{isCopySuccess ? <p className="mt-2 text-[10px] text-emerald-300">Resumen copiado.</p> : null}
+						</div>
+					) : null}
 				</div>
 
-				<div className={scrollAndComposerLayout.composerClass}>
-					{quickRepliesPresentation.showQuickReplies ? (
-						<div className={quickRepliesPresentation.containerClass}>
-							{quickReplies.map((reply) => (
+				<div className="sticky bottom-0 border-t border-[#26324A] bg-[#111827] p-3">
+					{showQuickReplies ? (
+						<div className="mb-2 flex flex-wrap gap-1.5">
+							{quickReplies.slice(0, 4).map((reply) => (
 								<button
 									key={reply.id}
 									type="button"
 									onClick={() => {
 										void handleSend(reply.label);
 									}}
-									className="rounded-full border border-violet-300/20 bg-violet-500/10 px-2.5 py-1 text-[11px] text-violet-100 hover:bg-violet-500/20"
-									disabled={composerAvailability.isComposerDisabled}
+									className="rounded-full border border-[#26324A] bg-[#151B2E] px-2.5 py-1 text-[11px] text-[#CBD5E1] hover:border-[#7C3AED]/50 hover:text-[#F8FAFC]"
+									disabled={composerDisabled}
 								>
 									{reply.label}
 								</button>
@@ -579,45 +392,48 @@ export function PublicLeadAssistantWidget() {
 							event.preventDefault();
 							void handleSend();
 						}}
-						className="space-y-2"
 					>
 						<label htmlFor="public-assistant-input" className="sr-only">
-							Escribí tu consulta
+							Escribe tu mensaje
 						</label>
-						<div className="flex gap-2 rounded-2xl border border-white/10 bg-slate-950/70 p-1.5 shadow-inner shadow-black/20">
-							<input
+						<div className="flex items-end gap-2 rounded-2xl border border-[#26324A] bg-[#0B1020] p-2 focus-within:border-[#7C3AED]/60">
+							<textarea
 								id="public-assistant-input"
-								type="text"
 								value={input}
 								onChange={(event) => setInput(event.target.value)}
-								placeholder="Contame tu objetivo comercial..."
-								className="w-full rounded-xl border border-transparent bg-transparent px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-0"
-								disabled={composerAvailability.isComposerDisabled}
+								onKeyDown={(event) => {
+									if (event.key === "Enter" && !event.shiftKey) {
+										event.preventDefault();
+										void handleSend();
+									}
+								}}
+								placeholder="Escribe tu mensaje…"
+								rows={1}
+								className="max-h-24 min-h-[40px] w-full resize-none bg-transparent px-2 py-1.5 text-sm text-[#F8FAFC] placeholder:text-[#94A3B8] focus:outline-none"
+								disabled={composerDisabled}
 							/>
 							<button
 								type="submit"
-								className="rounded-xl bg-gradient-to-r from-[var(--orange-cta)] to-[var(--orange-hover)] px-3.5 py-2 text-sm font-semibold text-[var(--warm-white)] shadow-[0_10px_22px_rgba(249,115,22,0.22)] hover:brightness-105 disabled:opacity-70"
-								disabled={composerAvailability.isComposerDisabled}
+								disabled={sendDisabled}
+								className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-sm font-semibold text-[#fff7ed] transition hover:bg-[#EA580C] disabled:cursor-not-allowed disabled:opacity-50"
+								aria-label="Enviar mensaje"
 							>
-								Enviar
+								➤
 							</button>
 						</div>
 					</form>
 
 					{error ? <p className="mt-2 text-xs text-rose-300">{error}</p> : null}
 
-					<div className="mt-3 flex items-center justify-between gap-2">
-						<p className="text-[10px] text-slate-500">
-							{process.env.NODE_ENV === "development"
-								? `Sesión local activa · ${visitorKey.slice(0, 8)}`
-								: "Sesión local activa"}
-						</p>
+					<div className="mt-2 flex items-center justify-between gap-2">
+						<p className="text-[10px] text-[#94A3B8]">Powered by Apps Marketing AI</p>
 						<button
 							type="button"
 							onClick={() => {
 								void handleResetMemory();
 							}}
-							className="rounded-full border border-white/10 px-2.5 py-1 text-[10px] text-slate-400 hover:bg-white/10 hover:text-slate-200"
+							className="rounded-full border border-[#26324A] px-2.5 py-1 text-[10px] text-[#CBD5E1] hover:bg-[#151B2E]"
+							aria-label="Borrar contexto de conversación"
 						>
 							Borrar contexto
 						</button>
@@ -635,26 +451,13 @@ export function PublicLeadAssistantWidget() {
 							return next;
 						});
 					}}
-					className={triggerMetadata.buttonClass}
+					className="rounded-full border border-[#4C1D95]/40 bg-[#7C3AED] px-4 py-2 text-xs font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(124,58,237,0.35)] hover:bg-[#6D28D9]"
 					aria-expanded={isOpen}
 					aria-controls="public-lead-assistant-widget"
 				>
 					{isOpen ? "Cerrar diagnóstico" : "Diagnóstico comercial en 2 minutos"}
 				</button>
 			</div>
-
-			<style jsx>{`
-				@keyframes messagePopIn {
-					from {
-						opacity: 0;
-						transform: translateY(4px) scale(0.98);
-					}
-					to {
-						opacity: 1;
-						transform: translateY(0) scale(1);
-					}
-				}
-			`}</style>
 		</div>
 	);
 }

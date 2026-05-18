@@ -7,7 +7,7 @@ export const projectTypes: ProjectTypeItem[] = [
     category: 'Captación',
     description: 'Página enfocada en comunicar valor rápido y convertir interés en consultas.',
     idealFor: 'Negocios que quieren validar oferta o mejorar campañas de adquisición.',
-    outcome: 'Más conversaciones comerciales con un mensaje claro y CTA directo.',
+    outcome: 'Más conversaciones comerciales con un mensaje claro y contacto directo.',
     statusLabel: 'Disponible ahora',
   },
   {

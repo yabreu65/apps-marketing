@@ -173,7 +173,7 @@ export function LeadConversationPanel({ leadId, messages }: LeadConversationPane
   const disablePrimaryActions = isSubmitting || isSuggesting || isPending;
 
   return (
-    <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+    <section className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-6">
       <div className="space-y-1">
         <h2 className="text-lg font-semibold text-slate-100">Conversación simulada</h2>
         <p className="text-sm text-slate-300">
@@ -290,13 +290,13 @@ export function LeadConversationPanel({ leadId, messages }: LeadConversationPane
 
       <div className="space-y-3">
         {messageList.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-[#33415f] bg-[#111827] p-3 text-sm text-slate-300">
+          <p className="rounded-xl border border-dashed border-[var(--border-strong-alt)] bg-[var(--bg-secondary)] p-3 text-sm text-slate-300">
             Aún no hay mensajes simulados para este lead.
           </p>
         ) : (
           messageList.map((message) => (
             <div key={message.id} className={`flex ${message.direction === 'outbound' ? 'justify-end' : 'justify-start'}`}>
-              <article className="w-full max-w-[42rem] rounded-xl border border-[#26324A] bg-[#111827] p-3 text-sm text-slate-200">
+              <article className="w-full max-w-[42rem] rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3 text-sm text-slate-200">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-medium ${getDirectionTone(message.direction)}`}>
                     {getDirectionLabel(message.direction)}

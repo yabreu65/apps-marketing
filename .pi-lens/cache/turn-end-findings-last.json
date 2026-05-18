@@ -1,0 +1,4 @@
+{
+  "signature": "src/modules/lead-assistant/types/lead-assistant.ts::ℹ️ Advisory — no action required this turn:\n⚠️ Newly unused exports in modified files — check if callers need updating (Knip):\n  src/modules/lead-assistant/types/lead-assistant.ts:67 — PublicAssistantQuestionType\n  src/modules/lead-assistant/types/lead-assistant.ts:83 — PublicAssistantQuickReply\n",
+  "sessionId": "lens-mp9ydy7k-36bb02af"
+}

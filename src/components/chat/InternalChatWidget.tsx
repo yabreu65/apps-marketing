@@ -92,17 +92,17 @@ export function InternalChatWidget() {
         <section
           id="internal-chat-widget"
           aria-label="Chat de orientación"
-          className="w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-[#26324A] bg-[#0F172A] shadow-[0_18px_45px_rgba(2,6,23,0.55)]"
+          className="w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-panel)] shadow-[0_18px_45px_rgba(2,6,23,0.55)]"
         >
-          <header className="flex items-center justify-between border-b border-[#26324A] px-4 py-3">
+          <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-4 py-3">
             <div>
-              <p className="text-sm font-semibold text-[#FFFBF5]">Orientación inicial</p>
-              <p className="text-xs text-[#94A3B8]">Sin bots externos ni integraciones activas</p>
+              <p className="text-sm font-semibold text-[var(--warm-white)]">Orientación inicial</p>
+              <p className="text-xs text-[var(--text-muted)]">Sin bots externos ni integraciones activas</p>
             </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="rounded-md border border-[#26324A] px-2 py-1 text-xs text-[#CBD5E1] hover:bg-[#1E293B]"
+              className="rounded-md border border-[var(--border-subtle)] px-2 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-hover)]"
               aria-label="Cerrar chat"
             >
               Cerrar
@@ -115,8 +115,8 @@ export function InternalChatWidget() {
                 <p
                   className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${
                     message.role === 'assistant'
-                      ? 'border border-[#26324A] bg-[#111827] text-[#E2E8F0]'
-                      : 'bg-[#F97316] text-[#FFFBF5]'
+                      ? 'border border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-bright)]'
+                      : 'bg-[var(--orange-cta)] text-[var(--warm-white)]'
                   }`}
                 >
                   {message.text}
@@ -124,17 +124,17 @@ export function InternalChatWidget() {
               </div>
             ))}
 
-            {isTyping ? <p className="text-xs text-[#A78BFA]">Escribiendo respuesta…</p> : null}
+            {isTyping ? <p className="text-xs text-[var(--purple-soft)]">Escribiendo respuesta…</p> : null}
           </div>
 
-          <div className="border-t border-[#26324A] px-4 py-3">
+          <div className="border-t border-[var(--border-subtle)] px-4 py-3">
             <div className="mb-3 flex flex-wrap gap-2">
               {quickReplies.map((reply) => (
                 <button
                   key={reply.id}
                   type="button"
                   onClick={() => handleUserMessage(reply.label)}
-                  className="rounded-full border border-[#7C3AED]/40 bg-[#7C3AED]/10 px-3 py-1 text-xs text-[#C4B5FD] hover:bg-[#7C3AED]/20"
+                  className="rounded-full border border-[var(--purple-primary)]/40 bg-[var(--purple-primary)]/10 px-3 py-1 text-xs text-[var(--text-accent)] hover:bg-[var(--purple-primary)]/20"
                 >
                   {reply.label}
                 </button>
@@ -152,20 +152,20 @@ export function InternalChatWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Contame qué querés construir..."
-                  className="w-full rounded-md border border-[#26324A] bg-[#0B1020] px-3 py-2 text-sm text-[#F8FAFC] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#A78BFA]"
+                  className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
                 />
                 <button
                   type="submit"
-                  className="rounded-md bg-[#F97316] px-3 py-2 text-sm font-medium text-[#FFFBF5] hover:bg-[#EA580C] focus:outline-none focus:ring-2 focus:ring-[#FDBA74]"
+                  className="rounded-md bg-[var(--orange-cta)] px-3 py-2 text-sm font-medium text-[var(--warm-white)] hover:bg-[var(--orange-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--orange-soft)]"
                 >
                   Enviar
                 </button>
               </div>
             </form>
 
-            <p className="mt-3 text-xs text-[#94A3B8]">{privacyNote}</p>
+            <p className="mt-3 text-xs text-[var(--text-muted)]">{privacyNote}</p>
 
-            <p className="mt-3 text-xs text-[#94A3B8]">
+            <p className="mt-3 text-xs text-[var(--text-muted)]">
               Podés continuar por WhatsApp o completar el formulario para que revisemos tu caso.
             </p>
 
@@ -174,13 +174,13 @@ export function InternalChatWidget() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-md bg-[#F97316] px-3 py-2 text-xs font-semibold text-[#FFFBF5] hover:bg-[#EA580C]"
+                className="rounded-md bg-[var(--orange-cta)] px-3 py-2 text-xs font-semibold text-[var(--warm-white)] hover:bg-[var(--orange-hover)]"
               >
                 Solicitar diagnóstico por WhatsApp
               </a>
               <a
                 href="#contact-form"
-                className="rounded-md border border-[#7C3AED]/50 px-3 py-2 text-xs font-semibold text-[#CBD5E1] hover:bg-[#7C3AED]/15"
+                className="rounded-md border border-[var(--purple-primary)]/50 px-3 py-2 text-xs font-semibold text-[var(--text-secondary)] hover:bg-[var(--purple-primary)]/15"
               >
                 Completar formulario
               </a>
@@ -192,7 +192,7 @@ export function InternalChatWidget() {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="rounded-full bg-[#7C3AED] px-4 py-3 text-sm font-semibold text-[#FFFBF5] shadow-[0_12px_30px_rgba(124,58,237,0.35)] hover:bg-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#A78BFA]"
+        className="rounded-full bg-[var(--purple-primary)] px-4 py-3 text-sm font-semibold text-[var(--warm-white)] shadow-[0_12px_30px_rgba(124,58,237,0.35)] hover:bg-[var(--accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
         aria-expanded={isOpen}
         aria-controls="internal-chat-widget"
       >

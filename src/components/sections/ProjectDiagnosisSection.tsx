@@ -96,20 +96,20 @@ export function ProjectDiagnosisSection() {
   }, [result]);
 
   return (
-    <section id="project-diagnosis" className="section-cosmic relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
-      <div className="pointer-events-none absolute left-[-6rem] top-10 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[#7C3AED]/18 blur-2xl sm:blur-3xl" />
-      <div className="pointer-events-none absolute right-[-4rem] bottom-0 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[#F97316]/8 blur-2xl sm:blur-3xl" />
+    <section id="project-diagnosis" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16">
+      <div className="pointer-events-none absolute left-[-6rem] top-10 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[var(--purple-primary)]/18 blur-2xl sm:blur-3xl" />
+      <div className="pointer-events-none absolute right-[-4rem] bottom-0 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[var(--orange-cta)]/8 blur-2xl sm:blur-3xl" />
       <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Diagnóstico orientativo"
-          title="Descubrí qué tipo de solución digital te conviene"
-          description="Respondé estas preguntas rápidas y obtené una recomendación inicial para tu proyecto."
+          title="Si no sabés por dónde empezar, respondé 3 preguntas y te orientamos"
+          description="Respondé 3 preguntas y te recomendamos un primer paso claro."
         />
 
         <div className="grid gap-4 lg:grid-cols-3">
           {diagnosisQuestions.map((question) => (
             <Card key={question.id}>
-              <h3 className="text-sm font-semibold text-[#FFFBF5]">{question.title}</h3>
+              <h3 className="text-sm font-semibold text-[var(--warm-white)]">{question.title}</h3>
               <div className="mt-3 flex flex-col gap-2">
                 {question.options.map((option) => {
                   const isSelected = answers[question.id] === option.value;
@@ -121,8 +121,8 @@ export function ProjectDiagnosisSection() {
                       onClick={() => setAnswers((prev) => ({ ...prev, [question.id]: option.value }))}
                       className={`rounded-md border px-3 py-2 text-left text-sm transition ${
                         isSelected
-                          ? 'border-[#F97316] bg-[#F97316]/15 text-[#FFFBF5]'
-                          : 'border-[#A78BFA]/20 bg-[#0B1020]/70 text-[#CBD5E1] hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/10'
+                          ? 'border-[var(--orange-cta)] bg-[var(--orange-cta)]/15 text-[var(--warm-white)]'
+                          : 'border-[var(--purple-soft)]/20 bg-[var(--bg-primary)]/70 text-[var(--text-secondary)] hover:border-[var(--purple-primary)]/50 hover:bg-[var(--purple-primary)]/10'
                       }`}
                     >
                       {option.label}
@@ -135,20 +135,20 @@ export function ProjectDiagnosisSection() {
         </div>
 
         <Card>
-          <h3 className="text-base font-semibold text-[#FFFBF5]">Recomendación</h3>
+          <h3 className="text-base font-semibold text-[var(--warm-white)]">Recomendación</h3>
           {result ? (
             <>
-              <p className="mt-2 text-sm text-[#CBD5E1]">
-                Según tus respuestas, el mejor punto de partida sería: <span className="font-semibold text-[#FDBA74]">{result.recommendedSolution}</span>
+              <p className="mt-2 text-sm text-[var(--text-secondary)]">
+                Según tus respuestas, el mejor punto de partida sería: <span className="font-semibold text-[var(--orange-soft)]">{result.recommendedSolution}</span>
               </p>
-              <p className="mt-3 text-sm text-[#E2E8F0]">{result.nextAction}</p>
-              <p className="mt-3 text-xs text-[#A8B6CC]">{result.rationale}</p>
-              <p className="mt-3 text-xs text-[#A8B6CC]">
-                Podés continuar por WhatsApp o completar el formulario para que revisemos tu caso.
+              <p className="mt-3 text-sm text-[var(--text-bright)]">{result.nextAction}</p>
+              <p className="mt-3 text-xs text-[var(--text-soft)]">{result.rationale}</p>
+              <p className="mt-3 text-xs text-[var(--text-soft)]">
+                Si querés avanzar, podés seguir por WhatsApp o dejar tu caso en el formulario.
               </p>
             </>
           ) : (
-            <p className="mt-2 text-sm text-[#CBD5E1]">Completá las tres preguntas para ver una recomendación orientativa.</p>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">Completá las tres preguntas para ver una recomendación orientativa.</p>
           )}
 
           <div className="mt-4 flex flex-wrap gap-2">
@@ -156,13 +156,13 @@ export function ProjectDiagnosisSection() {
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="rounded-md bg-[#F97316] px-4 py-2 text-sm font-semibold text-[#FFFBF5] hover:bg-[#EA580C]"
+              className="rounded-md bg-[var(--orange-cta)] px-4 py-2 text-sm font-semibold text-[var(--warm-white)] hover:bg-[var(--orange-hover)]"
             >
-              Solicitar diagnóstico por WhatsApp
+              Continuar por WhatsApp
             </a>
             <a
               href="#contact-form"
-              className="rounded-md border border-[#7C3AED]/50 px-4 py-2 text-sm font-semibold text-[#CBD5E1] hover:bg-[#7C3AED]/15"
+              className="rounded-md border border-[var(--purple-primary)]/50 px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] hover:bg-[var(--purple-primary)]/15"
             >
               Completar formulario
             </a>

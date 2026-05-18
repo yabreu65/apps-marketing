@@ -11,10 +11,10 @@ export default async function InternalLoginPage({ searchParams }: InternalLoginP
   const redirect = normalizeInternalRedirect(rawRedirect);
 
   return (
-    <main className="min-h-screen bg-[#0B1020] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[var(--bg-primary)] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-xl space-y-5">
-        <header className="space-y-2 rounded-2xl border border-[#26324A] bg-[#111827] p-6 shadow-lg shadow-black/20">
-          <h1 className="text-2xl font-semibold text-[#FFFBF5]">Acceso interno</h1>
+        <header className="space-y-2 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-6 shadow-lg shadow-black/20">
+          <h1 className="text-2xl font-semibold text-[var(--warm-white)]">Acceso interno</h1>
           <p className="text-sm text-slate-300">
             Ingresá la contraseña de acceso interno. Esta protección es mínima y solo para entorno local.
           </p>

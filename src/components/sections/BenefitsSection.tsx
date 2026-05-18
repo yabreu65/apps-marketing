@@ -5,8 +5,8 @@ import { benefits } from '@/data/benefits';
 
 export function BenefitsSection() {
   return (
-    <section id="beneficios" className="section-aurora-grid relative overflow-hidden border-b border-[#26324A] py-16 sm:py-20">
-      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#7C3AED]/16 blur-3xl" />
+    <section id="beneficios" className="section-aurora-grid relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-20">
+      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[var(--purple-primary)]/16 blur-3xl" />
       <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Beneficios"
@@ -17,8 +17,8 @@ export function BenefitsSection() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {benefits.map((benefit) => (
             <Card key={benefit.id}>
-              <h3 className="text-base font-semibold text-[#FFFBF5]">{benefit.title}</h3>
-              <p className="mt-2 text-sm text-[#CBD5E1]">{benefit.description}</p>
+              <h3 className="text-base font-semibold text-[var(--warm-white)]">{benefit.title}</h3>
+              <p className="mt-2 text-sm text-[var(--text-secondary)]">{benefit.description}</p>
             </Card>
           ))}
         </div>

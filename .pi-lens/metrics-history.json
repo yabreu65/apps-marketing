@@ -1,0 +1,631 @@
+{
+  "version": 1,
+  "files": {
+    "src/modules/lead-assistant/core/handoff-summary.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:22:43.082Z",
+        "mi": 35.8,
+        "cognitive": 11,
+        "nesting": 2,
+        "lines": 91,
+        "maxCyclomatic": 5,
+        "entropy": 5.35
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:22:43.082Z",
+          "mi": 35.8,
+          "cognitive": 11,
+          "nesting": 2,
+          "lines": 91,
+          "maxCyclomatic": 5,
+          "entropy": 5.35
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/tests/handoff-summary.test.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:22:43.122Z",
+        "mi": 43.6,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 48,
+        "maxCyclomatic": 1,
+        "entropy": 4.35
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:22:43.122Z",
+          "mi": 43.6,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 48,
+          "maxCyclomatic": 1,
+          "entropy": 4.35
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/app/internal/leads/page.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:36:17.005Z",
+        "mi": 12.8,
+        "cognitive": 65,
+        "nesting": 2,
+        "lines": 457,
+        "maxCyclomatic": 60,
+        "entropy": 6.47
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:36:17.005Z",
+          "mi": 12.8,
+          "cognitive": 65,
+          "nesting": 2,
+          "lines": 457,
+          "maxCyclomatic": 60,
+          "entropy": 6.47
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/lib/chat-funnel.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:36:35.232Z",
+        "mi": 46.8,
+        "cognitive": 16,
+        "nesting": 3,
+        "lines": 43,
+        "maxCyclomatic": 4,
+        "entropy": 4.87
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:36:35.232Z",
+          "mi": 46.8,
+          "cognitive": 16,
+          "nesting": 3,
+          "lines": 43,
+          "maxCyclomatic": 4,
+          "entropy": 4.87
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/lib/chat-funnel.test.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:37:03.927Z",
+        "mi": 51.3,
+        "cognitive": 0,
+        "nesting": 3,
+        "lines": 26,
+        "maxCyclomatic": 1,
+        "entropy": 4.64
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:37:03.927Z",
+          "mi": 51.3,
+          "cognitive": 0,
+          "nesting": 3,
+          "lines": 26,
+          "maxCyclomatic": 1,
+          "entropy": 4.64
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/internal/ChatFunnelReport.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:39:12.511Z",
+        "mi": 39.2,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 71,
+        "maxCyclomatic": 1,
+        "entropy": 4.3
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:39:12.511Z",
+          "mi": 39.2,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 71,
+          "maxCyclomatic": 1,
+          "entropy": 4.3
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/tests/suggested-actions.test.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-16T20:52:51.144Z",
+        "mi": 57.9,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 15,
+        "maxCyclomatic": 1,
+        "entropy": 3.5
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-16T20:52:51.144Z",
+          "mi": 57.9,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 15,
+          "maxCyclomatic": 1,
+          "entropy": 3.5
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/sections/ProductShowcaseSection.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T03:42:39.338Z",
+        "mi": 29.8,
+        "cognitive": 3,
+        "nesting": 2,
+        "lines": 129,
+        "maxCyclomatic": 2,
+        "entropy": 5.05
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T03:42:39.338Z",
+          "mi": 29.8,
+          "cognitive": 3,
+          "nesting": 2,
+          "lines": 129,
+          "maxCyclomatic": 2,
+          "entropy": 5.05
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/app/page.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:55:00.422Z",
+        "mi": 49.1,
+        "cognitive": 0,
+        "nesting": 1,
+        "lines": 36,
+        "maxCyclomatic": 1,
+        "entropy": 3.85
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:55:00.422Z",
+          "mi": 49.1,
+          "cognitive": 0,
+          "nesting": 1,
+          "lines": 36,
+          "maxCyclomatic": 1,
+          "entropy": 3.85
+        }
+      ],
+      "trend": "stable"
+    },
+    "tailwind.config.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:55:00.445Z",
+        "mi": 74.4,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 13,
+        "maxCyclomatic": 1,
+        "entropy": 3.5
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:55:00.445Z",
+          "mi": 74.4,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 13,
+          "maxCyclomatic": 1,
+          "entropy": 3.5
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/sections/HeroSection.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:55:00.797Z",
+        "mi": 26.1,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 174,
+        "maxCyclomatic": 1,
+        "entropy": 5.05
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:55:00.797Z",
+          "mi": 26.1,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 174,
+          "maxCyclomatic": 1,
+          "entropy": 5.05
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/ui/Button.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:55:00.837Z",
+        "mi": 46.2,
+        "cognitive": 3,
+        "nesting": 2,
+        "lines": 36,
+        "maxCyclomatic": 6,
+        "entropy": 4.93
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:55:00.837Z",
+          "mi": 46.2,
+          "cognitive": 3,
+          "nesting": 2,
+          "lines": 36,
+          "maxCyclomatic": 6,
+          "entropy": 4.93
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/sections/ContactFormSection.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:55:05.541Z",
+        "mi": 16.1,
+        "cognitive": 94,
+        "nesting": 7,
+        "lines": 392,
+        "maxCyclomatic": 34,
+        "entropy": 6.34
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:55:05.541Z",
+          "mi": 16.1,
+          "cognitive": 94,
+          "nesting": 7,
+          "lines": 392,
+          "maxCyclomatic": 34,
+          "entropy": 6.34
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/sections/FinalCtaSection.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:57:27.126Z",
+        "mi": 44.6,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 45,
+        "maxCyclomatic": 1,
+        "entropy": 5.21
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:57:27.126Z",
+          "mi": 44.6,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 45,
+          "maxCyclomatic": 1,
+          "entropy": 5.21
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/components/sections/CredibilityStripSection.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T15:57:27.154Z",
+        "mi": 51.6,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 29,
+        "maxCyclomatic": 1,
+        "entropy": 3.95
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T15:57:27.154Z",
+          "mi": 51.6,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 29,
+          "maxCyclomatic": 1,
+          "entropy": 3.95
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/components/PublicLeadAssistantWidget.tsx": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:30:43.476Z",
+        "mi": 13.6,
+        "cognitive": 118,
+        "nesting": 5,
+        "lines": 498,
+        "maxCyclomatic": 88,
+        "entropy": 6.9
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:30:43.476Z",
+          "mi": 13.6,
+          "cognitive": 118,
+          "nesting": 5,
+          "lines": 498,
+          "maxCyclomatic": 88,
+          "entropy": 6.9
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/core/detect-intent.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:40:52.545Z",
+        "mi": 37.4,
+        "cognitive": 5,
+        "nesting": 4,
+        "lines": 92,
+        "maxCyclomatic": 2,
+        "entropy": 6.09
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:40:52.545Z",
+          "mi": 37.4,
+          "cognitive": 5,
+          "nesting": 4,
+          "lines": 92,
+          "maxCyclomatic": 2,
+          "entropy": 6.09
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/core/build-response.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:40:52.566Z",
+        "mi": 28.8,
+        "cognitive": 62,
+        "nesting": 2,
+        "lines": 170,
+        "maxCyclomatic": 14,
+        "entropy": 6.18
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:40:52.566Z",
+          "mi": 28.8,
+          "cognitive": 62,
+          "nesting": 2,
+          "lines": 170,
+          "maxCyclomatic": 14,
+          "entropy": 6.18
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/ai/public-chat-prompt.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:40:52.593Z",
+        "mi": 60.6,
+        "cognitive": 0,
+        "nesting": 1,
+        "lines": 20,
+        "maxCyclomatic": 1,
+        "entropy": 3.55
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:40:52.593Z",
+          "mi": 60.6,
+          "cognitive": 0,
+          "nesting": 1,
+          "lines": 20,
+          "maxCyclomatic": 1,
+          "entropy": 3.55
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/ai/public-chat-ai.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:40:52.613Z",
+        "mi": 35.7,
+        "cognitive": 25,
+        "nesting": 3,
+        "lines": 93,
+        "maxCyclomatic": 7,
+        "entropy": 4.37
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:40:52.613Z",
+          "mi": 35.7,
+          "cognitive": 25,
+          "nesting": 3,
+          "lines": 93,
+          "maxCyclomatic": 7,
+          "entropy": 4.37
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/config/appsMarketingAssistantConfig.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:40:52.643Z",
+        "mi": 55.6,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 18,
+        "maxCyclomatic": 1,
+        "entropy": 2.98
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:40:52.643Z",
+          "mi": 55.6,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 18,
+          "maxCyclomatic": 1,
+          "entropy": 2.98
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/tests/build-response.test.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:41:00.701Z",
+        "mi": 24.5,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 215,
+        "maxCyclomatic": 1,
+        "entropy": 4.99
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:41:00.701Z",
+          "mi": 24.5,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 215,
+          "maxCyclomatic": 1,
+          "entropy": 4.99
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/types/lead-assistant.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:41:52.106Z",
+        "mi": 36.1,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 99,
+        "maxCyclomatic": 1,
+        "entropy": 5.06
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:41:52.106Z",
+          "mi": 36.1,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 99,
+          "maxCyclomatic": 1,
+          "entropy": 5.06
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/tests/detect-intent.test.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:47:10.216Z",
+        "mi": 48,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 35,
+        "maxCyclomatic": 1,
+        "entropy": 3.31
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:47:10.216Z",
+          "mi": 48,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 35,
+          "maxCyclomatic": 1,
+          "entropy": 3.31
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/modules/lead-assistant/core/suggested-actions.ts": {
+      "latest": {
+        "commit": "0a9eccc",
+        "timestamp": "2026-05-17T18:55:37.905Z",
+        "mi": 37.6,
+        "cognitive": 34,
+        "nesting": 2,
+        "lines": 81,
+        "maxCyclomatic": 10,
+        "entropy": 4.24
+      },
+      "history": [
+        {
+          "commit": "0a9eccc",
+          "timestamp": "2026-05-17T18:55:37.905Z",
+          "mi": 37.6,
+          "cognitive": 34,
+          "nesting": 2,
+          "lines": 81,
+          "maxCyclomatic": 10,
+          "entropy": 4.24
+        }
+      ],
+      "trend": "stable"
+    }
+  },
+  "capturedAt": "2026-05-17T18:55:42.911Z"
+}

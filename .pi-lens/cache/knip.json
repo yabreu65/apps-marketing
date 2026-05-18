@@ -1,0 +1,518 @@
+{
+  "success": true,
+  "issues": [
+    {
+      "type": "file",
+      "name": "scripts/eval-public-chat-blind.ts",
+      "file": "scripts/eval-public-chat-blind.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/benefits.ts",
+      "file": "src/data/benefits.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/chat.ts",
+      "file": "src/data/chat.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/offer-packages.ts",
+      "file": "src/data/offer-packages.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/process.ts",
+      "file": "src/data/process.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/site.ts",
+      "file": "src/data/site.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/use-cases.ts",
+      "file": "src/data/use-cases.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/types/chat.ts",
+      "file": "src/types/chat.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/components/chat/InternalChatWidget.tsx",
+      "file": "src/components/chat/InternalChatWidget.tsx"
+    },
+    {
+      "type": "file",
+      "name": "src/components/sections/BenefitsSection.tsx",
+      "file": "src/components/sections/BenefitsSection.tsx"
+    },
+    {
+      "type": "file",
+      "name": "src/components/sections/OfferPackagesSection.tsx",
+      "file": "src/components/sections/OfferPackagesSection.tsx"
+    },
+    {
+      "type": "file",
+      "name": "src/components/sections/UseCasesSection.tsx",
+      "file": "src/components/sections/UseCasesSection.tsx"
+    },
+    {
+      "type": "dependency",
+      "name": "gentle-pi",
+      "file": "package.json",
+      "line": 23
+    },
+    {
+      "type": "devDependency",
+      "name": "eslint-config-next",
+      "file": "package.json",
+      "line": 36
+    },
+    {
+      "type": "unlisted",
+      "name": "dotenv",
+      "file": "scripts/seed-local-demo-data.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "getProjectRoot",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 42
+    },
+    {
+      "type": "export",
+      "name": "computeSha256",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 163
+    },
+    {
+      "type": "export",
+      "name": "streamFileToCommandCapture",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 377
+    },
+    {
+      "type": "unlisted",
+      "name": "dotenv",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 1
+    },
+    {
+      "type": "unlisted",
+      "name": "@eslint/eslintrc",
+      "file": "eslint.config.mjs",
+      "line": 1
+    },
+    {
+      "type": "unlisted",
+      "name": "dotenv",
+      "file": "prisma.config.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "getInternalDashboardPassword",
+      "file": "src/lib/internal-auth.ts",
+      "line": 7
+    },
+    {
+      "type": "export",
+      "name": "isValidInternalRedirect",
+      "file": "src/lib/internal-auth.ts",
+      "line": 25
+    },
+    {
+      "type": "export",
+      "name": "__private__parseSuggestionForTests",
+      "file": "src/lib/lead-reply-suggestion-ai.ts",
+      "line": 172
+    },
+    {
+      "type": "export",
+      "name": "LOGIN_RATE_LIMIT_RULES",
+      "file": "src/lib/login-rate-limit.ts",
+      "line": 79
+    },
+    {
+      "type": "export",
+      "name": "PUBLIC_ASSISTANT_INTENTS",
+      "file": "src/modules/lead-assistant/types/lead-assistant.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "PublicAssistantRole",
+      "file": "src/modules/lead-assistant/types/lead-assistant.ts",
+      "line": 16
+    },
+    {
+      "type": "export",
+      "name": "PublicAssistantQuickReply",
+      "file": "src/modules/lead-assistant/types/lead-assistant.ts",
+      "line": 102
+    },
+    {
+      "type": "export",
+      "name": "SENSITIVE_DATA_PATTERNS",
+      "file": "src/modules/lead-assistant/core/safety-rules.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "LeadSummaryPriority",
+      "file": "src/lib/lead-summary.ts",
+      "line": 12
+    },
+    {
+      "type": "export",
+      "name": "LeadSource",
+      "file": "src/types/lead.ts",
+      "line": 13
+    },
+    {
+      "type": "export",
+      "name": "LeadStatus",
+      "file": "src/types/lead.ts",
+      "line": 15
+    },
+    {
+      "type": "export",
+      "name": "LeadNote",
+      "file": "src/types/lead.ts",
+      "line": 40
+    },
+    {
+      "type": "export",
+      "name": "LeadStatusHistoryItem",
+      "file": "src/types/lead.ts",
+      "line": 48
+    },
+    {
+      "type": "export",
+      "name": "DiagnosisOption",
+      "file": "src/types/diagnosis.ts",
+      "line": 10
+    },
+    {
+      "type": "export",
+      "name": "LeadConversationChannel",
+      "file": "src/types/lead-conversation.ts",
+      "line": 5
+    },
+    {
+      "type": "export",
+      "name": "LeadReplySuggestionLeadContext",
+      "file": "src/types/lead-reply-suggestion.ts",
+      "line": 15
+    },
+    {
+      "type": "export",
+      "name": "NavItem",
+      "file": "src/types/site.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "OfferPackageItem",
+      "file": "src/types/site.ts",
+      "line": 23
+    },
+    {
+      "type": "export",
+      "name": "UseCaseItem",
+      "file": "src/types/site.ts",
+      "line": 33
+    },
+    {
+      "type": "export",
+      "name": "BenefitItem",
+      "file": "src/types/site.ts",
+      "line": 40
+    },
+    {
+      "type": "export",
+      "name": "ProcessStep",
+      "file": "src/types/site.ts",
+      "line": 46
+    },
+    {
+      "type": "export",
+      "name": "ContactOption",
+      "file": "src/types/site.ts",
+      "line": 52
+    },
+    {
+      "type": "export",
+      "name": "SiteMetadata",
+      "file": "src/types/site.ts",
+      "line": 58
+    }
+  ],
+  "unusedExports": [
+    {
+      "type": "export",
+      "name": "getProjectRoot",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 42
+    },
+    {
+      "type": "export",
+      "name": "computeSha256",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 163
+    },
+    {
+      "type": "export",
+      "name": "streamFileToCommandCapture",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 377
+    },
+    {
+      "type": "export",
+      "name": "getInternalDashboardPassword",
+      "file": "src/lib/internal-auth.ts",
+      "line": 7
+    },
+    {
+      "type": "export",
+      "name": "isValidInternalRedirect",
+      "file": "src/lib/internal-auth.ts",
+      "line": 25
+    },
+    {
+      "type": "export",
+      "name": "__private__parseSuggestionForTests",
+      "file": "src/lib/lead-reply-suggestion-ai.ts",
+      "line": 172
+    },
+    {
+      "type": "export",
+      "name": "LOGIN_RATE_LIMIT_RULES",
+      "file": "src/lib/login-rate-limit.ts",
+      "line": 79
+    },
+    {
+      "type": "export",
+      "name": "PUBLIC_ASSISTANT_INTENTS",
+      "file": "src/modules/lead-assistant/types/lead-assistant.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "PublicAssistantRole",
+      "file": "src/modules/lead-assistant/types/lead-assistant.ts",
+      "line": 16
+    },
+    {
+      "type": "export",
+      "name": "PublicAssistantQuickReply",
+      "file": "src/modules/lead-assistant/types/lead-assistant.ts",
+      "line": 102
+    },
+    {
+      "type": "export",
+      "name": "SENSITIVE_DATA_PATTERNS",
+      "file": "src/modules/lead-assistant/core/safety-rules.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "LeadSummaryPriority",
+      "file": "src/lib/lead-summary.ts",
+      "line": 12
+    },
+    {
+      "type": "export",
+      "name": "LeadSource",
+      "file": "src/types/lead.ts",
+      "line": 13
+    },
+    {
+      "type": "export",
+      "name": "LeadStatus",
+      "file": "src/types/lead.ts",
+      "line": 15
+    },
+    {
+      "type": "export",
+      "name": "LeadNote",
+      "file": "src/types/lead.ts",
+      "line": 40
+    },
+    {
+      "type": "export",
+      "name": "LeadStatusHistoryItem",
+      "file": "src/types/lead.ts",
+      "line": 48
+    },
+    {
+      "type": "export",
+      "name": "DiagnosisOption",
+      "file": "src/types/diagnosis.ts",
+      "line": 10
+    },
+    {
+      "type": "export",
+      "name": "LeadConversationChannel",
+      "file": "src/types/lead-conversation.ts",
+      "line": 5
+    },
+    {
+      "type": "export",
+      "name": "LeadReplySuggestionLeadContext",
+      "file": "src/types/lead-reply-suggestion.ts",
+      "line": 15
+    },
+    {
+      "type": "export",
+      "name": "NavItem",
+      "file": "src/types/site.ts",
+      "line": 1
+    },
+    {
+      "type": "export",
+      "name": "OfferPackageItem",
+      "file": "src/types/site.ts",
+      "line": 23
+    },
+    {
+      "type": "export",
+      "name": "UseCaseItem",
+      "file": "src/types/site.ts",
+      "line": 33
+    },
+    {
+      "type": "export",
+      "name": "BenefitItem",
+      "file": "src/types/site.ts",
+      "line": 40
+    },
+    {
+      "type": "export",
+      "name": "ProcessStep",
+      "file": "src/types/site.ts",
+      "line": 46
+    },
+    {
+      "type": "export",
+      "name": "ContactOption",
+      "file": "src/types/site.ts",
+      "line": 52
+    },
+    {
+      "type": "export",
+      "name": "SiteMetadata",
+      "file": "src/types/site.ts",
+      "line": 58
+    }
+  ],
+  "unusedFiles": [
+    {
+      "type": "file",
+      "name": "scripts/eval-public-chat-blind.ts",
+      "file": "scripts/eval-public-chat-blind.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/benefits.ts",
+      "file": "src/data/benefits.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/chat.ts",
+      "file": "src/data/chat.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/offer-packages.ts",
+      "file": "src/data/offer-packages.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/process.ts",
+      "file": "src/data/process.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/site.ts",
+      "file": "src/data/site.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/data/use-cases.ts",
+      "file": "src/data/use-cases.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/types/chat.ts",
+      "file": "src/types/chat.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/components/chat/InternalChatWidget.tsx",
+      "file": "src/components/chat/InternalChatWidget.tsx"
+    },
+    {
+      "type": "file",
+      "name": "src/components/sections/BenefitsSection.tsx",
+      "file": "src/components/sections/BenefitsSection.tsx"
+    },
+    {
+      "type": "file",
+      "name": "src/components/sections/OfferPackagesSection.tsx",
+      "file": "src/components/sections/OfferPackagesSection.tsx"
+    },
+    {
+      "type": "file",
+      "name": "src/components/sections/UseCasesSection.tsx",
+      "file": "src/components/sections/UseCasesSection.tsx"
+    }
+  ],
+  "unusedDeps": [
+    {
+      "type": "dependency",
+      "name": "gentle-pi",
+      "file": "package.json",
+      "line": 23
+    },
+    {
+      "type": "devDependency",
+      "name": "eslint-config-next",
+      "file": "package.json",
+      "line": 36
+    }
+  ],
+  "unlistedDeps": [
+    {
+      "type": "unlisted",
+      "name": "dotenv",
+      "file": "scripts/seed-local-demo-data.ts",
+      "line": 1
+    },
+    {
+      "type": "unlisted",
+      "name": "dotenv",
+      "file": "scripts/db/local-db-utils.ts",
+      "line": 1
+    },
+    {
+      "type": "unlisted",
+      "name": "@eslint/eslintrc",
+      "file": "eslint.config.mjs",
+      "line": 1
+    },
+    {
+      "type": "unlisted",
+      "name": "dotenv",
+      "file": "prisma.config.ts",
+      "line": 1
+    }
+  ],
+  "summary": "Found 44 issues"
+}

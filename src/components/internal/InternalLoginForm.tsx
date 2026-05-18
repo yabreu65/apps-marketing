@@ -50,7 +50,7 @@ export function InternalLoginForm({ redirect }: InternalLoginFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-6">
       <div>
         <label htmlFor="internal-password" className="mb-1 block text-sm font-medium text-slate-200">
           Contraseña interna

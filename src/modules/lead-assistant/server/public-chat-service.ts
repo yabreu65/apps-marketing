@@ -1,10 +1,15 @@
 import { Prisma } from '@prisma/client';
 
 import { appsMarketingAssistantConfig } from '@/modules/lead-assistant/config/appsMarketingAssistantConfig';
-import { buildPublicLeadReplyWithOptionalAI } from '@/modules/lead-assistant/ai/public-chat-ai';
+import { resolvePublicSalesAgentReply } from '@/modules/lead-assistant/agent/public-sales-agent';
 import { buildPublicLeadAssistantResponse } from '@/modules/lead-assistant/core/build-response';
+import { determinePublicAssistantConversationStage } from '@/modules/lead-assistant/core/conversation-stage';
 import { detectLeadAssistantIntent } from '@/modules/lead-assistant/core/detect-intent';
-import { buildPublicAssistantMemorySummary } from '@/modules/lead-assistant/core/memory-summary';
+import { buildPublicChatDecision } from '@/modules/lead-assistant/core/public-chat-decision';
+import {
+  buildPublicAssistantMemorySummary,
+  parsePublicAssistantMemoryFacts,
+} from '@/modules/lead-assistant/core/memory-summary';
 import {
   containsSensitiveData,
   getSensitiveDataWarning,
@@ -31,10 +36,15 @@ function mapMemoryFromDb(memory: {
     ? (memory.interests.filter((value): value is string => typeof value === 'string') as PublicAssistantMemory['interests'])
     : [];
 
+  const summary = memory.summary ?? '';
+  const stageMatch = summary.match(/Etapa:\s*(first_contact|diagnosis|recommendation|objection|handoff)/);
+
   return {
-    summary: memory.summary ?? '',
+    summary,
     interests,
     lastTopic: memory.lastTopic ?? '',
+    conversationStage: stageMatch?.[1] as PublicAssistantMemory['conversationStage'],
+    facts: parsePublicAssistantMemoryFacts(summary),
     updatedAt: memory.updatedAt.toISOString(),
   };
 }
@@ -51,7 +61,11 @@ function mapStateFromDb(params: {
 }): PublicAssistantState {
   const mappedMessages: PublicAssistantMessage[] = params.messages
     .slice()
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+    .sort((a, b) => {
+      const byDate = a.createdAt.getTime() - b.createdAt.getTime();
+      if (byDate !== 0) return byDate;
+      return a.id.localeCompare(b.id);
+    })
     .map((message) => ({
       id: message.id,
       role: message.role === 'assistant' ? 'assistant' : 'visitor',
@@ -76,7 +90,7 @@ async function getOrCreateVisitorWithSession(visitorKey: string) {
 
   const existingSession = await prisma.publicChatSession.findFirst({
     where: { visitorId: visitor.id },
-    orderBy: { createdAt: 'desc' },
+    orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
     select: { id: true },
   });
 
@@ -117,7 +131,7 @@ export async function getPublicChatStateByVisitorKey(visitorKey: string): Promis
     }),
     prisma.publicChatMessage.findMany({
       where: { sessionId },
-      orderBy: { createdAt: 'desc' },
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
       take: 60,
       select: {
         id: true,
@@ -154,11 +168,12 @@ export async function processPersistentPublicChatTurn(
       ctas: [],
     };
 
-    await prisma.publicChatMessage.createMany({
-      data: [
-        { sessionId, role: 'visitor', content: sanitizedInput },
-        { sessionId, role: 'assistant', content: warningReply.text },
-      ],
+    await prisma.publicChatMessage.create({
+      data: { sessionId, role: 'visitor', content: sanitizedInput },
+    });
+
+    await prisma.publicChatMessage.create({
+      data: { sessionId, role: 'assistant', content: warningReply.text },
     });
 
     const state = await getPublicChatStateByVisitorKey(visitorKey);
@@ -166,34 +181,51 @@ export async function processPersistentPublicChatTurn(
   }
 
   const detectedIntent = detectLeadAssistantIntent(sanitizedInput);
+  const conversationStage = determinePublicAssistantConversationStage({
+    visitorMessage: sanitizedInput,
+    detectedIntent,
+    memory: currentState.memory,
+    previousVisitorMessages: currentState.messages.filter((message) => message.role === 'visitor').length,
+  });
 
   const baseReply = buildPublicLeadAssistantResponse(
     {
       visitorMessage: sanitizedInput,
       detectedIntent,
       memory: currentState.memory,
+      conversationStage,
     },
     appsMarketingAssistantConfig,
   );
 
-  const resolvedReply = await buildPublicLeadReplyWithOptionalAI(
-    {
-      visitorMessage: sanitizedInput,
-      detectedIntent: detectedIntent.intent,
-      memorySummary: currentState.memory?.summary,
-    },
+  const decision = buildPublicChatDecision({
+    visitorMessage: sanitizedInput,
+    detectedIntent,
+    memory: currentState.memory,
+    conversationStage,
     baseReply,
-  );
+  });
+
+  const resolvedReply = await resolvePublicSalesAgentReply({
+    visitorKey,
+    message: sanitizedInput,
+    decision,
+    memory: currentState.memory,
+    messages: currentState.messages,
+    baseReply,
+  });
 
   await prisma.$transaction(async (tx) => {
-    await tx.publicChatMessage.createMany({
-      data: [
-        { sessionId, role: 'visitor', content: sanitizedInput },
-        { sessionId, role: 'assistant', content: resolvedReply.reply.text },
-      ],
+    await tx.publicChatMessage.create({
+      data: { sessionId, role: 'visitor', content: sanitizedInput },
+    });
+
+    await tx.publicChatMessage.create({
+      data: { sessionId, role: 'assistant', content: resolvedReply.reply.text },
     });
 
     const syntheticMessages: PublicAssistantMessage[] = [
+      ...currentState.messages,
       {
         id: `visitor-${Date.now()}`,
         role: 'visitor',
@@ -207,13 +239,13 @@ export async function processPersistentPublicChatTurn(
         intent: resolvedReply.reply.intent,
         createdAt: new Date().toISOString(),
       },
-      ...currentState.messages,
     ];
 
     const nextMemory = buildPublicAssistantMemorySummary(
       currentState.memory,
       syntheticMessages,
       detectedIntent.intent,
+      conversationStage,
     );
 
     await tx.publicVisitorMemory.upsert({

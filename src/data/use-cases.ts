@@ -5,7 +5,7 @@ export const useCases: UseCaseItem[] = [
     id: 'landing-capture',
     title: 'Captar más consultas con una landing comercial',
     audience: 'Negocios y profesionales que necesitan validar mensaje y oferta',
-    outcome: 'Convertir visitas en contactos con un flujo claro de CTA y formulario.',
+    outcome: 'Convertir visitas en contactos con un flujo claro de contacto y formulario.',
   },
   {
     id: 'professional-web',

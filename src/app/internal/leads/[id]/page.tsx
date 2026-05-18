@@ -100,9 +100,9 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
   if (!lead) {
     return (
-      <main className="min-h-screen bg-[#0B1020] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
-        <div className="mx-auto w-full max-w-3xl space-y-4 rounded-2xl border border-[#26324A] bg-[#111827] p-6 shadow-lg shadow-black/20">
-          <h1 className="text-2xl font-semibold text-[#FFFBF5]">Lead no encontrado</h1>
+      <main className="min-h-screen bg-[var(--bg-primary)] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-3xl space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-6 shadow-lg shadow-black/20">
+          <h1 className="text-2xl font-semibold text-[var(--warm-white)]">Lead no encontrado</h1>
           <p className="text-sm text-slate-300">No existe un lead con ese ID en la base local.</p>
           <Link
             href="/internal/leads"
@@ -167,9 +167,9 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
   ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
   return (
-    <main className="min-h-screen bg-[#0B1020] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[var(--bg-primary)] px-4 py-10 text-slate-50 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-6xl space-y-6">
-        <header className="space-y-4 rounded-2xl border border-[#26324A] bg-[#111827] p-6 shadow-lg shadow-black/20">
+        <header className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-6 shadow-lg shadow-black/20">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Link
               href="/internal/leads"
@@ -183,7 +183,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="space-y-1">
               <p className="text-xs uppercase tracking-wide text-slate-400">Detalle de lead interno</p>
-              <h1 className="text-2xl font-semibold tracking-tight text-[#FFFBF5] sm:text-3xl">{lead.name}</h1>
+              <h1 className="text-2xl font-semibold tracking-tight text-[var(--warm-white)] sm:text-3xl">{lead.name}</h1>
             </div>
 
             <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${getLeadStatusBadgeClass(lead.status)}`}>
@@ -192,9 +192,9 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           </div>
 
           <div className="grid gap-2 text-sm text-slate-300 sm:grid-cols-3">
-            <p className="rounded-lg border border-[#26324A] bg-[#151B2E] px-3 py-2">Fuente: {formatLeadSource(lead.source)}</p>
-            <p className="rounded-lg border border-[#26324A] bg-[#151B2E] px-3 py-2">Recibido: {formatDateTime(lead.createdAt)}</p>
-            <p className="rounded-lg border border-[#26324A] bg-[#151B2E] px-3 py-2">Actualizado: {formatDateTime(lead.updatedAt)}</p>
+            <p className="rounded-lg border border-[var(--border-subtle)] bg-[var(--card-bg)] px-3 py-2">Fuente: {formatLeadSource(lead.source)}</p>
+            <p className="rounded-lg border border-[var(--border-subtle)] bg-[var(--card-bg)] px-3 py-2">Recibido: {formatDateTime(lead.createdAt)}</p>
+            <p className="rounded-lg border border-[var(--border-subtle)] bg-[var(--card-bg)] px-3 py-2">Actualizado: {formatDateTime(lead.updatedAt)}</p>
           </div>
 
           <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-100 sm:text-sm">
@@ -203,7 +203,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
         </header>
 
         <section className="grid gap-6 xl:grid-cols-[1.3fr_0.9fr]">
-          <article className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+          <article className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-6">
             <h2 className="text-lg font-semibold text-slate-100">Datos principales</h2>
 
             <dl className="grid gap-4 text-sm sm:grid-cols-2">
@@ -241,7 +241,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               </div>
               <div className="sm:col-span-2">
                 <dt className="font-medium text-slate-200">Mensaje</dt>
-                <dd className="mt-1 whitespace-pre-wrap break-words rounded-lg border border-[#26324A] bg-[#111827] p-3 text-slate-300">
+                <dd className="mt-1 whitespace-pre-wrap break-words rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3 text-slate-300">
                   {displayValue(lead.message)}
                 </dd>
               </div>
@@ -273,14 +273,14 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
         <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <LeadNotesPanel leadId={lead.id} notes={lead.notes} />
 
-          <section className="space-y-4 rounded-2xl border border-[#26324A] bg-[#151B2E] p-6">
+          <section className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-6">
             <h2 className="text-lg font-semibold text-slate-100">Actividad reciente</h2>
             {timeline.length === 0 ? (
               <p className="text-sm text-slate-300">Todavía no hay actividad registrada para este lead.</p>
             ) : (
               <div className="space-y-3">
                 {timeline.map((item) => (
-                  <article key={item.id} className="rounded-xl border border-[#26324A] bg-[#111827] p-3">
+                  <article key={item.id} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-2">
                         <span

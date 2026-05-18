@@ -1,0 +1,144 @@
+{
+  "success": true,
+  "clones": [
+    {
+      "fileA": "src/app/api/admin/leads/[id]/summary/route.ts",
+      "startA": 6,
+      "fileB": "src/app/api/admin/leads/[id]/conversation/suggestion/route.ts",
+      "startB": 11,
+      "lines": 18,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/api/admin/leads/[id]/status/route.ts",
+      "startA": 11,
+      "fileB": "src/app/api/admin/leads/[id]/conversation/suggestion/route.ts",
+      "startB": 11,
+      "lines": 15,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/api/admin/leads/[id]/notes/route.ts",
+      "startA": 39,
+      "fileB": "src/app/api/admin/leads/[id]/conversation/suggestion/route.ts",
+      "startB": 11,
+      "lines": 15,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/api/admin/leads/[id]/conversation/route.ts",
+      "startA": 11,
+      "fileB": "src/app/api/admin/leads/[id]/notes/route.ts",
+      "startB": 11,
+      "lines": 11,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/api/admin/leads/[id]/conversation/route.ts",
+      "startA": 37,
+      "fileB": "src/app/api/admin/leads/[id]/notes/route.ts",
+      "startB": 35,
+      "lines": 19,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/api/admin/leads/[id]/conversation/route.ts",
+      "startA": 67,
+      "fileB": "src/app/api/admin/leads/[id]/notes/route.ts",
+      "startB": 57,
+      "lines": 10,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/api/public/chat/route.ts",
+      "startA": 13,
+      "fileB": "src/app/api/public/chat/memory/route.ts",
+      "startB": 13,
+      "lines": 8,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/app/internal/leads/page.tsx",
+      "startA": 366,
+      "fileB": "src/app/internal/leads/page.tsx",
+      "startB": 341,
+      "lines": 23,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/components/sections/HeroSection.tsx",
+      "startA": 220,
+      "fileB": "src/components/sections/ProductShowcaseSection.tsx",
+      "startB": 147,
+      "lines": 11,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/components/internal/LeadNotesPanel.tsx",
+      "startA": 37,
+      "fileB": "src/components/internal/LeadStatusUpdater.tsx",
+      "startB": 41,
+      "lines": 7,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/components/internal/LeadConversationPanel.tsx",
+      "startA": 269,
+      "fileB": "src/components/internal/LeadNotesPanel.tsx",
+      "startB": 68,
+      "lines": 13,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/lib/lead-summary-ai.ts",
+      "startA": 60,
+      "fileB": "src/lib/lead-summary-ai.ts",
+      "startB": 51,
+      "lines": 10,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/lib/lead-reply-suggestion-ai.ts",
+      "startA": 32,
+      "fileB": "src/lib/ai/ollama-provider.ts",
+      "startB": 29,
+      "lines": 17,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/lib/lead-reply-suggestion-ai.ts",
+      "startA": 76,
+      "fileB": "src/lib/ai/ollama-provider.ts",
+      "startB": 71,
+      "lines": 8,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/lib/lead-reply-suggestion-ai.ts",
+      "startA": 84,
+      "fileB": "src/lib/ai/ollama-provider.ts",
+      "startB": 80,
+      "lines": 12,
+      "tokens": 0
+    },
+    {
+      "fileA": "scripts/db/local-db-utils.ts",
+      "startA": 397,
+      "fileB": "scripts/db/local-db-utils.ts",
+      "startB": 357,
+      "lines": 12,
+      "tokens": 0
+    },
+    {
+      "fileA": "scripts/db/local-backup.ts",
+      "startA": 28,
+      "fileB": "scripts/db/local-reset.ts",
+      "startB": 26,
+      "lines": 32,
+      "tokens": 0
+    }
+  ],
+  "duplicatedLines": 224,
+  "totalLines": 13833,
+  "percentage": 1.62
+}

@@ -375,7 +375,7 @@ export function ContactFormSection() {
 								maxLength={1000}
 								id="message"
 								name="message"
-								rows={5}
+								rows={4}
 								value={values.message}
 								onChange={(e) => handleChange("message", e.target.value)}
 								placeholder="Ej: Quiero lanzar una web, ordenar procesos internos o validar un MVP SaaS para mi negocio."

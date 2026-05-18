@@ -10,7 +10,7 @@ type AgentJsonResponse = {
 
 export function getLeadAgentConfig() {
   const enabled = (process.env.LEAD_AGENT_ENABLED ?? 'false').trim().toLowerCase() === 'true';
-  const provider = (process.env.LEAD_AGENT_PROVIDER ?? 'ollama').trim().toLowerCase();
+  const provider = (process.env.LEAD_AGENT_PROVIDER ?? 'rules').trim().toLowerCase();
   const baseUrl = (process.env.OLLAMA_BASE_URL ?? DEFAULT_OLLAMA_BASE_URL).trim();
   const model = (process.env.OLLAMA_MODEL ?? DEFAULT_OLLAMA_MODEL).trim();
   const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? DEFAULT_TIMEOUT_MS);

@@ -25,15 +25,27 @@ import type {
 	PublicMemoryApiResponse,
 } from "@/modules/lead-assistant/types/lead-assistant";
 
-
-function inferPublicDataPoints(params: { latestVisitorMessage: string | null; memorySummary: string | null }) {
-	const message = (params.latestVisitorMessage ?? '').toLowerCase();
-	const summary = (params.memorySummary ?? '').toLowerCase();
+function inferPublicDataPoints(params: {
+	latestVisitorMessage: string | null;
+	memorySummary: string | null;
+}) {
+	const message = (params.latestVisitorMessage ?? "").toLowerCase();
+	const summary = (params.memorySummary ?? "").toLowerCase();
 	const text = `${message} ${summary}`;
 	let points = 0;
-	if (/(ropa|zapatos|farmacia|restaurante|peluquer[ií]a|consultorio|tienda|negocio|servicio)/i.test(text)) points += 1;
+	if (
+		/(ropa|zapatos|farmacia|restaurante|peluquer[ií]a|consultorio|tienda|negocio|servicio)/i.test(
+			text,
+		)
+	)
+		points += 1;
 	if (/(instagram|whatsapp|local|web|formulario|carrito)/i.test(text)) points += 1;
-	if (/(pierdo|desorden|consultas|objetivo|captar|presupuesto|precio|propuesta|urgente|r[aá]pido)/i.test(text)) points += 1;
+	if (
+		/(pierdo|desorden|consultas|objetivo|captar|presupuesto|precio|propuesta|urgente|r[aá]pido)/i.test(
+			text,
+		)
+	)
+		points += 1;
 	return points;
 }
 
@@ -44,12 +56,18 @@ function shouldShowPublicHandoff(params: {
 	visitorTurns: number;
 }) {
 	if (!params.lastReply) return false;
-	const message = (params.latestVisitorMessage ?? '').toLowerCase();
-	const highIntent = /(quiero avanzar|presupuesto|precio|propuesta|contacten|me interesa|quiero contratar|c[oó]mo seguimos|urgente|pasame info|pierdo muchas consultas|no puedo responder)/i.test(message);
-	const dataPoints = inferPublicDataPoints({ latestVisitorMessage: params.latestVisitorMessage, memorySummary: params.memorySummary });
+	const message = (params.latestVisitorMessage ?? "").toLowerCase();
+	const highIntent =
+		/(quiero avanzar|presupuesto|precio|propuesta|contacten|me interesa|quiero contratar|c[oó]mo seguimos|urgente|pasame info|pierdo muchas consultas|no puedo responder)/i.test(
+			message,
+		);
+	const dataPoints = inferPublicDataPoints({
+		latestVisitorMessage: params.latestVisitorMessage,
+		memorySummary: params.memorySummary,
+	});
 	if (highIntent) return true;
 	if (params.visitorTurns < 2) return false;
-	return dataPoints >= 2 && params.lastReply.intent !== 'not_sure';
+	return dataPoints >= 2 && params.lastReply.intent !== "not_sure";
 }
 
 export function PublicLeadAssistantWidget() {
@@ -63,6 +81,8 @@ export function PublicLeadAssistantWidget() {
 	const [lastReply, setLastReply] = useState<PublicAssistantReply | null>(null);
 	const [isCopySuccess, setIsCopySuccess] = useState(false);
 	const [isHandoffExpanded, setIsHandoffExpanded] = useState(false);
+	const [hideTriggerNearCloseSections, setHideTriggerNearCloseSections] =
+		useState(false);
 	const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
@@ -71,8 +91,12 @@ export function PublicLeadAssistantWidget() {
 			setVisitorKey(key);
 
 			try {
-				const response = await fetch(`/api/public/chat?visitorKey=${encodeURIComponent(key)}`);
-				const data = (await response.json().catch(() => null)) as PublicChatApiResponse | null;
+				const response = await fetch(
+					`/api/public/chat?visitorKey=${encodeURIComponent(key)}`,
+				);
+				const data = (await response.json().catch(() => null)) as
+					| PublicChatApiResponse
+					| null;
 
 				if (!response.ok || !data?.ok || !data.state) {
 					setState(createFallbackState(key, config.greeting));
@@ -88,9 +112,31 @@ export function PublicLeadAssistantWidget() {
 		void bootstrap();
 	}, [config.greeting]);
 
+	useEffect(() => {
+		const contactSection = document.getElementById("contact-form");
+		const finalSection = document.getElementById("contacto");
+		if (!contactSection && !finalSection) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const isNearCloseArea = entries.some((entry) => entry.isIntersecting);
+				setHideTriggerNearCloseSections(isNearCloseArea);
+			},
+			{ threshold: 0.2 },
+		);
+
+		if (contactSection) observer.observe(contactSection);
+		if (finalSection) observer.observe(finalSection);
+
+		return () => observer.disconnect();
+	}, []);
+
 	const quickReplies = config.quickReplies;
 	const messages = useMemo(() => state?.messages ?? [], [state]);
-	const latestVisitorMessage = useMemo(() => getLatestVisitorMessage(messages), [messages]);
+	const latestVisitorMessage = useMemo(
+		() => getLatestVisitorMessage(messages),
+		[messages],
+	);
 	const handoffSummary = useMemo(() => {
 		if (!lastReply || !state) return null;
 		return buildPublicLeadHandoffSummary({
@@ -99,25 +145,41 @@ export function PublicLeadAssistantWidget() {
 			latestVisitorMessage,
 		});
 	}, [lastReply, latestVisitorMessage, state]);
-	const handoffSummaryText = useMemo(() => (handoffSummary ? formatPublicLeadHandoffSummary(handoffSummary) : ""), [handoffSummary]);
+	const handoffSummaryText = useMemo(
+		() => (handoffSummary ? formatPublicLeadHandoffSummary(handoffSummary) : ""),
+		[handoffSummary],
+	);
 	const handoffWhatsAppHref = useMemo(() => {
 		if (!handoffSummary) return null;
-		return buildWhatsAppLink(config.whatsappNumber, buildPublicLeadHandoffWhatsAppMessage(handoffSummary));
+		return buildWhatsAppLink(
+			config.whatsappNumber,
+			buildPublicLeadHandoffWhatsAppMessage(handoffSummary),
+		);
 	}, [config.whatsappNumber, handoffSummary]);
 
-	const hasUserMessage = useMemo(() => messages.some((message) => message.role === "visitor"), [messages]);
+	const hasUserMessage = useMemo(
+		() => messages.some((message) => message.role === "visitor"),
+		[messages],
+	);
 	const showQuickReplies = !hasUserMessage;
-	const visitorTurns = useMemo(() => messages.filter((message) => message.role === "visitor").length, [messages]);
-	const prioritizedCtas = useMemo(() => prioritizeAssistantCtas(lastReply?.ctas ?? []), [lastReply?.ctas]);
+	const visitorTurns = useMemo(
+		() => messages.filter((message) => message.role === "visitor").length,
+		[messages],
+	);
+	const prioritizedCtas = useMemo(
+		() => prioritizeAssistantCtas(lastReply?.ctas ?? []),
+		[lastReply?.ctas],
+	);
 	const primaryFormCta = prioritizedCtas[0] ?? null;
 	const secondaryWhatsAppCta = prioritizedCtas[1] ?? null;
-	const showHandoffCtas = useMemo(() =>
-		shouldShowPublicHandoff({
-			lastReply,
-			latestVisitorMessage,
-			memorySummary: state?.memory?.summary ?? null,
-			visitorTurns,
-		}),
+	const showHandoffCtas = useMemo(
+		() =>
+			shouldShowPublicHandoff({
+				lastReply,
+				latestVisitorMessage,
+				memorySummary: state?.memory?.summary ?? null,
+				visitorTurns,
+			}),
 		[lastReply, latestVisitorMessage, state?.memory?.summary, visitorTurns],
 	);
 
@@ -201,7 +263,9 @@ export function PublicLeadAssistantWidget() {
 				body: JSON.stringify({ visitorKey: state.visitorKey, message: content }),
 			});
 
-			const data = (await response.json().catch(() => null)) as PublicChatApiResponse | null;
+			const data = (await response.json().catch(() => null)) as
+				| PublicChatApiResponse
+				| null;
 			if (!response.ok || !data?.ok || !data.state || !data.reply) {
 				applyLocalFallbackReply();
 				return;
@@ -221,11 +285,19 @@ export function PublicLeadAssistantWidget() {
 		setError(null);
 
 		try {
-			const response = await fetch(`/api/public/chat/memory?visitorKey=${encodeURIComponent(visitorKey)}`, { method: "DELETE" });
-			const data = (await response.json().catch(() => null)) as PublicMemoryApiResponse | null;
+			const response = await fetch(
+				`/api/public/chat/memory?visitorKey=${encodeURIComponent(visitorKey)}`,
+				{ method: "DELETE" },
+			);
+			const data = (await response.json().catch(() => null)) as
+				| PublicMemoryApiResponse
+				| null;
 
 			if (!response.ok || !data?.ok) {
-				setError(data?.message ?? "No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.");
+				setError(
+					data?.message ??
+						"No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.",
+				);
 				return;
 			}
 
@@ -236,7 +308,9 @@ export function PublicLeadAssistantWidget() {
 			setLastReply(null);
 			setIsHandoffExpanded(false);
 		} catch {
-			setError("No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.");
+			setError(
+				"No pudimos reiniciar el contexto ahora. Probá de nuevo en unos segundos.",
+			);
 		}
 	}
 
@@ -253,6 +327,7 @@ export function PublicLeadAssistantWidget() {
 
 	const composerDisabled = !state || isResponding;
 	const sendDisabled = composerDisabled || !input.trim();
+	const shouldHideTrigger = hideTriggerNearCloseSections && !isOpen;
 
 	return (
 		<div className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] right-3 z-40 sm:bottom-5 sm:right-5">
@@ -288,15 +363,20 @@ export function PublicLeadAssistantWidget() {
 					</div>
 				</header>
 
-				<div ref={messagesContainerRef} className="h-[calc(100%-152px)] overflow-y-auto bg-[#0B1020] px-3 py-3">
-
+				<div
+					ref={messagesContainerRef}
+					className="h-[calc(100%-152px)] overflow-y-auto bg-[#0B1020] px-3 py-3"
+				>
 					{messages.length === 0 && !isResponding ? (
 						<p className="mb-2.5 text-xs text-[#CBD5E1]">Todavía no hay mensajes.</p>
 					) : null}
 					{messages.map((message) => {
 						const isAssistant = message.role === "assistant";
 						return (
-							<div key={message.id} className={`mb-2.5 flex ${isAssistant ? "justify-start" : "justify-end"}`}>
+							<div
+								key={message.id}
+								className={`mb-2.5 flex ${isAssistant ? "justify-start" : "justify-end"}`}
+							>
 								<div
 									className={`max-w-[84%] whitespace-pre-wrap break-words rounded-2xl px-3 py-2 text-[13px] leading-relaxed ${
 										isAssistant
@@ -323,9 +403,13 @@ export function PublicLeadAssistantWidget() {
 
 					{showHandoffCtas && lastReply && handoffSummary ? (
 						<div className="mt-3 rounded-2xl border border-[#26324A] bg-[#111827] p-3">
-							<p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#CBD5E1]">Prioridad recomendada</p>
+							<p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#CBD5E1]">
+								Prioridad recomendada
+							</p>
 							<div className="mb-2 flex items-center justify-between gap-2">
-								<p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#CBD5E1]">Resumen</p>
+								<p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#CBD5E1]">
+									Resumen
+								</p>
 								<button
 									type="button"
 									onClick={() => setIsHandoffExpanded((previous) => !previous)}
@@ -335,7 +419,9 @@ export function PublicLeadAssistantWidget() {
 								</button>
 							</div>
 							{isHandoffExpanded ? (
-								<p className="mb-2 text-[11px] leading-relaxed text-[#CBD5E1]">{handoffSummaryText}</p>
+								<p className="mb-2 text-[11px] leading-relaxed text-[#CBD5E1]">
+									{handoffSummaryText}
+								</p>
 							) : null}
 							<div className="grid gap-2 sm:grid-cols-2">
 								<a
@@ -363,7 +449,9 @@ export function PublicLeadAssistantWidget() {
 							>
 								Completá el formulario
 							</a>
-							{isCopySuccess ? <p className="mt-2 text-[10px] text-emerald-300">Resumen copiado.</p> : null}
+							{isCopySuccess ? (
+								<p className="mt-2 text-[10px] text-emerald-300">Resumen copiado.</p>
+							) : null}
 						</div>
 					) : null}
 				</div>
@@ -451,7 +539,11 @@ export function PublicLeadAssistantWidget() {
 							return next;
 						});
 					}}
-					className="rounded-full border border-[#4C1D95]/40 bg-[#7C3AED] px-4 py-2 text-xs font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(124,58,237,0.35)] hover:bg-[#6D28D9]"
+					className={`rounded-full border border-[#4C1D95]/40 bg-[#7C3AED] px-3 py-2 text-[11px] font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(124,58,237,0.35)] transition hover:bg-[#6D28D9] sm:px-4 sm:text-xs ${
+						shouldHideTrigger
+							? "pointer-events-none translate-y-3 opacity-0"
+							: "opacity-100"
+					}`}
 					aria-expanded={isOpen}
 					aria-controls="public-lead-assistant-widget"
 				>

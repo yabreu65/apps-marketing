@@ -31,7 +31,7 @@ export function getLeadAssistantAIConfig(): OllamaClientConfig {
 
   return {
     enabled,
-    provider: (process.env.LEAD_ASSISTANT_AI_PROVIDER ?? 'ollama').trim().toLowerCase(),
+    provider: (process.env.LEAD_ASSISTANT_AI_PROVIDER ?? 'rules').trim().toLowerCase(),
     baseUrl: (process.env.OLLAMA_BASE_URL ?? DEFAULT_OLLAMA_BASE_URL).trim(),
     model: (process.env.OLLAMA_MODEL ?? DEFAULT_OLLAMA_MODEL).trim(),
     timeoutMs: resolveTimeoutMs(),

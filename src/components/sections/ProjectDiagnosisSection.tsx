@@ -18,19 +18,19 @@ type Answers = {
 function getNextAction(solution: RecommendedSolution): string {
   const nextActions: Record<RecommendedSolution, string> = {
     'Landing comercial':
-      'Siguiente paso: revisamos tu oferta, público objetivo y canal de captación para definir una landing clara y accionable.',
+      'Siguiente paso: revisamos tu oferta y canal de captación para definir una landing clara y accionable.',
     'Sitio web profesional':
-      'Siguiente paso: definimos las páginas clave, servicios y estructura de confianza que necesita tu negocio.',
+      'Siguiente paso: definimos páginas clave, servicios y estructura de confianza para tu negocio.',
     'Sistema web a medida':
-      'Siguiente paso: mapeamos tus procesos actuales para detectar qué se puede ordenar, medir o digitalizar.',
+      'Siguiente paso: mapeamos tus procesos actuales para ordenar y digitalizar lo que más impacto tenga.',
     'Dashboard / panel interno':
-      'Siguiente paso: identificamos qué datos necesitás ver y qué decisiones querés tomar más rápido.',
+      'Siguiente paso: identificamos qué datos necesitás ver para decidir más rápido.',
     'MVP SaaS':
-      'Siguiente paso: bajamos tu idea a un primer producto viable, con usuarios, problema y funcionalidades esenciales.',
+      'Siguiente paso: bajamos tu idea a una versión inicial con funcionalidades esenciales.',
     'Automatización comercial':
-      'Siguiente paso: revisamos tareas repetitivas, canales y datos antes de automatizar.',
+      'Siguiente paso: revisamos tareas repetitivas y flujo comercial antes de automatizar.',
     'IA aplicada al negocio (fase avanzada)':
-      'Siguiente paso: identificamos casos de uso concretos donde la IA pueda ayudar sin agregar complejidad innecesaria.',
+      'Siguiente paso: detectamos casos concretos donde IA sume valor real sin complejidad innecesaria.',
   };
 
   return nextActions[solution];
@@ -61,13 +61,14 @@ function getDiagnosis(answers: Answers): DiagnosisResult | null {
   return {
     recommendedSolution,
     rationale:
-      'Esta recomendación es orientativa. Podemos revisarla con vos según el contexto real de tu negocio y tus prioridades comerciales.',
+      'Esta recomendación es orientativa. Podemos revisarla según tu contexto real y prioridad comercial.',
     nextAction: nextActionOverride ?? getNextAction(recommendedSolution),
   };
 }
 
 export function ProjectDiagnosisSection() {
   const [answers, setAnswers] = useState<Answers>({});
+  const [mobileStep, setMobileStep] = useState(0);
 
   const result = useMemo(() => getDiagnosis(answers), [answers]);
 
@@ -95,18 +96,66 @@ export function ProjectDiagnosisSection() {
     return buildWhatsAppLink('+54 9 11 0000 0000', message);
   }, [result]);
 
+  const activeQuestion = diagnosisQuestions[mobileStep];
+  const activeValue = answers[activeQuestion.id as keyof Answers];
+  const canContinue = Boolean(activeValue);
+
   return (
-    <section id="project-diagnosis" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16">
+    <section id="project-diagnosis" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-12 sm:py-16">
       <div className="pointer-events-none absolute left-[-6rem] top-10 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[var(--purple-primary)]/18 blur-2xl sm:blur-3xl" />
       <div className="pointer-events-none absolute right-[-4rem] bottom-0 h-44 w-44 sm:h-72 sm:w-72 rounded-full bg-[var(--orange-cta)]/8 blur-2xl sm:blur-3xl" />
-      <Container className="relative z-10 space-y-8">
+      <Container className="relative z-10 space-y-6 sm:space-y-8">
         <SectionHeading
           eyebrow="Diagnóstico orientativo"
-          title="Si no sabés por dónde empezar, respondé 3 preguntas y te orientamos"
-          description="Respondé 3 preguntas y te recomendamos un primer paso claro."
+          title="Si no sabés por dónde empezar, respondé 3 preguntas"
+          description="Te recomendamos un primer paso claro según tu situación actual."
         />
 
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="space-y-4 lg:hidden">
+          <Card className="p-4">
+            <p className="mb-2 text-xs text-[var(--text-soft)]">Paso {mobileStep + 1} de {diagnosisQuestions.length}</p>
+            <h3 className="text-sm font-semibold text-[var(--warm-white)]">{activeQuestion.title}</h3>
+            <div className="mt-3 flex flex-col gap-1.5">
+              {activeQuestion.options.map((option) => {
+                const isSelected = answers[activeQuestion.id as keyof Answers] === option.value;
+                return (
+                  <button
+                    key={option.id}
+                    type="button"
+                    onClick={() => setAnswers((prev) => ({ ...prev, [activeQuestion.id]: option.value }))}
+                    className={`rounded-md border px-3 py-2 text-left text-sm transition ${
+                      isSelected
+                        ? 'border-[var(--orange-cta)] bg-[var(--orange-cta)]/15 text-[var(--warm-white)]'
+                        : 'border-[var(--purple-soft)]/20 bg-[var(--bg-primary)]/70 text-[var(--text-secondary)] hover:border-[var(--purple-primary)]/50 hover:bg-[var(--purple-primary)]/10'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-3 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={() => setMobileStep((prev) => Math.max(prev - 1, 0))}
+                disabled={mobileStep === 0}
+                className="rounded-md border border-[var(--border-subtle)] px-3 py-1.5 text-xs text-[var(--text-secondary)] disabled:opacity-50"
+              >
+                Volver
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileStep((prev) => Math.min(prev + 1, diagnosisQuestions.length - 1))}
+                disabled={!canContinue || mobileStep === diagnosisQuestions.length - 1}
+                className="rounded-md bg-[var(--orange-cta)] px-3 py-1.5 text-xs font-semibold text-[var(--warm-white)] disabled:opacity-50"
+              >
+                Siguiente
+              </button>
+            </div>
+          </Card>
+        </div>
+
+        <div className="hidden gap-4 lg:grid lg:grid-cols-3">
           {diagnosisQuestions.map((question) => (
             <Card key={question.id}>
               <h3 className="text-sm font-semibold text-[var(--warm-white)]">{question.title}</h3>
@@ -139,16 +188,13 @@ export function ProjectDiagnosisSection() {
           {result ? (
             <>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">
-                Según tus respuestas, el mejor punto de partida sería: <span className="font-semibold text-[var(--orange-soft)]">{result.recommendedSolution}</span>
+                Punto de partida sugerido: <span className="font-semibold text-[var(--orange-soft)]">{result.recommendedSolution}</span>
               </p>
               <p className="mt-3 text-sm text-[var(--text-bright)]">{result.nextAction}</p>
               <p className="mt-3 text-xs text-[var(--text-soft)]">{result.rationale}</p>
-              <p className="mt-3 text-xs text-[var(--text-soft)]">
-                Si querés avanzar, podés seguir por WhatsApp o dejar tu caso en el formulario.
-              </p>
             </>
           ) : (
-            <p className="mt-2 text-sm text-[var(--text-secondary)]">Completá las tres preguntas para ver una recomendación orientativa.</p>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">Completá las tres preguntas para ver la recomendación.</p>
           )}
 
           <div className="mt-4 flex flex-wrap gap-2">

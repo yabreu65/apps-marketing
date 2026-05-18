@@ -26,6 +26,27 @@ type TimelineItem = {
   description: string;
 };
 
+type StatusHistoryPreview = {
+  id: string;
+  fromStatus: string | null;
+  toStatus: string;
+  createdAt: Date;
+};
+
+type LeadNotePreview = {
+  id: string;
+  content: string;
+  createdAt: Date;
+};
+
+type LeadConversationPreview = {
+  id: string;
+  channel: string;
+  direction: string;
+  content: string;
+  createdAt: Date;
+};
+
 function formatLeadSource(source: string) {
   switch (source) {
     case 'contact_form':
@@ -123,7 +144,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     source: lead.source,
     status: lead.status,
     notes: lead.notes,
-    statusHistory: lead.statusHistory.map((item) => ({
+    statusHistory: lead.statusHistory.map((item: StatusHistoryPreview) => ({
       fromStatus: item.fromStatus,
       toStatus: item.toStatus,
       createdAt: item.createdAt,
@@ -139,25 +160,25 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     email: lead.email,
     phone: lead.phone,
     notes: lead.notes,
-    statusHistory: lead.statusHistory.map((item) => ({ toStatus: item.toStatus })),
+    statusHistory: lead.statusHistory.map((item: StatusHistoryPreview) => ({ toStatus: item.toStatus })),
   });
 
   const timeline: TimelineItem[] = [
-    ...lead.statusHistory.map((item) => ({
+    ...lead.statusHistory.map((item: StatusHistoryPreview) => ({
       id: `status-${item.id}`,
       kind: 'status' as const,
       createdAt: item.createdAt,
       title: 'Cambio de estado',
       description: `${item.fromStatus ? getLeadStatusLabel(item.fromStatus) : 'Sin estado'} → ${getLeadStatusLabel(item.toStatus)}`,
     })),
-    ...lead.notes.map((note) => ({
+    ...lead.notes.map((note: LeadNotePreview) => ({
       id: `note-${note.id}`,
       kind: 'note' as const,
       createdAt: note.createdAt,
       title: 'Nota interna',
       description: note.content,
     })),
-    ...lead.conversations.map((conversation) => ({
+    ...lead.conversations.map((conversation: LeadConversationPreview) => ({
       id: `conversation-${conversation.id}`,
       kind: 'conversation' as const,
       createdAt: conversation.createdAt,
@@ -257,9 +278,9 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
         <LeadSummaryPanel leadId={lead.id} initialSummary={leadSummaryResult.summary} initialSource={leadSummaryResult.source} />
 
         <section>
-          <LeadConversationPanel
-            leadId={lead.id}
-            messages={lead.conversations.map((message) => ({
+            <LeadConversationPanel
+              leadId={lead.id}
+            messages={lead.conversations.map((message: LeadConversationPreview) => ({
               id: message.id,
               leadId: lead.id,
               channel: message.channel as 'whatsapp_simulated',
@@ -279,7 +300,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <p className="text-sm text-slate-300">Todavía no hay actividad registrada para este lead.</p>
             ) : (
               <div className="space-y-3">
-                {timeline.map((item) => (
+                {timeline.map((item: TimelineItem) => (
                   <article key={item.id} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-2">

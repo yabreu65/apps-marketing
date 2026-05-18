@@ -1,3 +1,5 @@
+import type { Prisma } from '@prisma/client';
+
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
 import { internalNoStoreHeaders, isSameOriginRequest } from '@/lib/internal-security';
 import { isLeadStatus, LEAD_STATUSES } from '@/lib/lead-status';
@@ -36,7 +38,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       return errorResponse('Lead no encontrado.', 404, undefined, headers);
     }
 
-    const updated = await prisma.$transaction(async (tx) => {
+    const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const next = await tx.lead.update({
         where: { id },
         data: { status: nextStatus },

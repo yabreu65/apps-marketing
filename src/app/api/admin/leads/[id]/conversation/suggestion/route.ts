@@ -3,6 +3,12 @@ import { internalNoStoreHeaders, isSameOriginRequest } from '@/lib/internal-secu
 import { buildLeadReplySuggestionWithOptionalAI } from '@/lib/lead-reply-suggestion-ai';
 import { prisma } from '@/lib/prisma';
 
+type ConversationPreview = {
+  direction: string;
+  content: string;
+  createdAt: Date;
+};
+
 /**
  * INTERNAL/LOCAL ONLY:
  * Sugerencia de respuesta para conversación simulada.
@@ -57,7 +63,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         source: lead.source,
         status: lead.status,
       },
-      messages: lead.conversations.map((conversation) => ({
+      messages: lead.conversations.map((conversation: ConversationPreview) => ({
         direction: conversation.direction === 'outbound' ? 'outbound' : 'inbound',
         content: conversation.content,
         createdAt: conversation.createdAt,

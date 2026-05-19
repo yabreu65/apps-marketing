@@ -27,7 +27,7 @@ const ecosystemItems = [
 
 export function EcosystemSection() {
   return (
-    <section className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16">
+    <section id="ecosistema" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16">
       <Container className="relative z-10 space-y-7">
         <SectionHeading
           eyebrow="Ecosistema de soluciones"

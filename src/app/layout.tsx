@@ -1,10 +1,22 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+import { Domine, Geist, Inter } from 'next/font/google';
 import './globals.css';
 
 const geist = Geist({
   subsets: ['latin'],
   variable: '--font-geist',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const domine = Domine({
+  subsets: ['latin'],
+  variable: '--font-domine',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -27,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={geist.variable}>
+    <html lang="es" className={`${geist.variable} ${inter.variable} ${domine.variable}`}>
       <body>{children}</body>
     </html>
   );

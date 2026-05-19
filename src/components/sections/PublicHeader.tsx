@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
-  { label: 'Soluciones', href: '#soluciones' },
+  { label: 'Servicios', href: '#soluciones' },
   { label: 'Proyectos', href: '#ruta-etapa' },
   { label: 'Ecosistema', href: '#ecosistema' },
-  { label: 'Diagnóstico', href: '#project-diagnosis' },
-  { label: 'Contacto', href: '#contact-form' },
+  { label: 'Diagnóstico', href: '#diagnostico' },
+  { label: 'Contacto', href: '#contacto' },
 ];
 
 export function PublicHeader() {
@@ -35,13 +35,13 @@ export function PublicHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--border-subtle)]/70 bg-[color:rgba(8,13,31,0.82)] backdrop-blur-xl">
-        <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <header className="fixed inset-x-0 top-0 py-6 z-50  bg-transparent backdrop-blur-md">
+        <div className="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-300/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-accent)] transition hover:border-emerald-200/60 hover:bg-emerald-200/10"
+            className="inline-flex items-center px-1 py-1 transition hover:opacity-90"
           >
-            Apps Marketing
+            <img src="/logo_pawtech.svg" alt="Apps Marketing" className="h-12 w-auto sm:h-14 lg:h-20 xl:h-24" />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex">
@@ -49,7 +49,7 @@ export function PublicHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+                className="text-lg text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
               >
                 {item.label}
               </Link>
@@ -58,7 +58,7 @@ export function PublicHeader() {
 
           <div className="hidden lg:block">
             <Link
-              href="#project-diagnosis"
+              href="#diagnostico"
               className="inline-flex h-11 items-center rounded-full bg-[var(--orange-cta)] px-5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(245,158,11,0.3)] transition hover:bg-[var(--orange-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] focus-visible:ring-orange-300"
             >
               Solicitar diagnóstico
@@ -108,7 +108,7 @@ export function PublicHeader() {
 
           <div className="mt-auto pt-8">
             <Link
-              href="#project-diagnosis"
+              href="#diagnostico"
               onClick={() => setMobileMenuOpen(false)}
               className="inline-flex w-full items-center justify-center rounded-2xl bg-[var(--orange-cta)] px-5 py-4 text-base font-semibold text-white shadow-[0_18px_40px_rgba(245,158,11,0.32)] transition hover:bg-[var(--orange-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
             >

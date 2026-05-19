@@ -1,8 +1,12 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { trackChatFunnelEvent } from "@/lib/chat-funnel";
+import {
+	clearDiagnosisContext,
+	readDiagnosisContext,
+} from "@/lib/diagnosis-context";
 import { buildPublicApiUrl } from "@/lib/public-api-url";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -95,12 +99,18 @@ export function ContactFormSection() {
 	const [errors, setErrors] = useState<FormErrors>({});
 	const [status, setStatus] = useState<"idle" | "success">("idle");
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [diagnosisContext, setDiagnosisContext] =
+		useState<LeadPayload["diagnosis"] | null>(null);
 	const hasTrackedFormStart = useRef(false);
 
 	const messageLength = useMemo(
 		() => values.message.trim().length,
 		[values.message],
 	);
+
+	useEffect(() => {
+		setDiagnosisContext(readDiagnosisContext());
+	}, []);
 
 	function handleChange<K extends keyof FormValues>(
 		field: K,
@@ -130,6 +140,7 @@ export function ContactFormSection() {
 			serviceInterest: values.serviceInterest as LeadInterest,
 			message: values.message.trim(),
 			source: "contact_form",
+			diagnosis: diagnosisContext ?? undefined,
 		};
 
 		setIsSubmitting(true);
@@ -173,6 +184,8 @@ export function ContactFormSection() {
 			setStatus("success");
 			setValues(INITIAL_VALUES);
 			setErrors({});
+			clearDiagnosisContext();
+			setDiagnosisContext(null);
 			trackChatFunnelEvent("chat_form_submit", { source: "contact_form" });
 		} catch {
 			setErrors({
@@ -187,9 +200,10 @@ export function ContactFormSection() {
 
 	return (
 		<section
-			id="contact-form"
+			id="contacto"
 			className="section-form-cosmos relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16"
 		>
+			<div id="contact-form" className="absolute -top-24 h-px w-px" aria-hidden="true" />
 			<div className="pointer-events-none absolute -left-24 top-8 h-48 w-48 sm:h-80 sm:w-80 rounded-full bg-[var(--purple-primary)]/18 blur-2xl sm:blur-3xl" />
 			<div className="pointer-events-none absolute right-[-8rem] bottom-0 h-56 w-56 sm:h-96 sm:w-96 rounded-full bg-[var(--orange-cta)]/10 blur-2xl sm:blur-3xl" />
 			<Container className="relative z-10 space-y-8">
@@ -198,6 +212,15 @@ export function ContactFormSection() {
 					title="Dejanos tu caso y te orientamos el próximo paso"
 					description="Te pedimos estos datos para recomendarte el mejor próximo paso y contactarte de forma manual."
 				/>
+				{diagnosisContext ? (
+					<p className="rounded-2xl border border-[var(--purple-soft)]/25 bg-[var(--purple-primary)]/10 px-4 py-3 text-sm text-[var(--text-secondary)]">
+						Vamos a enviar también tu diagnóstico orientativo:{" "}
+						<span className="font-semibold text-[var(--text-bright)]">
+							{diagnosisContext.recommendedSolution}
+						</span>
+						.
+					</p>
+				) : null}
 
 				<Card className="overflow-hidden p-0">
 					<form

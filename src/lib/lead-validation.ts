@@ -16,9 +16,43 @@ const ALLOWED_INTERESTS = new Set<LeadPayload['serviceInterest']>([
 ]);
 
 const ALLOWED_SOURCES = new Set<LeadPayload['source']>(['contact_form', 'chat', 'diagnosis', 'unknown']);
+const ALLOWED_DIAGNOSIS_GOALS = new Set<NonNullable<LeadPayload['diagnosis']>['goal']>([
+  'leads',
+  'web',
+  'system',
+  'saas',
+  'automation',
+  'ai',
+  'unsure',
+]);
+const ALLOWED_DIAGNOSIS_STAGES = new Set<NonNullable<LeadPayload['diagnosis']>['stage']>([
+  'idea',
+  'running',
+  'manual',
+  'noconvert',
+  'scale',
+]);
+const ALLOWED_DIAGNOSIS_URGENCY = new Set<NonNullable<LeadPayload['diagnosis']>['urgency']>([
+  'now',
+  'soon',
+  'explore',
+]);
+const ALLOWED_DIAGNOSIS_RECOMMENDATIONS = new Set<NonNullable<LeadPayload['diagnosis']>['recommendedSolution']>([
+  'Landing comercial',
+  'Sitio web profesional',
+  'Sistema web a medida',
+  'Dashboard / panel interno',
+  'MVP SaaS',
+  'Automatización comercial',
+  'IA aplicada al negocio (fase avanzada)',
+]);
 
 export function normalizeLeadPayload(input: unknown): LeadPayload {
   const obj = (input && typeof input === 'object' ? input : {}) as Record<string, unknown>;
+  const diagnosisInput =
+    obj.diagnosis && typeof obj.diagnosis === 'object'
+      ? (obj.diagnosis as Record<string, unknown>)
+      : null;
 
   return {
     name: String(obj.name ?? '').trim(),
@@ -28,6 +62,16 @@ export function normalizeLeadPayload(input: unknown): LeadPayload {
     serviceInterest: String(obj.serviceInterest ?? '').trim() as LeadPayload['serviceInterest'],
     message: String(obj.message ?? '').trim(),
     source: String(obj.source ?? 'unknown').trim() as LeadPayload['source'],
+    diagnosis: diagnosisInput
+      ? {
+          goal: String(diagnosisInput.goal ?? '').trim() as NonNullable<LeadPayload['diagnosis']>['goal'],
+          stage: String(diagnosisInput.stage ?? '').trim() as NonNullable<LeadPayload['diagnosis']>['stage'],
+          urgency: String(diagnosisInput.urgency ?? '').trim() as NonNullable<LeadPayload['diagnosis']>['urgency'],
+          recommendedSolution: String(
+            diagnosisInput.recommendedSolution ?? '',
+          ).trim() as NonNullable<LeadPayload['diagnosis']>['recommendedSolution'],
+        }
+      : undefined,
   };
 }
 
@@ -75,6 +119,21 @@ export function validateLeadPayload(payload: LeadPayload): LeadValidationError[]
 
   if (!ALLOWED_SOURCES.has(payload.source)) {
     errors.push({ field: 'source', message: 'La fuente del lead no es válida.' });
+  }
+
+  if (payload.diagnosis) {
+    if (!ALLOWED_DIAGNOSIS_GOALS.has(payload.diagnosis.goal)) {
+      errors.push({ field: 'source', message: 'El objetivo del diagnóstico no es válido.' });
+    }
+    if (!ALLOWED_DIAGNOSIS_STAGES.has(payload.diagnosis.stage)) {
+      errors.push({ field: 'source', message: 'La etapa del diagnóstico no es válida.' });
+    }
+    if (!ALLOWED_DIAGNOSIS_URGENCY.has(payload.diagnosis.urgency)) {
+      errors.push({ field: 'source', message: 'La urgencia del diagnóstico no es válida.' });
+    }
+    if (!ALLOWED_DIAGNOSIS_RECOMMENDATIONS.has(payload.diagnosis.recommendedSolution)) {
+      errors.push({ field: 'source', message: 'La recomendación del diagnóstico no es válida.' });
+    }
   }
 
   return errors;

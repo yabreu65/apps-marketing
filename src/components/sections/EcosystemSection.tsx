@@ -1,50 +1,91 @@
-import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const ecosystemItems = [
   {
     name: 'BuildingOS',
-    description: 'Administración de edificios, unidades y operación diaria.',
-    badge: 'Producto propio',
+    //badge: 'Producto propio',
+    description: 'Administración de edificios, unidades, procesos y operación diaria.',
+    proof: 'Experiencia en sistemas operativos y datos reales.',
   },
   {
     name: 'JurisManager',
-    description: 'Gestión legal de casos, clientes y procesos internos.',
-    badge: 'Solución especializada',
+    //badge: 'Solución especializada',
+    description: 'Gestión legal de casos, clientes, estados y seguimiento interno.',
+    proof: 'Experiencia ordenando flujos complejos de trabajo.',
   },
   {
     name: 'SEO / Marketing Tools',
-    description: 'Herramientas para visibilidad, contenido y consultas.',
-    badge: 'Marketing y crecimiento',
-  },
-  {
-    name: 'Apps Marketing',
-    description: 'Web, sistemas, marketing e IA aplicada por etapas.',
-    badge: 'Servicio principal',
+    //badge: 'Marketing y crecimiento',
+    description: 'Herramientas para visibilidad, contenido y generación de consultas.',
+    proof: 'Experiencia conectando presencia digital con oportunidades.',
   },
 ];
 
 export function EcosystemSection() {
   return (
-    <section id="ecosistema" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16">
-      <Container className="relative z-10 space-y-7">
-        <SectionHeading
-          eyebrow="Ecosistema de soluciones"
-          title="Experiencia real en productos y servicios"
-          description="Mostramos capacidades que usamos para resolver captación, seguimiento y operación sin distraer del objetivo comercial."
-        />
+    <section
+      id="ecosistema"
+      className="section-ecosystem-depth relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-20"
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--purple-soft)]/50 to-transparent"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -left-20 top-20 h-64 w-64 rounded-full bg-[var(--purple-primary)]/10 blur-3xl"
+        aria-hidden="true"
+      />
+      <Container className="relative z-10">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="lg:sticky lg:top-28">
+            <p className="relative top-[-50px] mb-4 text-xl text-center sm:text-2xl font-semibold uppercase tracking-[0.32em] text-[var(--purple-soft)]">
+              Ecosistema real
+            </p>
 
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {ecosystemItems.map((item) => (
-            <Card key={item.name} className="p-4">
-              <span className="inline-flex rounded-full border border-[var(--purple-soft)]/30 bg-[var(--purple-primary)]/12 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--text-accent)]">
-                {item.badge}
-              </span>
-              <h3 className="mt-2.5 text-sm font-semibold text-[var(--warm-white)]">{item.name}</h3>
-              <p className="mt-1.5 text-sm text-[var(--text-secondary)]">{item.description}</p>
-            </Card>
-          ))}
+            <SectionHeading
+              title="Experiencia construyendo productos, no solo páginas"
+              description="Aplicamos aprendizajes de sistemas reales, herramientas de marketing y procesos comerciales para crear soluciones más claras, útiles y escalables."
+            />
+
+            <div className="mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
+              <p className="text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
+                Apps Marketing es el punto de entrada: empezamos con una web, landing o sistema simple,
+                y podemos evolucionar por fases hacia seguimiento, dashboard, automatización o IA aplicada.
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+            {ecosystemItems.map((item, index) => (
+              <article
+                key={item.name}
+                className="group border-b border-[var(--border-subtle)] p-5 transition duration-300 last:border-b-0 hover:bg-[var(--bg-hover)]/40 sm:p-6"
+              >
+                <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
+                  <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--purple-soft)]/30 bg-[var(--purple-primary)]/12 text-sm font-semibold text-[var(--text-bright)] shadow-[0_0_28px_rgba(124,58,237,0.18)]">
+                    0{index + 1}
+                  </div>
+
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-lg font-semibold text-[var(--warm-white)] sm:text-xl">
+                        {item.name}
+                      </h3>
+                    </div>
+
+                    <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
+                      {item.description}
+                    </p>
+
+                    <p className="mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-primary)]/55 px-4 py-3 text-sm leading-6 text-[var(--text-soft)]">
+                      {item.proof}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

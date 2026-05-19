@@ -4,42 +4,42 @@
 
 :root {
 	color-scheme: dark;
-	--bg-primary: #0b1020;
-	--bg-secondary: #111827;
-	--card-bg: #151b2e;
-	--purple-primary: #0ea5e9;
-	--purple-deep: #0369a1;
-	--purple-soft: #34d399;
-	--orange-cta: #f59e0b;
-	--orange-hover: #d97706;
-	--orange-soft: #fcd34d;
-	--text-primary: #f8fafc;
-	--text-secondary: #dbe3ef;
-	--text-muted: #a0aec0;
-	--border-subtle: #334155;
+	--bg-primary: #070a16;
+	--bg-secondary: #0d1328;
+	--card-bg: #121a33;
+	--purple-primary: #7c3aed;
+	--purple-deep: #4c1d95;
+	--purple-soft: #a78bfa;
+	--orange-cta: #4f46e5;
+	--orange-hover: #4338ca;
+	--orange-soft: #818cf8;
+	--text-primary: #d0daff;
+	--text-secondary: #c4d0f8;
+	--text-muted: #98a6d6;
+	--border-subtle: #2e3b66;
 	--warm-white: #fffbf5;
-	--bg-panel: #0f172a;
-	--bg-panel-soft: #0b1220;
-	--bg-panel-deep: #0a1020;
-	--bg-elevated: #101827;
-	--bg-elevated-2: #101a2c;
-	--bg-shell: #080d1f;
-	--bg-shell-2: #0e1528;
-	--bg-ink: #070b18;
-	--bg-ink-soft: #0a0f20;
-	--border-strong: #334155;
-	--border-strong-alt: #33415f;
-	--border-panel: #2e3a57;
-	--border-mid: #25324a;
-	--text-soft: #b6c4d9;
-	--text-soft-2: #9fb0c8;
-	--text-bright: #e2e8f0;
-	--text-accent: #86efac;
-	--text-accent-soft: #dcfce7;
-	--text-placeholder: #64748b;
-	--accent-hover: #0891b2;
-	--bg-hover: #1e293b;
-	--accent-pale: #f0fdf4;
+	--bg-panel: #0d1430;
+	--bg-panel-soft: #091126;
+	--bg-panel-deep: #070e1f;
+	--bg-elevated: #111a35;
+	--bg-elevated-2: #152040;
+	--bg-shell: #070d1e;
+	--bg-shell-2: #101934;
+	--bg-ink: #060b18;
+	--bg-ink-soft: #0b1224;
+	--border-strong: #37497d;
+	--border-strong-alt: #40548f;
+	--border-panel: #2c3b64;
+	--border-mid: #233255;
+	--text-soft: #afbddf;
+	--text-soft-2: #92a2cc;
+	--text-bright: #dde6ff;
+	--text-accent: #93c5fd;
+	--text-accent-soft: #dbeafe;
+	--text-placeholder: #60739e;
+	--accent-hover: #6366f1;
+	--bg-hover: #1a2446;
+	--accent-pale: #dbeafe;
 }
 
 * {
@@ -73,6 +73,7 @@ body {
 	background-repeat: repeat, no-repeat, no-repeat, no-repeat;
 	color: var(--text-primary);
 	font-family:
+		var(--font-inter),
 		var(--font-geist),
 		ui-sans-serif,
 		system-ui,
@@ -87,27 +88,78 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family:
+		var(--font-domine),
+		var(--font-inter),
+		ui-serif,
+		Georgia,
+		serif;
+	color: #d0daff;
+}
+
 ::selection {
-	background: color-mix(in srgb, var(--purple-soft) 55%, white 45%);
-	color: #083344;
+	background: color-mix(in srgb, var(--purple-primary) 68%, #ffffff 32%);
+	color: #eaf0ff;
 }
 
 @layer components {
+	.marquee-track {
+		animation: marqueeScroll 28s linear infinite;
+		will-change: transform;
+	}
+
+	.spiderweb-bg {
+		background:
+			radial-gradient(circle at 18% 30%, rgba(124, 58, 237, 0.2), transparent 36%),
+			radial-gradient(circle at 82% 70%, rgba(99, 102, 241, 0.16), transparent 32%),
+			repeating-radial-gradient(
+				circle at 50% 50%,
+				rgba(167, 139, 250, 0.2) 0 2px,
+				transparent 2px 24px
+			),
+			repeating-conic-gradient(
+				from 0deg at 50% 50%,
+				rgba(167, 139, 250, 0.2) 0deg 1.6deg,
+				transparent 1.6deg 22.5deg
+			);
+		opacity: 0.92;
+		animation:
+			spiderWebFloat 5.5s ease-in-out infinite alternate,
+			spiderWebPulse 3.2s ease-in-out infinite;
+		will-change: transform;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.marquee-track {
+			animation: none;
+		}
+		.spiderweb-bg {
+			animation: none;
+		}
+	}
+
 	.glass-card {
-		border: 1px solid rgba(52, 211, 153, 0.22);
+		border: 1px solid rgba(124, 58, 237, 0.24);
 		background: linear-gradient(
 			135deg,
-			rgba(15, 23, 42, 0.78),
-			rgba(8, 13, 31, 0.9)
+			rgba(13, 20, 48, 0.78),
+			rgba(7, 11, 28, 0.92)
 		);
 		box-shadow:
-			0 24px 80px rgba(2, 6, 23, 0.62),
+			0 24px 80px rgba(3, 6, 18, 0.68),
+			0 0 48px rgba(79, 70, 229, 0.16),
 			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 		backdrop-filter: blur(18px);
 	}
 
 	.text-gradient {
-		background: linear-gradient(90deg, #f8fafc 0%, #86efac 48%, #34d399 100%);
+		background: linear-gradient(90deg, #eef2ff 0%, #a78bfa 52%, #60a5fa 100%);
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;
@@ -118,17 +170,17 @@ body {
 			url("/visual/arc-flow.svg"), url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 14% 16%,
-				rgba(14, 165, 233, 0.4),
+				rgba(124, 58, 237, 0.34),
 				transparent 30rem
 			),
 			radial-gradient(
 				circle at 78% 22%,
-				rgba(52, 211, 153, 0.24),
+				rgba(59, 130, 246, 0.22),
 				transparent 26rem
 			),
 			radial-gradient(
 				circle at 84% 78%,
-				rgba(249, 115, 22, 0.14),
+				rgba(99, 102, 241, 0.16),
 				transparent 22rem
 			),
 			linear-gradient(180deg, #030512 0%, #081028 56%, #040714 100%);
@@ -153,12 +205,12 @@ body {
 			url("/visual/orb-glow.svg"), url("/visual/arc-flow.svg"),
 			radial-gradient(
 				circle at 22% 20%,
-				rgba(14, 165, 233, 0.38),
+				rgba(124, 58, 237, 0.34),
 				transparent 30rem
 			),
 			radial-gradient(
 				circle at 90% 16%,
-				rgba(52, 211, 153, 0.18),
+				rgba(59, 130, 246, 0.2),
 				transparent 25rem
 			),
 			linear-gradient(180deg, #020412 0%, #081028 52%, #050916 100%);
@@ -182,13 +234,13 @@ body {
 			url("/visual/arc-flow.svg"),
 			linear-gradient(
 				90deg,
-				rgba(52, 211, 153, 0.09) 0%,
+				rgba(124, 58, 237, 0.1) 0%,
 				rgba(17, 24, 39, 0.52) 50%,
-				rgba(249, 115, 22, 0.08) 100%
+				rgba(59, 130, 246, 0.08) 100%
 			),
 			radial-gradient(
 				circle at 50% 0%,
-				rgba(14, 165, 233, 0.24),
+				rgba(99, 102, 241, 0.26),
 				transparent 12rem
 			),
 			#060a18;
@@ -210,17 +262,17 @@ body {
 			url("/visual/arc-flow.svg"), url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 20% 10%,
-				rgba(14, 165, 233, 0.32),
+				rgba(124, 58, 237, 0.3),
 				transparent 28rem
 			),
 			radial-gradient(
 				circle at 82% 18%,
-				rgba(52, 211, 153, 0.22),
+				rgba(59, 130, 246, 0.2),
 				transparent 24rem
 			),
 			radial-gradient(
 				circle at 88% 76%,
-				rgba(249, 115, 22, 0.14),
+				rgba(99, 102, 241, 0.14),
 				transparent 24rem
 			),
 			linear-gradient(145deg, #040714 0%, #0c1329 44%, #050816 100%);
@@ -247,7 +299,7 @@ body {
 			url("/visual/planet-orb.svg"), url("/visual/arc-flow.svg"),
 			radial-gradient(
 				circle at 14% 76%,
-				rgba(249, 115, 22, 0.18),
+				rgba(124, 58, 237, 0.2),
 				transparent 18rem
 			),
 			linear-gradient(140deg, #040714 0%, #160d35 50%, #060a18 100%);
@@ -266,8 +318,8 @@ body {
 
 	.glow-effect {
 		box-shadow:
-			0 0 60px rgba(14, 165, 233, 0.34),
-			0 0 120px rgba(3, 105, 161, 0.24);
+			0 0 60px rgba(124, 58, 237, 0.36),
+			0 0 120px rgba(59, 130, 246, 0.24);
 	}
 
 	.hero-orb {
@@ -280,23 +332,23 @@ body {
 			),
 			radial-gradient(
 				circle,
-				rgba(14, 165, 233, 0.22) 0%,
-				rgba(3, 105, 161, 0.12) 45%,
+				rgba(124, 58, 237, 0.24) 0%,
+				rgba(59, 130, 246, 0.14) 45%,
 				transparent 70%
 			);
-		box-shadow: 0 0 110px rgba(14, 165, 233, 0.48);
+		box-shadow: 0 0 110px rgba(79, 70, 229, 0.42);
 	}
 
 	.section-aurora {
 		background:
 			radial-gradient(
 				circle at 12% 0%,
-				rgba(14, 165, 233, 0.16),
+				rgba(124, 58, 237, 0.18),
 				transparent 24rem
 			),
 			radial-gradient(
 				circle at 88% 18%,
-				rgba(249, 115, 22, 0.08),
+				rgba(59, 130, 246, 0.12),
 				transparent 20rem
 			),
 			#070b18;
@@ -306,12 +358,12 @@ body {
 		background:
 			radial-gradient(
 				circle at 82% 0%,
-				rgba(14, 165, 233, 0.2),
+				rgba(99, 102, 241, 0.22),
 				transparent 28rem
 			),
 			radial-gradient(
 				circle at 0% 100%,
-				rgba(249, 115, 22, 0.08),
+				rgba(124, 58, 237, 0.1),
 				transparent 22rem
 			),
 			#050816;
@@ -328,17 +380,17 @@ body {
 			url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 8% 8%,
-				rgba(14, 165, 233, 0.24),
+				rgba(124, 58, 237, 0.22),
 				transparent 24rem
 			),
 			radial-gradient(
 				circle at 88% 18%,
-				rgba(52, 211, 153, 0.14),
+				rgba(59, 130, 246, 0.14),
 				transparent 22rem
 			),
 			radial-gradient(
 				circle at 50% 100%,
-				rgba(249, 115, 22, 0.06),
+				rgba(99, 102, 241, 0.1),
 				transparent 24rem
 			),
 			linear-gradient(180deg, #050816 0%, #080d1f 52%, #050816 100%);
@@ -355,15 +407,15 @@ body {
 		background:
 			url("/visual/noise-soft.svg"),
 			linear-gradient(rgba(52, 211, 153, 0.045) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(52, 211, 153, 0.035) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(147, 197, 253, 0.03) 1px, transparent 1px),
 			radial-gradient(
 				circle at 16% 12%,
-				rgba(14, 165, 233, 0.22),
+				rgba(124, 58, 237, 0.2),
 				transparent 24rem
 			),
 			radial-gradient(
 				circle at 86% 80%,
-				rgba(249, 115, 22, 0.08),
+				rgba(59, 130, 246, 0.1),
 				transparent 24rem
 			),
 			#070b18;
@@ -382,12 +434,12 @@ body {
 			url("/visual/arc-flow.svg"), url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 72% 14%,
-				rgba(14, 165, 233, 0.32),
+				rgba(124, 58, 237, 0.28),
 				transparent 30rem
 			),
 			radial-gradient(
 				circle at 8% 86%,
-				rgba(249, 115, 22, 0.12),
+				rgba(59, 130, 246, 0.14),
 				transparent 24rem
 			),
 			linear-gradient(135deg, #050816 0%, #0b1020 45%, #050816 100%);
@@ -406,17 +458,45 @@ body {
 		background-repeat: no-repeat, repeat, no-repeat, no-repeat, no-repeat;
 	}
 
+	.section-ecosystem-depth {
+		background:
+			url("/visual/noise-soft.svg"),
+			radial-gradient(
+				circle at 12% 20%,
+				rgba(139, 92, 246, 0.18),
+				transparent 24rem
+			),
+			radial-gradient(
+				circle at 86% 14%,
+				rgba(37, 99, 235, 0.18),
+				transparent 26rem
+			),
+			radial-gradient(
+				circle at 70% 88%,
+				rgba(168, 85, 247, 0.1),
+				transparent 22rem
+			),
+			linear-gradient(180deg, #05071f 0%, #080b2f 48%, #05071f 100%);
+		background-size:
+			220px 220px,
+			auto,
+			auto,
+			auto,
+			auto;
+		background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+	}
+
 	.section-form-cosmos {
 		background:
 			url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 22% 18%,
-				rgba(14, 165, 233, 0.18),
+				rgba(124, 58, 237, 0.18),
 				transparent 24rem
 			),
 			radial-gradient(
 				circle at 80% 82%,
-				rgba(249, 115, 22, 0.1),
+				rgba(59, 130, 246, 0.12),
 				transparent 22rem
 			),
 			linear-gradient(180deg, #060a18 0%, #10172a 48%, #060a18 100%);
@@ -432,12 +512,12 @@ body {
 		background:
 			radial-gradient(
 				circle at 76% 18%,
-				rgba(14, 165, 233, 0.32),
+				rgba(124, 58, 237, 0.3),
 				transparent 28rem
 			),
 			radial-gradient(
 				circle at 18% 92%,
-				rgba(249, 115, 22, 0.14),
+				rgba(59, 130, 246, 0.14),
 				transparent 24rem
 			),
 			linear-gradient(135deg, #050816 0%, #190f3c 52%, #050816 100%);
@@ -448,7 +528,7 @@ body {
 			url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 50% 0%,
-				rgba(14, 165, 233, 0.14),
+				rgba(124, 58, 237, 0.16),
 				transparent 18rem
 			),
 			#050816;
@@ -464,16 +544,44 @@ body {
 		background: linear-gradient(
 			90deg,
 			transparent,
-			rgba(52, 211, 153, 0.55),
-			rgba(249, 115, 22, 0.28),
+			rgba(124, 58, 237, 0.58),
+			rgba(59, 130, 246, 0.34),
 			transparent
 		);
 	}
 }
 
+@keyframes marqueeScroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes spiderWebFloat {
+	0% {
+		transform: translate3d(-2.8%, -1.6%, 0) scale(0.985) rotate(-1.1deg);
+	}
+	100% {
+		transform: translate3d(2.8%, 1.6%, 0) scale(1.035) rotate(1.1deg);
+	}
+}
+
+@keyframes spiderWebPulse {
+	0%,
+	100% {
+		filter: brightness(0.92) saturate(0.95);
+	}
+	50% {
+		filter: brightness(1.12) saturate(1.16);
+	}
+}
+
 @media (max-width: 640px) {
 	.glass-card {
-		border-color: rgba(52, 211, 153, 0.18);
+		border-color: rgba(124, 58, 237, 0.2);
 		box-shadow:
 			0 12px 36px rgba(2, 6, 23, 0.48),
 			inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -485,12 +593,12 @@ body {
 			url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 24% 12%,
-				rgba(14, 165, 233, 0.22),
+				rgba(124, 58, 237, 0.24),
 				transparent 19rem
 			),
 			radial-gradient(
 				circle at 84% 20%,
-				rgba(52, 211, 153, 0.1),
+				rgba(59, 130, 246, 0.11),
 				transparent 16rem
 			),
 			linear-gradient(180deg, #050816 0%, #0b1020 60%, #050816 100%);
@@ -507,7 +615,7 @@ body {
 			url("/visual/orb-glow.svg"),
 			radial-gradient(
 				circle at 24% 12%,
-				rgba(14, 165, 233, 0.21),
+				rgba(124, 58, 237, 0.22),
 				transparent 20rem
 			),
 			linear-gradient(180deg, #050816 0%, #0b1020 60%, #050816 100%);
@@ -526,9 +634,9 @@ body {
 		background:
 			linear-gradient(
 				90deg,
-				rgba(52, 211, 153, 0.08) 0%,
+				rgba(124, 58, 237, 0.09) 0%,
 				rgba(17, 24, 39, 0.48) 50%,
-				rgba(249, 115, 22, 0.06) 100%
+				rgba(59, 130, 246, 0.08) 100%
 			),
 			#060a18;
 	}
@@ -538,12 +646,12 @@ body {
 			url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 10% 10%,
-				rgba(14, 165, 233, 0.15),
+				rgba(124, 58, 237, 0.16),
 				transparent 18rem
 			),
 			radial-gradient(
 				circle at 88% 20%,
-				rgba(52, 211, 153, 0.09),
+				rgba(59, 130, 246, 0.1),
 				transparent 16rem
 			),
 			linear-gradient(180deg, #050816 0%, #080d1f 56%, #050816 100%);
@@ -558,11 +666,11 @@ body {
 	.section-aurora-grid {
 		background:
 			url("/visual/noise-soft.svg"),
-			linear-gradient(rgba(52, 211, 153, 0.03) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(52, 211, 153, 0.025) 1px, transparent 1px),
+			linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(59, 130, 246, 0.025) 1px, transparent 1px),
 			radial-gradient(
 				circle at 18% 12%,
-				rgba(14, 165, 233, 0.14),
+				rgba(124, 58, 237, 0.15),
 				transparent 18rem
 			),
 			#070b18;
@@ -580,15 +688,37 @@ body {
 			url("/visual/noise-soft.svg"),
 			radial-gradient(
 				circle at 74% 14%,
-				rgba(14, 165, 233, 0.18),
+				rgba(124, 58, 237, 0.2),
 				transparent 20rem
 			),
 			radial-gradient(
 				circle at 8% 86%,
-				rgba(249, 115, 22, 0.07),
+				rgba(59, 130, 246, 0.08),
 				transparent 18rem
 			),
 			linear-gradient(135deg, #050816 0%, #0b1020 50%, #050816 100%);
+		background-size:
+			180px 180px,
+			auto,
+			auto,
+			auto;
+		background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+	}
+
+	.section-ecosystem-depth {
+		background:
+			url("/visual/noise-soft.svg"),
+			radial-gradient(
+				circle at 18% 10%,
+				rgba(139, 92, 246, 0.14),
+				transparent 18rem
+			),
+			radial-gradient(
+				circle at 88% 20%,
+				rgba(37, 99, 235, 0.12),
+				transparent 18rem
+			),
+			linear-gradient(180deg, #05071f 0%, #080b2f 52%, #05071f 100%);
 		background-size:
 			180px 180px,
 			auto,
@@ -610,7 +740,7 @@ body {
 
 	.hero-orb {
 		opacity: 0.58;
-		box-shadow: 0 0 48px rgba(14, 165, 233, 0.28);
+		box-shadow: 0 0 48px rgba(124, 58, 237, 0.32);
 	}
 
 	body {

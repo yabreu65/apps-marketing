@@ -82,6 +82,10 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       serviceInterest: true,
       message: true,
       source: true,
+      diagnosisGoal: true,
+      diagnosisStage: true,
+      diagnosisUrgency: true,
+      diagnosisRecommendation: true,
       status: true,
       createdAt: true,
       updatedAt: true,
@@ -249,6 +253,18 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <dd className="mt-1 text-slate-300">{displayValue(lead.serviceInterest)}</dd>
               </div>
               <div>
+                <dt className="font-medium text-slate-200">Diagnóstico (objetivo)</dt>
+                <dd className="mt-1 text-slate-300">{displayValue(lead.diagnosisGoal)}</dd>
+              </div>
+              <div>
+                <dt className="font-medium text-slate-200">Diagnóstico (etapa)</dt>
+                <dd className="mt-1 text-slate-300">{displayValue(lead.diagnosisStage)}</dd>
+              </div>
+              <div>
+                <dt className="font-medium text-slate-200">Diagnóstico (urgencia)</dt>
+                <dd className="mt-1 text-slate-300">{displayValue(lead.diagnosisUrgency)}</dd>
+              </div>
+              <div>
                 <dt className="font-medium text-slate-200">Fuente</dt>
                 <dd className="mt-1 text-slate-300">{formatLeadSource(lead.source)}</dd>
               </div>
@@ -264,6 +280,12 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <dt className="font-medium text-slate-200">Mensaje</dt>
                 <dd className="mt-1 whitespace-pre-wrap break-words rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3 text-slate-300">
                   {displayValue(lead.message)}
+                </dd>
+              </div>
+              <div className="sm:col-span-2">
+                <dt className="font-medium text-slate-200">Diagnóstico orientativo</dt>
+                <dd className="mt-1 whitespace-pre-wrap break-words rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-3 text-slate-300">
+                  {displayValue(lead.diagnosisRecommendation)}
                 </dd>
               </div>
             </dl>

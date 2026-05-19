@@ -540,7 +540,7 @@ export function PublicLeadAssistantWidget() {
 							return next;
 						});
 					}}
-					className={`rounded-full border border-[#4C1D95]/40 bg-[#7C3AED] px-3 py-2 text-[11px] font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(124,58,237,0.35)] transition hover:bg-[#6D28D9] sm:px-4 sm:text-xs ${
+					className={`rounded-full border border-cyan-300/35 bg-[var(--orange-cta)] px-3 py-2 text-[11px] font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(14,165,233,0.35)] transition hover:bg-[var(--orange-hover)] sm:px-4 sm:text-xs ${
 						shouldHideTrigger
 							? "pointer-events-none translate-y-3 opacity-0"
 							: "opacity-100"

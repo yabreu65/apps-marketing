@@ -16,6 +16,10 @@ model Lead {
   serviceInterest String
   message         String
   source          String
+  diagnosisGoal   String?
+  diagnosisStage  String?
+  diagnosisUrgency String?
+  diagnosisRecommendation String?
   status          String                    @default("new")
   createdAt       DateTime                  @default(now())
   updatedAt       DateTime                  @updatedAt

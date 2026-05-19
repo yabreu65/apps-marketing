@@ -27,6 +27,19 @@ type FilterOption = {
 	value: string;
 };
 
+type LeadListItem = {
+	id: string;
+	name: string;
+	email: string | null;
+	phone: string | null;
+	businessType: string | null;
+	serviceInterest: string;
+	source: string;
+	status: string;
+	createdAt: Date;
+	message: string;
+};
+
 const PAGE_SIZE = 20;
 
 const STATUS_OPTIONS: FilterOption[] = [
@@ -463,7 +476,7 @@ export default async function InternalLeadsPage({
 									</tr>
 								</thead>
 								<tbody className="divide-y divide-[var(--border-subtle)]">
-									{leads.map((lead) => (
+									{leads.map((lead: LeadListItem) => (
 										<tr key={lead.id} className="align-top text-slate-200">
 											<td className="px-4 py-4 font-medium text-slate-100">
 												{lead.name}
@@ -511,7 +524,7 @@ export default async function InternalLeadsPage({
 						</section>
 
 						<section className="grid gap-4 lg:hidden">
-							{leads.map((lead) => (
+							{leads.map((lead: LeadListItem) => (
 								<article
 									key={lead.id}
 									className="space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--card-bg)] p-4 shadow-md shadow-black/20"

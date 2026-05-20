@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { diagnosisQuestions } from '@/data/project-diagnosis';
+import { getDiagnosisResponseCopy } from '@/data/diagnosis-response-copy';
 import { saveDiagnosisContext } from '@/lib/diagnosis-context';
 import type { DiagnosisResult, RecommendedSolution } from '@/types/diagnosis';
 import type {
@@ -88,6 +89,10 @@ export function ProjectDiagnosisSection() {
   const [hasSubmittedDiagnosis, setHasSubmittedDiagnosis] = useState(false);
 
   const result = useMemo(() => getDiagnosis(answers), [answers]);
+  const responseCopy = useMemo(() => {
+    if (!answers.goal || !answers.stage || !answers.urgency) return null;
+    return getDiagnosisResponseCopy(answers.goal, answers.stage, answers.urgency);
+  }, [answers.goal, answers.stage, answers.urgency]);
 
   const answeredCount = diagnosisQuestions.filter(
     (question) => answers[question.id as keyof Answers],
@@ -145,23 +150,42 @@ export function ProjectDiagnosisSection() {
             />
 
             <div className="mt-6 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--purple-soft)]">
-                Recomendación
-              </p>
-
               {canShowRecommendation ? (
                 <div className="mt-4">
-                  <p className="text-sm text-[var(--text-secondary)]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
                     Punto de partida sugerido
                   </p>
 
                   <h3 className="mt-2 text-2xl font-semibold text-[var(--text-bright)]">
-                    {result?.recommendedSolution}
+                    {responseCopy?.displayTitle ?? responseCopy?.recommendation ?? result?.recommendedSolution}
                   </h3>
 
-                  <p className="mt-4 text-sm leading-6 text-[var(--text-secondary)]">
-                    {result?.nextAction}
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
+                    Situación actual
                   </p>
+                  <p className="mt-4 text-sm leading-6 text-[var(--text-secondary)]">
+                    {responseCopy?.situation}
+                  </p>
+
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
+                    Siguiente paso recomendado
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                    {responseCopy?.nextStep ?? result?.nextAction}
+                  </p>
+
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
+                    Qué evitaríamos por ahora
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                    {responseCopy?.avoid}
+                  </p>
+
+                  {responseCopy?.note ? (
+                    <p className="mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-primary)]/55 px-4 py-3 text-xs leading-5 text-[var(--text-soft)]">
+                      {responseCopy.note}
+                    </p>
+                  ) : null}
 
                   <p className="mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-primary)]/55 px-4 py-3 text-xs leading-5 text-[var(--text-soft)]">
                     {result?.rationale}
@@ -193,7 +217,8 @@ export function ProjectDiagnosisSection() {
                           goal: answers.goal,
                           stage: answers.stage,
                           urgency: answers.urgency,
-                          recommendedSolution: result.recommendedSolution,
+                          recommendedSolution:
+                            responseCopy?.recommendation ?? result.recommendedSolution,
                         });
                       }}
                       className="inline-flex items-center justify-center rounded-full bg-[var(--orange-cta)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(79,70,229,0.3)] transition hover:bg-[var(--orange-hover)]"
@@ -301,7 +326,7 @@ export function ProjectDiagnosisSection() {
                   disabled={!canSubmitDiagnosis}
                   className="rounded-full bg-[var(--orange-cta)] px-4 py-2.5 text-sm font-semibold text-[var(--warm-white)] transition hover:bg-[var(--orange-hover)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Ver recomendación
+                  {hasSubmittedDiagnosis ? 'Actualizar recomendación' : 'Ver recomendación'}
                 </button>
               </div>
 
@@ -352,7 +377,7 @@ export function ProjectDiagnosisSection() {
                   disabled={!canSubmitDiagnosis}
                   className="mt-2 inline-flex w-fit items-center justify-center rounded-full bg-[var(--orange-cta)] px-5 py-3 text-sm font-semibold text-[var(--warm-white)] transition hover:bg-[var(--orange-hover)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Ver recomendación
+                  {hasSubmittedDiagnosis ? 'Actualizar recomendación' : 'Ver recomendación'}
                 </button>
               </div>
             </div>

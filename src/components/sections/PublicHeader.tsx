@@ -39,7 +39,7 @@ export function PublicHeader() {
         <div className="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
           <Link
             href="/"
-            className="inline-flex items-center px-1 py-1 transition hover:opacity-90"
+            className="inline-flex items-center px-1 py-1 transition hover:scale-[1.02] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
           >
             <img src="/logo_pawtech.svg" alt="Apps Marketing" className="h-12 w-auto sm:h-14 lg:h-20 xl:h-24" />
           </Link>
@@ -49,7 +49,7 @@ export function PublicHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-lg text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+                className="text-lg text-[var(--text-secondary)] transition hover:-translate-y-0.5 hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
               >
                 {item.label}
               </Link>
@@ -59,7 +59,7 @@ export function PublicHeader() {
           <div className="hidden lg:block">
             <Link
               href="#diagnostico"
-              className="inline-flex h-11 items-center rounded-full bg-[var(--orange-cta)] px-5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(245,158,11,0.3)] transition hover:bg-[var(--orange-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] focus-visible:ring-orange-300"
+              className="hover-lift inline-flex h-11 items-center rounded-full bg-[var(--orange-cta)] px-5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(245,158,11,0.3)] transition hover:bg-[var(--orange-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] focus-visible:ring-orange-300"
             >
               Solicitar diagnóstico
             </Link>
@@ -99,7 +99,7 @@ export function PublicHeader() {
                 key={`mobile-${item.href}`}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block rounded-2xl border border-[var(--border-subtle)]/90 bg-[var(--bg-secondary)]/55 px-5 py-4 text-lg font-medium text-[var(--text-primary)] transition hover:border-cyan-300/50 hover:bg-[var(--bg-secondary)]/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                className="motion-fade-up block rounded-2xl border border-[var(--border-subtle)]/90 bg-[var(--bg-secondary)]/55 px-5 py-4 text-lg font-medium text-[var(--text-primary)] transition hover:border-cyan-300/50 hover:bg-[var(--bg-secondary)]/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
                 {item.label}
               </Link>

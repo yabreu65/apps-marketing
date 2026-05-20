@@ -48,7 +48,7 @@ export function EcosystemSection() {
               description="Aplicamos aprendizajes de sistemas reales, herramientas de marketing y procesos comerciales para crear soluciones más claras, útiles y escalables."
             />
 
-            <div className="mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
+            <div className="motion-fade-up motion-delay-100 mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
               <p className="text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
                 Apps Marketing es el punto de entrada: empezamos con una web, landing o sistema simple,
                 y podemos evolucionar por fases hacia seguimiento, dashboard, automatización o IA aplicada.
@@ -60,7 +60,9 @@ export function EcosystemSection() {
             {ecosystemItems.map((item, index) => (
               <article
                 key={item.name}
-                className="group border-b border-[var(--border-subtle)] p-5 transition duration-300 last:border-b-0 hover:bg-[var(--bg-hover)]/40 sm:p-6"
+                className={`motion-fade-up hover-lift group border-b border-[var(--border-subtle)] p-5 last:border-b-0 hover:bg-[var(--bg-hover)]/40 sm:p-6 ${
+                  index === 1 ? 'motion-delay-100' : index === 2 ? 'motion-delay-200' : ''
+                }`}
               >
                 <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
                   <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--purple-soft)]/30 bg-[var(--purple-primary)]/12 text-sm font-semibold text-[var(--text-bright)] shadow-[0_0_28px_rgba(124,58,237,0.18)]">

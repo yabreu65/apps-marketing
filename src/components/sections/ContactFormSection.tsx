@@ -213,7 +213,7 @@ export function ContactFormSection() {
 					description="Te pedimos estos datos para recomendarte el mejor próximo paso y contactarte de forma manual."
 				/>
 				{diagnosisContext ? (
-					<p className="rounded-2xl border border-[var(--purple-soft)]/25 bg-[var(--purple-primary)]/10 px-4 py-3 text-sm text-[var(--text-secondary)]">
+					<p className="motion-fade-up rounded-2xl border border-[var(--purple-soft)]/25 bg-[var(--purple-primary)]/10 px-4 py-3 text-sm text-[var(--text-secondary)]">
 						Vamos a enviar también tu diagnóstico orientativo:{" "}
 						<span className="font-semibold text-[var(--text-bright)]">
 							{diagnosisContext.recommendedSolution}
@@ -264,7 +264,7 @@ export function ContactFormSection() {
 									value={values.name}
 									onChange={(e) => handleChange("name", e.target.value)}
 									placeholder="Ej: Juan Pérez"
-									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
+									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] premium-focus"
 									required
 									maxLength={80}
 									aria-invalid={Boolean(errors.name)}
@@ -294,7 +294,7 @@ export function ContactFormSection() {
 									value={values.businessType}
 									onChange={(e) => handleChange("businessType", e.target.value)}
 									placeholder="Ej: Estudio contable, clínica, e-commerce"
-									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
+									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] premium-focus"
 									maxLength={120}
 									aria-invalid={Boolean(errors.businessType)}
 									aria-describedby={
@@ -327,7 +327,7 @@ export function ContactFormSection() {
 									value={values.email}
 									onChange={(e) => handleChange("email", e.target.value)}
 									placeholder="tu@email.com"
-									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
+									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] premium-focus"
 									aria-invalid={Boolean(errors.email)}
 									aria-describedby={errors.email ? "email-error" : undefined}
 								/>
@@ -357,7 +357,7 @@ export function ContactFormSection() {
 									value={values.phone}
 									onChange={(e) => handleChange("phone", e.target.value)}
 									placeholder="Ej: +54 9 11 1234 5678"
-									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
+									className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] premium-focus"
 									aria-invalid={Boolean(errors.phone)}
 									aria-describedby={errors.phone ? "phone-error" : undefined}
 								/>
@@ -386,7 +386,7 @@ export function ContactFormSection() {
 								onChange={(e) =>
 									handleChange("serviceInterest", e.target.value)
 								}
-								className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
+								className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] premium-focus"
 							>
 								<option value="" className="text-slate-800">
 									Opcional: seleccioná una opción
@@ -419,7 +419,7 @@ export function ContactFormSection() {
 								value={values.message}
 								onChange={(e) => handleChange("message", e.target.value)}
 								placeholder="Ej: Quiero lanzar una web, ordenar procesos internos o validar un MVP SaaS para mi negocio."
-								className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--purple-soft)]"
+								className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-placeholder)] premium-focus"
 								aria-invalid={Boolean(errors.message)}
 								aria-describedby={
 									errors.message ? "message-error" : "message-help"
@@ -450,7 +450,7 @@ export function ContactFormSection() {
 						{errors.general ? (
 							<p
 								role="alert"
-								className="rounded-md border border-[var(--orange-hover)]/35 bg-[var(--orange-hover)]/10 px-3 py-2 text-sm text-[var(--orange-soft)]"
+								className="motion-fade-up rounded-md border border-[var(--orange-hover)]/35 bg-[var(--orange-hover)]/10 px-3 py-2 text-sm text-[var(--orange-soft)]"
 							>
 								{errors.general}
 							</p>
@@ -460,7 +460,7 @@ export function ContactFormSection() {
 							<p
 								role="status"
 								aria-live="polite"
-								className="rounded-md border border-[var(--purple-primary)]/40 bg-[var(--purple-primary)]/10 px-3 py-2 text-sm text-[var(--text-accent)]"
+								className="motion-fade-up rounded-md border border-[var(--purple-primary)]/40 bg-[var(--purple-primary)]/10 px-3 py-2 text-sm text-[var(--text-accent)]"
 							>
 								¡Gracias! Recibimos tu consulta y te vamos a responder de forma
 								manual por el medio que indicaste.

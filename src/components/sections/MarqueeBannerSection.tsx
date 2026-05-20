@@ -39,7 +39,7 @@ export function MarqueeBannerSection() {
       />
 
       <Container>
-        <div className="relative z-10 overflow-hidden rounded-2xl bg-[var(--bg-shell-2)]/75 shadow-[0_16px_50px_rgba(2,6,23,0.45)]">
+        <div className="motion-scale-in relative z-10 overflow-hidden rounded-2xl bg-[var(--bg-shell-2)]/75 shadow-[0_16px_50px_rgba(2,6,23,0.45)]">
           <div className="marquee-track flex w-max items-center py-3 sm:py-4">
             {renderMarqueeGroup()}
             {renderMarqueeGroup(true)}

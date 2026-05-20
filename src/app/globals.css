@@ -144,6 +144,65 @@ h6 {
 		}
 	}
 
+	.motion-fade-up {
+		animation: fadeUp 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.motion-fade-in {
+		animation: fadeIn 620ms ease-out both;
+	}
+
+	.motion-scale-in {
+		animation: scaleIn 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.motion-delay-100 {
+		animation-delay: 100ms;
+	}
+
+	.motion-delay-200 {
+		animation-delay: 200ms;
+	}
+
+	.motion-delay-300 {
+		animation-delay: 300ms;
+	}
+
+	.motion-delay-400 {
+		animation-delay: 400ms;
+	}
+
+	.hover-lift {
+		transition:
+			transform 260ms ease,
+			border-color 260ms ease,
+			background-color 260ms ease,
+			box-shadow 260ms ease,
+			opacity 260ms ease;
+	}
+
+	.hover-lift:hover {
+		transform: translateY(-0.25rem);
+	}
+
+	.premium-focus {
+		transition:
+			border-color 200ms ease,
+			box-shadow 200ms ease,
+			background-color 200ms ease;
+	}
+
+	.premium-focus:focus,
+	.premium-focus:focus-visible {
+		border-color: color-mix(in srgb, var(--purple-soft) 70%, #ffffff 30%);
+		box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.16);
+		outline: none;
+	}
+
+	.hero-float {
+		animation: softFloat 8s ease-in-out infinite alternate;
+	}
+
 	.glass-card {
 		border: 1px solid rgba(124, 58, 237, 0.24);
 		background: linear-gradient(
@@ -576,6 +635,67 @@ h6 {
 	}
 	50% {
 		filter: brightness(1.12) saturate(1.16);
+	}
+}
+
+@keyframes fadeUp {
+	0% {
+		opacity: 0;
+		transform: translate3d(0, 1rem, 0);
+	}
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes scaleIn {
+	0% {
+		opacity: 0;
+		transform: scale(0.97);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes softFloat {
+	0% {
+		transform: translate3d(0, 0, 0);
+	}
+	100% {
+		transform: translate3d(0, -0.75rem, 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+	}
+
+	.motion-fade-up,
+	.motion-fade-in,
+	.motion-scale-in,
+	.hover-lift,
+	.hero-float,
+	.marquee-track,
+	.spiderweb-bg,
+	.chat-dot {
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
 	}
 }
 

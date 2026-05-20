@@ -43,7 +43,9 @@ export function ProblemSection() {
           {problems.map((problem, index) => (
             <article
               key={problem.title}
-              className="group relative overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--purple-soft)]/50 hover:shadow-[0_18px_70px_rgba(124,58,237,0.16)] sm:p-6"
+              className={`motion-fade-up hover-lift group relative overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 hover:border-[var(--purple-soft)]/50 hover:shadow-[0_18px_70px_rgba(124,58,237,0.16)] sm:p-6 ${
+                index === 1 ? 'motion-delay-100' : index === 2 ? 'motion-delay-200' : ''
+              }`}
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--purple-primary)] via-[var(--purple-soft)] to-[var(--cyan-accent)] opacity-80" />
 

@@ -49,7 +49,7 @@ export function ServicesSection() {
               description="Elegimos el camino según tu etapa, tus canales actuales y el nivel de seguimiento que necesitás."
             />
 
-            <div className="mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
+            <div className="motion-fade-up motion-delay-100 mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
               <p className="text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
                 Podemos empezar simple con una landing o catálogo, y evolucionar
                 por fases hacia dashboard, automatización o IA aplicada.
@@ -58,10 +58,18 @@ export function ServicesSection() {
           </div>
 
           <div className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
-            {serviceGroups.map((group) => (
+            {serviceGroups.map((group, index) => (
               <article
                 key={group.title}
-                className="group border-b border-[var(--border-subtle)] p-5 transition duration-300 last:border-b-0 hover:bg-[var(--bg-hover)]/40 sm:p-6"
+                className={`motion-fade-up hover-lift group border-b border-[var(--border-subtle)] p-5 last:border-b-0 hover:bg-[var(--bg-hover)]/40 sm:p-6 ${
+                  index === 1
+                    ? 'motion-delay-100'
+                    : index === 2
+                      ? 'motion-delay-200'
+                      : index === 3
+                        ? 'motion-delay-300'
+                        : ''
+                }`}
               >
                 <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
                   <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--purple-soft)]/30 bg-[var(--purple-primary)]/12 text-sm font-semibold text-[var(--text-bright)] shadow-[0_0_28px_rgba(124,58,237,0.18)]">

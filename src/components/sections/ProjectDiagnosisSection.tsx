@@ -151,7 +151,7 @@ export function ProjectDiagnosisSection() {
 
             <div className="mt-6 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
               {canShowRecommendation ? (
-                <div className="mt-4">
+                <div className="motion-fade-up mt-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
                     Punto de partida sugerido
                   </p>
@@ -285,7 +285,7 @@ export function ProjectDiagnosisSection() {
                           }
                           className={`rounded-2xl border px-4 py-3 text-left text-sm transition ${
                             isSelected
-                              ? 'border-[var(--orange-cta)] bg-[var(--orange-cta)] text-white shadow-[0_14px_40px_rgba(79,70,229,0.22)]'
+                              ? 'scale-[1.01] border-[var(--orange-cta)] bg-[var(--orange-cta)] text-white shadow-[0_14px_40px_rgba(79,70,229,0.22)]'
                               : 'border-[var(--purple-soft)]/20 bg-[var(--bg-primary)]/70 text-[var(--text-secondary)] hover:border-[var(--purple-primary)]/50 hover:bg-[var(--purple-primary)]/10'
                           }`}
                         >
@@ -334,7 +334,9 @@ export function ProjectDiagnosisSection() {
                 {diagnosisQuestions.map((question, index) => (
                   <article
                     key={question.id}
-                    className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-primary)]/50 p-5"
+                    className={`motion-fade-up rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-primary)]/50 p-5 ${
+                      index === 1 ? 'motion-delay-100' : index === 2 ? 'motion-delay-200' : ''
+                    }`}
                   >
                     <div className="flex items-start gap-4">
                       <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-[var(--purple-soft)]/30 bg-[var(--purple-primary)]/12 text-sm font-semibold text-[var(--text-bright)]">

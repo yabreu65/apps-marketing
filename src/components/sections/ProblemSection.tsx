@@ -1,20 +1,53 @@
 import { Container } from '@/components/ui/Container';
+import { MotionReveal } from '@/components/ui/MotionReveal';
 
 const problems = [
   {
     title: 'Captación dispersa',
     description:
       'Las consultas llegan por Instagram, WhatsApp o marketplaces, pero no siempre entran en un recorrido claro.',
+    motion: 'up',
   },
   {
     title: 'Seguimiento manual',
     description:
       'Responder, recordar interesados y retomar conversaciones depende demasiado de memoria, notas o procesos improvisados.',
+    motion: 'down',
   },
   {
     title: 'Poca visibilidad comercial',
     description:
       'Cuesta saber qué consultas tienen más valor, qué oportunidades priorizar y dónde se están frenando las ventas.',
+    motion: 'up',
+  },
+  {
+    title: 'Procesos desconectados',
+    description:
+      'La captación, el seguimiento y la operación no siempre están conectados, y eso hace que se pierdan oportunidades reales.',
+    motion: 'down',
+  },
+];
+
+const cardStyles = [
+  {
+    bg: 'bg-[linear-gradient(180deg,rgba(168,85,247,0.34)_0%,rgba(88,28,135,0.18)_48%,rgba(8,13,31,0.96)_100%)]',
+    accent: 'bg-fuchsia-300',
+    glow: 'bg-fuchsia-400/20',
+  },
+  {
+    bg: 'bg-[linear-gradient(180deg,rgba(45,212,191,0.26)_0%,rgba(14,116,144,0.16)_48%,rgba(8,13,31,0.96)_100%)]',
+    accent: 'bg-cyan-300',
+    glow: 'bg-cyan-400/20',
+  },
+  {
+    bg: 'bg-[linear-gradient(180deg,rgba(251,191,36,0.24)_0%,rgba(180,83,9,0.13)_48%,rgba(8,13,31,0.96)_100%)]',
+    accent: 'bg-amber-200',
+    glow: 'bg-amber-300/20',
+  },
+  {
+    bg: 'bg-[linear-gradient(180deg,rgba(99,102,241,0.32)_0%,rgba(79,70,229,0.18)_48%,rgba(8,13,31,0.96)_100%)]',
+    accent: 'bg-violet-300',
+    glow: 'bg-violet-400/20',
   },
 ];
 
@@ -39,36 +72,39 @@ export function ProblemSection() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
-          {problems.map((problem, index) => (
-            <article
-              key={problem.title}
-              className={`motion-fade-up hover-lift group relative overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 hover:border-[var(--purple-soft)]/50 hover:shadow-[0_18px_70px_rgba(124,58,237,0.16)] sm:p-6 ${
-                index === 1 ? 'motion-delay-100' : index === 2 ? 'motion-delay-200' : ''
-              }`}
-            >
-              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--purple-primary)] via-[var(--purple-soft)] to-[var(--cyan-accent)] opacity-80" />
+        <MotionReveal className="mt-12 grid gap-4 lg:grid-cols-4">
+          {problems.map((problem, index) => {
+            const style = cardStyles[index % cardStyles.length];
 
-              <div className="mb-5 grid h-11 w-11 place-items-center rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-shell)] text-sm font-semibold text-[var(--text-bright)]">
-                0{index + 1}
-              </div>
+            return (
+              <article
+                key={problem.title}
+                className={`motion-fade-up hover-lift group relative flex flex-col items-center justify-center overflow-hidden rounded-b-3xl rounded-t-[4.8rem] border border-white/10 ${style.bg} p-5 pt-8 text-center hover:border-[var(--purple-soft)]/50 hover:shadow-[0_18px_70px_rgba(124,58,237,0.16)] sm:p-6 sm:pt-10 lg:min-h-[26rem] ${problem.motion === 'up'
+                    ? 'lg:problem-card-float-up'
+                    : 'lg:problem-card-float-down'
+                  }`}
+              >
+                <div className={`absolute inset-x-0 top-0 h-24 ${style.glow} blur-2xl`} />
 
-              <h3 className="text-xl font-semibold text-[var(--text-bright)]">
-                {problem.title}
-              </h3>
+                <div className="relative z-10">
+                  <div className="mx-auto mb-5 flex items-center justify-center gap-1.5">
+                    <span className={`h-2.5 w-2.5 rounded-full ${style.accent}`} />
+                    <span className={`h-2.5 w-2.5 rounded-full ${style.accent} opacity-70`} />
+                    <span className={`h-2.5 w-2.5 rounded-full ${style.accent} opacity-45`} />
+                  </div>
 
-              <div className="mt-3 flex items-center gap-2">
-                <span className="h-3.5 w-3.5 rounded-full bg-[var(--purple-soft)] shadow-[0_0_18px_rgba(167,139,250,0.95)]" />
-                <span className="h-3.5 w-3.5 rounded-full bg-[var(--purple-primary)] shadow-[0_0_18px_rgba(124,58,237,0.9)]" />
-                <span className="h-3.5 w-3.5 rounded-full bg-[var(--text-accent)] shadow-[0_0_18px_rgba(147,197,253,0.9)]" />
-              </div>
+                  <h3 className="text-xl font-semibold uppercase text-[var(--text-bright)]">
+                    {problem.title}
+                  </h3>
 
-              <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
-                {problem.description}
-              </p>
-            </article>
-          ))}
-        </div>
+                  <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)] sm:text-xl">
+                    {problem.description}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
+        </MotionReveal>
       </Container>
     </section>
   );

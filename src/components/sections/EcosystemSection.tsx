@@ -1,4 +1,5 @@
 import { Container } from '@/components/ui/Container';
+import { MotionReveal } from '@/components/ui/MotionReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const ecosystemItems = [
@@ -48,15 +49,15 @@ export function EcosystemSection() {
               description="Aplicamos aprendizajes de sistemas reales, herramientas de marketing y procesos comerciales para crear soluciones más claras, útiles y escalables."
             />
 
-            <div className="motion-fade-up motion-delay-100 mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
+            <MotionReveal className="mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
               <p className="text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
                 Apps Marketing es el punto de entrada: empezamos con una web, landing o sistema simple,
                 y podemos evolucionar por fases hacia seguimiento, dashboard, automatización o IA aplicada.
               </p>
-            </div>
+            </MotionReveal>
           </div>
 
-          <div className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+          <MotionReveal className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
             {ecosystemItems.map((item, index) => (
               <article
                 key={item.name}
@@ -87,7 +88,7 @@ export function EcosystemSection() {
                 </div>
               </article>
             ))}
-          </div>
+          </MotionReveal>
         </div>
       </Container>
     </section>

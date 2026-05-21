@@ -17,7 +17,7 @@
 	--text-secondary: #c4d0f8;
 	--text-muted: #98a6d6;
 	--border-subtle: #2e3b66;
-	--warm-white: #fffbf5;
+	--warm-white: #ffffff;
 	--bg-panel: #0d1430;
 	--bg-panel-soft: #091126;
 	--bg-panel-deep: #070e1f;
@@ -95,7 +95,7 @@ h4,
 h5,
 h6 {
 	font-family:
-		var(--font-domine),
+		var(--font-manrope),
 		var(--font-inter),
 		ui-serif,
 		Georgia,
@@ -110,29 +110,83 @@ h6 {
 
 @layer components {
 	.marquee-track {
-		animation: marqueeScroll 28s linear infinite;
+		animation: marqueeScroll 40s linear infinite;
 		will-change: transform;
 	}
 
 	.spiderweb-bg {
+		isolation: isolate;
 		background:
 			radial-gradient(circle at 18% 30%, rgba(124, 58, 237, 0.2), transparent 36%),
-			radial-gradient(circle at 82% 70%, rgba(99, 102, 241, 0.16), transparent 32%),
+			radial-gradient(circle at 82% 70%, rgba(124, 58, 237, 0.16), transparent 32%),
+			radial-gradient(
+				ellipse at 50% 50%,
+				transparent 0%,
+				rgba(7, 10, 22, 0.14) 48%,
+				rgba(2, 4, 18, 0.62) 100%
+			),
 			repeating-radial-gradient(
 				circle at 50% 50%,
-				rgba(167, 139, 250, 0.2) 0 2px,
-				transparent 2px 24px
+				rgba(167, 139, 250, 0.24) 0 2px,
+				transparent 2px 26px
 			),
 			repeating-conic-gradient(
 				from 0deg at 50% 50%,
-				rgba(167, 139, 250, 0.2) 0deg 1.6deg,
+				rgba(167, 139, 250, 0.24) 0deg 1.8deg,
 				transparent 1.6deg 22.5deg
 			);
 		opacity: 0.92;
 		animation:
 			spiderWebFloat 5.5s ease-in-out infinite alternate,
 			spiderWebPulse 3.2s ease-in-out infinite;
+		box-shadow:
+			inset 0 42px 120px rgba(124, 58, 237, 0.18),
+			inset 0 -72px 150px rgba(2, 4, 18, 0.68);
 		will-change: transform;
+	}
+
+	.spiderweb-bg::before,
+	.spiderweb-bg::after {
+		content: "";
+		pointer-events: none;
+		position: absolute;
+		inset: -16%;
+	}
+
+	.spiderweb-bg::before {
+		z-index: -1;
+		background:
+			repeating-radial-gradient(
+				circle at 50% 50%,
+				rgba(124, 58, 237, 0.13) 0 1px,
+				transparent 1px 38px
+			),
+			repeating-conic-gradient(
+				from 8deg at 50% 50%,
+				rgba(167, 139, 250, 0.1) 0deg 1deg,
+				transparent 1deg 18deg
+			);
+		opacity: 0.72;
+		transform: scale(1.16);
+		animation: spiderWebDepthFloat 8.5s ease-in-out infinite alternate;
+		will-change: transform;
+	}
+
+	.spiderweb-bg::after {
+		inset: 0;
+		z-index: 1;
+		background:
+			radial-gradient(
+				circle at 50% 50%,
+				rgba(167, 139, 250, 0.1),
+				transparent 20rem
+			),
+			linear-gradient(
+				180deg,
+				rgba(2, 4, 18, 0.38) 0%,
+				transparent 34%,
+				rgba(2, 4, 18, 0.46) 100%
+			);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -140,6 +194,9 @@ h6 {
 			animation: none;
 		}
 		.spiderweb-bg {
+			animation: none;
+		}
+		.spiderweb-bg::before {
 			animation: none;
 		}
 	}
@@ -182,7 +239,7 @@ h6 {
 	}
 
 	.hover-lift:hover {
-		transform: translateY(-0.25rem);
+		transform: translateY(-0.18rem);
 	}
 
 	.premium-focus {
@@ -201,6 +258,46 @@ h6 {
 
 	.hero-float {
 		animation: softFloat 8s ease-in-out infinite alternate;
+	}
+
+	.problem-card-float-up {
+		animation: problemCardFloatUp 6.6s ease-in-out infinite alternate;
+		will-change: transform;
+	}
+
+	.problem-card-float-down {
+		animation: problemCardFloatDown 6.6s ease-in-out infinite alternate;
+		will-change: transform;
+	}
+
+	.viewport-reveal {
+		opacity: 0;
+		transform: translate3d(0, 1rem, 0);
+		transition:
+			opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: 0ms;
+	}
+
+	.viewport-reveal.motion-delay-100 {
+		transition-delay: 100ms;
+	}
+
+	.viewport-reveal.motion-delay-200 {
+		transition-delay: 200ms;
+	}
+
+	.viewport-reveal.motion-delay-300 {
+		transition-delay: 300ms;
+	}
+
+	.viewport-reveal.motion-delay-400 {
+		transition-delay: 400ms;
+	}
+
+	.viewport-reveal[data-visible="true"] {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
 	}
 
 	.glass-card {
@@ -628,6 +725,15 @@ h6 {
 	}
 }
 
+@keyframes spiderWebDepthFloat {
+	0% {
+		transform: translate3d(1.4%, 1%, 0) scale(1.12) rotate(0.6deg);
+	}
+	100% {
+		transform: translate3d(-1.4%, -1%, 0) scale(1.2) rotate(-0.6deg);
+	}
+}
+
 @keyframes spiderWebPulse {
 	0%,
 	100% {
@@ -674,7 +780,25 @@ h6 {
 		transform: translate3d(0, 0, 0);
 	}
 	100% {
-		transform: translate3d(0, -0.75rem, 0);
+		transform: translate3d(0, -0.5rem, 0);
+	}
+}
+
+@keyframes problemCardFloatUp {
+	0% {
+		transform: translate3d(0, 0.42rem, 0);
+	}
+	100% {
+		transform: translate3d(0, -0.92rem, 0);
+	}
+}
+
+@keyframes problemCardFloatDown {
+	0% {
+		transform: translate3d(0, -0.4rem, 0);
+	}
+	100% {
+		transform: translate3d(0, 0.82rem, 0);
 	}
 }
 
@@ -688,14 +812,20 @@ h6 {
 	.motion-fade-up,
 	.motion-fade-in,
 	.motion-scale-in,
+	.viewport-reveal,
 	.hover-lift,
 	.hero-float,
+	.problem-card-float-up,
+	.problem-card-float-down,
 	.marquee-track,
 	.spiderweb-bg,
+	.spiderweb-bg::before,
+	.spiderweb-bg::after,
 	.chat-dot {
 		animation: none !important;
 		transition: none !important;
 		transform: none !important;
+		opacity: 1 !important;
 	}
 }
 

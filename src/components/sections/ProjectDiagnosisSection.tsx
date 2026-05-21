@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 
 import { Container } from '@/components/ui/Container';
+import { MotionReveal } from '@/components/ui/MotionReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { diagnosisQuestions } from '@/data/project-diagnosis';
 import { getDiagnosisResponseCopy } from '@/data/diagnosis-response-copy';
@@ -149,9 +150,12 @@ export function ProjectDiagnosisSection() {
               description="Te recomendamos un primer paso claro según tu situación actual, sin vueltas y sin venderte algo que no necesitás."
             />
 
-            <div className="mt-6 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+            <MotionReveal className="mt-6 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
               {canShowRecommendation ? (
-                <div className="motion-fade-up mt-4">
+                <div
+                  key={`${answers.goal ?? ''}-${answers.stage ?? ''}-${answers.urgency ?? ''}`}
+                  className="motion-scale-in mt-4"
+                >
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--purple-soft)]">
                     Punto de partida sugerido
                   </p>
@@ -235,10 +239,10 @@ export function ProjectDiagnosisSection() {
                   </>
                 ) : null}
               </div>
-            </div>
+            </MotionReveal>
           </div>
 
-          <div className="order-1 lg:order-2 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+          <MotionReveal className="order-1 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)] lg:order-2" delay="100">
             <div className="border-b border-[var(--border-subtle)] p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[var(--text-bright)]">
@@ -383,7 +387,7 @@ export function ProjectDiagnosisSection() {
                 </button>
               </div>
             </div>
-          </div>
+          </MotionReveal>
         </div>
       </Container>
     </section>

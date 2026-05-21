@@ -1,33 +1,39 @@
 import { Container } from '@/components/ui/Container';
+import { MotionReveal } from '@/components/ui/MotionReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Button } from '@/components/ui/Button';
 
 const serviceGroups = [
   {
     number: '01',
+    stage: 'Ideal para hoy',
     title: 'Presencia digital y captación',
     description:
-      'Para negocios que necesitan explicar mejor lo que venden y recibir consultas más calificadas.',
+      'Atraé consultas más claras y calificadas con una propuesta digital que explique mejor lo que vendés.',
     items: ['Landing comercial', 'Web catálogo conectada a WhatsApp'],
   },
   {
     number: '02',
+    stage: 'Ideal para hoy',
     title: 'Sistemas y seguimiento',
     description:
-      'Para ordenar consultas, tareas y oportunidades sin depender solo de mensajes sueltos.',
+      'Ordená consultas, tareas y oportunidades para que el seguimiento no dependa de mensajes sueltos.',
     items: ['Sistema web a medida', 'Panel simple de seguimiento'],
   },
   {
     number: '03',
+    stage: 'Ideal para hoy',
     title: 'Marketing y contenido',
     description:
-      'Para mejorar visibilidad, confianza y entrada de consultas desde canales digitales.',
+      'Mejorá visibilidad y confianza con contenido orientado a generar más consultas con intención de compra.',
     items: ['SEO inicial', 'Contenido orientado a conversión'],
   },
   {
     number: '04',
+    stage: 'Escalable a futuro',
     title: 'Chat inteligente y automatización',
     description:
-      'Para asistir conversaciones, priorizar oportunidades y automatizar por fases sin perder control humano.',
+      'Escalá conversaciones y priorización comercial con automatización gradual, sin perder control humano.',
     items: ['Asistente comercial', 'Automatización gradual'],
   },
 ];
@@ -38,26 +44,45 @@ export function ServicesSection() {
       id="soluciones"
       className="section-product-depth relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-20"
     >
-      <p className="text-xl sm:text-2xl mb-12 text-center font-semibold uppercase tracking-[0.32em] text-[var(--purple-soft)]">
+      <p className="mb-10 text-center text-base font-semibold uppercase tracking-[0.22em] text-[var(--purple-soft)] sm:mb-12 sm:text-xl">
         Soluciones
       </p>
       <Container className="relative z-10">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
             <SectionHeading
-              title="Qué podemos construir para tu negocio"
-              description="Elegimos el camino según tu etapa, tus canales actuales y el nivel de seguimiento que necesitás."
+              title="Soluciones para captar, ordenar y crecer"
+              description="Te orientamos según tu etapa actual para que avances con foco comercial y un plan claro."
             />
 
-            <div className="motion-fade-up motion-delay-100 mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
+            <MotionReveal className="mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
               <p className="text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
-                Podemos empezar simple con una landing o catálogo, y evolucionar
-                por fases hacia dashboard, automatización o IA aplicada.
+                Empezamos por lo más rentable para hoy y dejamos lista la base para escalar por etapas.
               </p>
-            </div>
+              <ul className="mt-4 space-y-2 text-xs text-[var(--text-soft)] sm:text-sm">
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-soft)]" />
+                  Claridad comercial desde la primera visita
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-soft)]" />
+                  Seguimiento más ordenado y previsible
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-soft)]" />
+                  Escalado progresivo sin rehacer todo
+                </li>
+              </ul>
+              <Button
+                href="#diagnostico"
+                className="mt-5 w-full rounded-full px-5 py-2.5 text-sm sm:w-auto"
+              >
+                Quiero recomendación para mi caso
+              </Button>
+            </MotionReveal>
           </div>
 
-          <div className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+          <MotionReveal className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
             {serviceGroups.map((group, index) => (
               <article
                 key={group.title}
@@ -77,6 +102,10 @@ export function ServicesSection() {
                   </div>
 
                   <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--purple-soft)] sm:text-xs">
+                      {group.stage}
+                    </p>
+
                     <h3 className="text-lg font-semibold text-[var(--warm-white)] sm:text-xl">
                       {group.title}
                     </h3>
@@ -99,7 +128,7 @@ export function ServicesSection() {
                 </div>
               </article>
             ))}
-          </div>
+          </MotionReveal>
         </div>
 
       </Container>

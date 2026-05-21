@@ -11,6 +11,7 @@ import { buildPublicApiUrl } from "@/lib/public-api-url";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
+import { MotionReveal } from "@/components/ui/MotionReveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { LeadApiResponse, LeadInterest, LeadPayload } from "@/types/lead";
 
@@ -222,7 +223,8 @@ export function ContactFormSection() {
 					</p>
 				) : null}
 
-				<Card className="overflow-hidden p-0">
+				<MotionReveal>
+					<Card className="overflow-hidden p-0">
 					<form
 						noValidate
 						onSubmit={handleSubmit}
@@ -487,7 +489,8 @@ export function ContactFormSection() {
 							</Button>
 						</div>
 					</form>
-				</Card>
+					</Card>
+				</MotionReveal>
 			</Container>
 		</section>
 	);

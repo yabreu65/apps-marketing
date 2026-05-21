@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Domine, Geist, Inter } from 'next/font/google';
+import { Domine, Geist, Inter, Manrope } from 'next/font/google';
 import './globals.css';
 
 const geist = Geist({
@@ -16,6 +16,12 @@ const inter = Inter({
 const domine = Domine({
   subsets: ['latin'],
   variable: '--font-domine',
+  display: 'swap',
+});
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
   display: 'swap',
 });
 
@@ -39,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${geist.variable} ${inter.variable} ${domine.variable}`}>
+    <html lang="es" className={`${geist.variable} ${inter.variable} ${domine.variable} ${manrope.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -44,12 +44,12 @@ export function PublicHeader() {
             <img src="/logo_pawtech.svg" alt="Apps Marketing" className="h-12 w-auto sm:h-14 lg:h-20 xl:h-24" />
           </Link>
 
-          <nav className="hidden items-center gap-7 lg:flex">
+          <nav className="hidden items-center gap-20 lg:flex">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-lg text-[var(--text-secondary)] transition hover:-translate-y-0.5 hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
+                className="text-lg text-[var(--warm-white)] transition hover:-translate-y-0.5 hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
               >
                 {item.label}
               </Link>
@@ -89,17 +89,25 @@ export function PublicHeader() {
       </header>
 
       <div
-        className={`fixed inset-0 z-40 bg-[color:rgba(5,9,22,0.96)] transition duration-300 lg:hidden ${mobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+        className={`fixed inset-0 z-40 bg-[color:rgba(5,9,22,0.96)] transition duration-300 lg:hidden ${mobileMenuOpen ? 'pointer-events-auto translate-y-0 scale-100 opacity-100' : 'pointer-events-none -translate-y-2 scale-[0.99] opacity-0'}`}
         aria-hidden={!mobileMenuOpen}
       >
         <div className="flex h-full flex-col px-6 pb-8 pt-28">
           <nav className="space-y-4">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map((item, index) => (
               <Link
                 key={`mobile-${item.href}`}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="motion-fade-up block rounded-2xl border border-[var(--border-subtle)]/90 bg-[var(--bg-secondary)]/55 px-5 py-4 text-lg font-medium text-[var(--text-primary)] transition hover:border-cyan-300/50 hover:bg-[var(--bg-secondary)]/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                className={`motion-fade-up block rounded-2xl border border-[var(--border-subtle)]/90 bg-[var(--bg-secondary)]/55 px-5 py-4 text-lg font-medium text-[var(--text-primary)] transition hover:border-cyan-300/50 hover:bg-[var(--bg-secondary)]/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+                  index === 1
+                    ? 'motion-delay-100'
+                    : index === 2
+                      ? 'motion-delay-200'
+                      : index >= 3
+                        ? 'motion-delay-300'
+                        : ''
+                }`}
               >
                 {item.label}
               </Link>

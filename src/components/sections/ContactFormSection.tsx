@@ -110,7 +110,16 @@ export function ContactFormSection() {
 	);
 
 	useEffect(() => {
-		setDiagnosisContext(readDiagnosisContext());
+		const context = readDiagnosisContext();
+		setDiagnosisContext(context);
+		if (!context) return;
+		setValues((prev) => {
+			if (prev.serviceInterest.trim().length > 0) return prev;
+			return {
+				...prev,
+				serviceInterest: context.recommendedSolution,
+			};
+		});
 	}, []);
 
 	function handleChange<K extends keyof FormValues>(
@@ -202,7 +211,7 @@ export function ContactFormSection() {
 	return (
 		<section
 			id="contacto"
-			className="section-form-cosmos relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16"
+			className="section-form-cosmos relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-20"
 		>
 			<div id="contact-form" className="absolute -top-24 h-px w-px" aria-hidden="true" />
 			<div className="pointer-events-none absolute -left-24 top-8 h-48 w-48 sm:h-80 sm:w-80 rounded-full bg-[var(--purple-primary)]/18 blur-2xl sm:blur-3xl" />
@@ -213,6 +222,17 @@ export function ContactFormSection() {
 					title="Dejanos tu caso y te orientamos el próximo paso"
 					description="Te pedimos estos datos para recomendarte el mejor próximo paso y contactarte de forma manual."
 				/>
+				<div className="grid gap-3 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/68 px-5 py-5 sm:grid-cols-3 sm:px-6">
+					<p className="text-sm font-semibold text-[var(--text-bright)]">
+						Respuesta manual y personalizada.
+					</p>
+					<p className="text-sm text-[var(--text-secondary)]">
+						Diagnóstico inicial según tu etapa.
+					</p>
+					<p className="text-sm text-[var(--text-secondary)]">
+						Sin compromiso ni automatizaciones ocultas.
+					</p>
+				</div>
 				{diagnosisContext ? (
 					<p className="motion-fade-up rounded-2xl border border-[var(--purple-soft)]/25 bg-[var(--purple-primary)]/10 px-4 py-3 text-sm text-[var(--text-secondary)]">
 						Vamos a enviar también tu diagnóstico orientativo:{" "}

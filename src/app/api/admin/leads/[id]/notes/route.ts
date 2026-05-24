@@ -1,5 +1,6 @@
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
-import { internalNoStoreHeaders, isSameOriginRequest } from '@/lib/internal-security';
+import { requireInternalAdminAccess } from '@/lib/internal-admin-auth';
+import { internalNoStoreHeaders } from '@/lib/internal-security';
 import { validateLeadNoteContent } from '@/lib/lead-note-validation';
 import { prisma } from '@/lib/prisma';
 
@@ -8,10 +9,13 @@ import { prisma } from '@/lib/prisma';
  * Ruta de notas internas para pruebas locales.
  * Debe protegerse con autenticación/autorización antes de producción.
  */
-export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const headers = internalNoStoreHeaders();
 
   try {
+    const authError = requireInternalAdminAccess(request, headers, { checkOrigin: false });
+    if (authError) return authError;
+
     const { id } = await params;
 
     if (!id || id.length < 10) {
@@ -40,9 +44,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const headers = internalNoStoreHeaders();
 
   try {
-    if (!isSameOriginRequest(request)) {
-      return errorResponse('Solicitud de origen inválida.', 403, undefined, headers);
-    }
+    const authError = requireInternalAdminAccess(request, headers);
+    if (authError) return authError;
 
     const { id } = await params;
 

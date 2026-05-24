@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { isValidInternalAuthToken } from '@/lib/internal-auth';
 import { clearLoginAttempts } from '@/lib/login-rate-limit';
 import { createJsonRequest, readJsonResponse, resetTestEnv, sameOriginHeaders, setTestEnv } from '@/test/request-helpers';
 
@@ -25,6 +26,7 @@ describe('POST /api/internal/login', () => {
     clearLoginAttempts(rateLimitKey);
     previousEnv = setTestEnv({
       INTERNAL_DASHBOARD_PASSWORD: 'super-secret',
+      INTERNAL_AUTH_SECRET: 'super-secret-token-for-tests',
       INTERNAL_AUTH_COOKIE_NAME: 'apps_marketing_internal_auth',
       NODE_ENV: 'test',
     });
@@ -97,9 +99,12 @@ describe('POST /api/internal/login', () => {
     expect(cookieSetMock).toHaveBeenCalledOnce();
     expect(cookieSetMock).toHaveBeenCalledWith(
       'apps_marketing_internal_auth',
-      'ok',
+      expect.any(String),
       expect.objectContaining({ httpOnly: true, sameSite: 'lax', path: '/' }),
     );
+    const [, token] = cookieSetMock.mock.calls[0] ?? [];
+    expect(typeof token).toBe('string');
+    expect(isValidInternalAuthToken(token as string)).toBe(true);
   });
 
   it('responde 403 con origin externo', async () => {

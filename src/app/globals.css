@@ -4,19 +4,24 @@
 
 :root {
 	color-scheme: dark;
-	--bg-primary: #070a16;
-	--bg-secondary: #0d1328;
-	--card-bg: #121a33;
+	--bg-primary: #060914;
+	--bg-secondary: #0b1228;
+	--card-bg: #101a35;
 	--purple-primary: #7c3aed;
 	--purple-deep: #4c1d95;
-	--purple-soft: #a78bfa;
-	--orange-cta: #4f46e5;
-	--orange-hover: #4338ca;
-	--orange-soft: #818cf8;
-	--text-primary: #d0daff;
-	--text-secondary: #c4d0f8;
-	--text-muted: #98a6d6;
-	--border-subtle: #2e3b66;
+	--purple-soft: #c4b5fd;
+	--orange-cta: #f97316;
+	--orange-hover: #ea580c;
+	--orange-soft: #fdba74;
+	--cyan-accent: #22d3ee;
+	--cyan-accent-soft: #67e8f9;
+	--cyan-accent-deep: #0891b2;
+	--text-primary: #f4f1ea;
+	--text-secondary: #d9def4;
+	--text-muted: #a8b2d8;
+	--border-subtle: #2b355a;
+	--text-main: var(--text-primary);
+	--brand-purple-soft: var(--purple-soft);
 	--warm-white: #ffffff;
 	--bg-panel: #0d1430;
 	--bg-panel-soft: #091126;
@@ -100,7 +105,7 @@ h6 {
 		ui-serif,
 		Georgia,
 		serif;
-	color: #d0daff;
+	color: var(--text-main);
 }
 
 ::selection {
@@ -315,7 +320,12 @@ h6 {
 	}
 
 	.text-gradient {
-		background: linear-gradient(90deg, #eef2ff 0%, #a78bfa 52%, #60a5fa 100%);
+		background: linear-gradient(
+			90deg,
+			var(--warm-white) 0%,
+			var(--brand-purple-soft) 52%,
+			var(--cyan-accent) 100%
+		);
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;

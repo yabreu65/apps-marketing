@@ -53,7 +53,7 @@ const cardStyles = [
 
 export function ProblemSection() {
   return (
-    <section className="section-aurora-grid relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-24">
+    <section id="problema-real" className="section-aurora-grid relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-24">
       <p className="relative top-[-30px] mb-4 text-xl text-center sm:text-2xl font-semibold uppercase tracking-[0.32em] text-[var(--purple-soft)]">
         El problema real
       </p>
@@ -97,7 +97,7 @@ export function ProblemSection() {
                     {problem.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)] sm:text-xl">
+                  <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
                     {problem.description}
                   </p>
                 </div>

@@ -1,5 +1,6 @@
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
-import { internalNoStoreHeaders, isSameOriginRequest } from '@/lib/internal-security';
+import { requireInternalAdminAccess } from '@/lib/internal-admin-auth';
+import { internalNoStoreHeaders } from '@/lib/internal-security';
 import { buildLeadSummaryWithOptionalAI } from '@/lib/lead-summary-ai';
 import { prisma } from '@/lib/prisma';
 
@@ -7,9 +8,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const headers = internalNoStoreHeaders();
 
   try {
-    if (!isSameOriginRequest(request)) {
-      return errorResponse('Solicitud de origen inválida.', 403, undefined, headers);
-    }
+    const authError = requireInternalAdminAccess(request, headers);
+    if (authError) return authError;
 
     const { id } = await params;
 

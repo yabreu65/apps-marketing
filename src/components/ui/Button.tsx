@@ -21,7 +21,7 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantClass: Record<ButtonVariant, string> = {
 	primary:
-		"bg-[var(--orange-cta)] text-[var(--warm-white)] hover:bg-[var(--orange-hover)] focus-visible:outline-[var(--orange-soft)] shadow-[0_14px_40px_rgba(79,70,229,0.3)]",
+		"bg-[var(--orange-cta)] text-[var(--warm-white)] hover:bg-[var(--orange-hover)] focus-visible:outline-[var(--orange-soft)] shadow-[0_14px_40px_rgba(249,115,22,0.28)]",
 	secondary:
 		"border border-[var(--purple-primary)]/60 bg-[var(--purple-primary)]/8 text-[var(--text-primary)] hover:bg-[var(--purple-primary)]/18 hover:text-[var(--warm-white)] focus-visible:outline-[var(--purple-soft)]",
 };

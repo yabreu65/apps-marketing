@@ -1,4 +1,5 @@
 import { errorResponse, methodNotAllowedResponse, successResponse } from '@/lib/api-response';
+import { requireInternalAdminAccess } from '@/lib/internal-admin-auth';
 import { internalNoStoreHeaders } from '@/lib/internal-security';
 import { prisma } from '@/lib/prisma';
 
@@ -7,10 +8,13 @@ import { prisma } from '@/lib/prisma';
  * Esta ruta se usa para revisión local de leads.
  * Antes de producción debe protegerse con autenticación/autorización.
  */
-export async function GET() {
+export async function GET(request: Request) {
   const headers = internalNoStoreHeaders();
 
   try {
+    const authError = requireInternalAdminAccess(request, headers, { checkOrigin: false });
+    if (authError) return authError;
+
     const leads = await prisma.lead.findMany({
       orderBy: { createdAt: 'desc' },
       take: 50,

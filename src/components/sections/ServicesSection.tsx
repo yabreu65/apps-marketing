@@ -3,38 +3,41 @@ import { MotionReveal } from '@/components/ui/MotionReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Button } from '@/components/ui/Button';
 
-const serviceGroups = [
+type ServicePillar = {
+  title: string;
+  description: string;
+  chips: string[];
+  status: 'Disponible hoy' | 'Implementación por etapas' | 'Fase avanzada';
+};
+
+const servicePillars: ServicePillar[] = [
   {
-    number: '01',
-    stage: 'Ideal para hoy',
-    title: 'Presencia digital y captación',
+    title: 'Web y presencia digital',
     description:
-      'Atraé consultas más claras y calificadas con una propuesta digital que explique mejor lo que vendés.',
-    items: ['Landing comercial', 'Web catálogo conectada a WhatsApp'],
+      'Definimos una presencia digital clara para que tu propuesta se entienda rápido y el contacto sea simple desde cualquier canal.',
+    chips: ['Landing comercial', 'Sitio web profesional', 'Mensajes de valor'],
+    status: 'Disponible hoy',
   },
   {
-    number: '02',
-    stage: 'Ideal para hoy',
-    title: 'Sistemas y seguimiento',
+    title: 'Marketing digital',
     description:
-      'Ordená consultas, tareas y oportunidades para que el seguimiento no dependa de mensajes sueltos.',
-    items: ['Sistema web a medida', 'Panel simple de seguimiento'],
+      'Ordenamos captación, contenido y llamadas a la acción para atraer más consultas con intención de compra.',
+    chips: ['SEO / marketing digital', 'Contenido comercial', 'Optimización de conversión'],
+    status: 'Disponible hoy',
   },
   {
-    number: '03',
-    stage: 'Ideal para hoy',
-    title: 'Marketing y contenido',
+    title: 'Sistemas y automatización',
     description:
-      'Mejorá visibilidad y confianza con contenido orientado a generar más consultas con intención de compra.',
-    items: ['SEO inicial', 'Contenido orientado a conversión'],
+      'Conectamos procesos y seguimiento para que el crecimiento no dependa de tareas manuales dispersas.',
+    chips: ['Sistema web a medida', 'Dashboard / panel interno', 'Automatización comercial'],
+    status: 'Implementación por etapas',
   },
   {
-    number: '04',
-    stage: 'Escalable a futuro',
-    title: 'Chat inteligente y automatización',
+    title: 'IA aplicada',
     description:
-      'Escalá conversaciones y priorización comercial con automatización gradual, sin perder control humano.',
-    items: ['Asistente comercial', 'Automatización gradual'],
+      'Integramos IA en fases para priorizar mejor oportunidades y sostener control humano en decisiones clave.',
+    chips: ['Asistente comercial', 'Priorización con contexto', 'Escalado gradual'],
+    status: 'Fase avanzada',
   },
 ];
 
@@ -42,95 +45,61 @@ export function ServicesSection() {
   return (
     <section
       id="soluciones"
-      className="section-product-depth relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-20"
+      className="section-product-depth relative overflow-hidden border-b border-[var(--border-subtle)] py-18 sm:py-24"
     >
-      <p className="mb-10 text-center text-base font-semibold uppercase tracking-[0.22em] text-[var(--purple-soft)] sm:mb-12 sm:text-xl">
-        Soluciones
-      </p>
-      <Container className="relative z-10">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div className="lg:sticky lg:top-28">
-            <SectionHeading
-              title="Soluciones para captar, ordenar y crecer"
-              description="Te orientamos según tu etapa actual para que avances con foco comercial y un plan claro."
-            />
-
-            <MotionReveal className="mt-6 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/70 p-5 shadow-[0_18px_60px_rgba(2,6,23,0.35)]">
-              <p className="text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
-                Empezamos por lo más rentable para hoy y dejamos lista la base para escalar por etapas.
-              </p>
-              <ul className="mt-4 space-y-2 text-xs text-[var(--text-soft)] sm:text-sm">
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-soft)]" />
-                  Claridad comercial desde la primera visita
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-soft)]" />
-                  Seguimiento más ordenado y previsible
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-soft)]" />
-                  Escalado progresivo sin rehacer todo
-                </li>
-              </ul>
-              <Button
-                href="#diagnostico"
-                className="mt-5 w-full rounded-full px-5 py-2.5 text-sm sm:w-auto"
-              >
-                Quiero recomendación para mi caso
-              </Button>
-            </MotionReveal>
-          </div>
-
-          <MotionReveal className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
-            {serviceGroups.map((group, index) => (
-              <article
-                key={group.title}
-                className={`motion-fade-up hover-lift group border-b border-[var(--border-subtle)] p-5 last:border-b-0 hover:bg-[var(--bg-hover)]/40 sm:p-6 ${
-                  index === 1
-                    ? 'motion-delay-100'
-                    : index === 2
-                      ? 'motion-delay-200'
-                      : index === 3
-                        ? 'motion-delay-300'
-                        : ''
-                }`}
-              >
-                <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
-                  <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--purple-soft)]/30 bg-[var(--purple-primary)]/12 text-sm font-semibold text-[var(--text-bright)] shadow-[0_0_28px_rgba(124,58,237,0.18)]">
-                    {group.number}
-                  </div>
-
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--purple-soft)] sm:text-xs">
-                      {group.stage}
-                    </p>
-
-                    <h3 className="text-lg font-semibold text-[var(--warm-white)] sm:text-xl">
-                      {group.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
-                      {group.description}
-                    </p>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {group.items.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-primary)]/65 px-3 py-1.5 text-xs font-medium text-[var(--text-soft)] sm:text-sm"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </MotionReveal>
+      <Container className="relative z-10 space-y-10 sm:space-y-12">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--purple-soft)] sm:text-sm">
+            Soluciones por pilares
+          </p>
+          <SectionHeading
+            title="Web, marketing, sistemas e IA conectados a resultados"
+            description="No vendemos piezas aisladas: diseñamos un camino coherente para captar mejor, ordenar seguimiento y escalar con tecnología."
+          />
         </div>
 
+        <div className="grid gap-4 md:grid-cols-2">
+          {servicePillars.map((pillar, index) => (
+            <MotionReveal
+              key={pillar.title}
+              className={`hover-lift rounded-3xl border border-[var(--border-subtle)] bg-[color-mix(in_srgb,var(--card-bg)_80%,#ffffff_6%)] p-6 shadow-[0_18px_56px_rgba(2,6,23,0.35)] sm:p-7 ${
+                index === 1 ? 'motion-delay-100' : index === 2 ? 'motion-delay-200' : index === 3 ? 'motion-delay-300' : ''
+              }`}
+            >
+              <p className="inline-flex rounded-full border border-[var(--purple-soft)]/40 bg-[var(--purple-primary)]/14 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--purple-soft)]">
+                {pillar.status}
+              </p>
+
+              <h3 className="mt-4 text-xl font-semibold leading-tight text-[var(--text-bright)] sm:text-2xl">
+                {pillar.title}
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
+                {pillar.description}
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {pillar.chips.map((chip) => (
+                  <span
+                    key={chip}
+                    className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-primary)]/65 px-3 py-1.5 text-xs font-medium text-[var(--text-soft)] sm:text-sm"
+                  >
+                    {chip}
+                  </span>
+                ))}
+              </div>
+            </MotionReveal>
+          ))}
+        </div>
+
+        <div className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/65 px-6 py-6 text-center sm:px-8">
+          <p className="max-w-3xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
+            Si no sabés por dónde empezar, usamos un diagnóstico breve para recomendarte el primer paso más útil para tu etapa actual.
+          </p>
+          <Button href="#diagnostico" className="rounded-full px-6 py-3 text-sm sm:text-base">
+            Ver diagnóstico orientativo
+          </Button>
+        </div>
       </Container>
     </section>
   );

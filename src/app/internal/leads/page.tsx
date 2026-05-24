@@ -68,7 +68,7 @@ const SERVICE_OPTIONS: FilterOption[] = [
 	{ label: "Automatización comercial", value: "Automatización comercial" },
 	{ label: "IA aplicada al negocio", value: "IA aplicada al negocio" },
 	{ label: "SEO / marketing digital", value: "SEO / marketing digital" },
-	{ label: "No estoy seguro", value: "No estoy seguro" },
+	{ label: "No estoy seguro", value: "No estoy seguro (quiero orientación)" },
 ];
 
 function getPage(value: string | undefined): number {

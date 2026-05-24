@@ -1,12 +1,14 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
   { label: 'Servicios', href: '#soluciones' },
   { label: 'Proyectos', href: '#ruta-etapa' },
-  { label: 'Ecosistema', href: '#ecosistema' },
+  { label: 'Marketing', href: '#marketing' },
+  { label: 'IA aplicada', href: '#ia-local' },
   { label: 'Diagnóstico', href: '#diagnostico' },
   { label: 'Contacto', href: '#contacto' },
 ];
@@ -41,10 +43,10 @@ export function PublicHeader() {
             href="/"
             className="inline-flex items-center px-1 py-1 transition hover:scale-[1.02] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
           >
-            <img src="/logo_pawtech.svg" alt="Apps Marketing" className="h-12 w-auto sm:h-14 lg:h-20 xl:h-24" />
+            <Image src="/logo_pawtech.svg" alt="Apps Marketing" width={320} height={128} className="h-12 w-auto sm:h-14 lg:h-20 xl:h-24" priority />
           </Link>
 
-          <nav className="hidden items-center gap-20 lg:flex">
+          <nav className="hidden items-center gap-8 lg:flex xl:gap-10">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}

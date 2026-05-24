@@ -127,7 +127,7 @@ export function ProjectDiagnosisSection() {
   return (
     <section
       id="diagnostico"
-      className="section-cosmic relative overflow-hidden scroll-mt-24 border-b border-[var(--border-subtle)] py-16 sm:py-20"
+      className="section-cosmic relative overflow-hidden scroll-mt-24 border-b border-[var(--border-subtle)] py-18 sm:py-24"
     >
       <div id="project-diagnosis" className="absolute -top-24 h-px w-px" aria-hidden="true" />
 
@@ -142,6 +142,12 @@ export function ProjectDiagnosisSection() {
       />
 
       <Container className="relative z-10">
+        <div className="mb-6 rounded-3xl border border-[var(--purple-soft)]/35 bg-[color-mix(in_srgb,var(--purple-primary)_12%,var(--bg-primary))] px-5 py-4 shadow-[0_18px_56px_rgba(124,58,237,0.16)] sm:mb-8 sm:px-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--purple-soft)]">Bloque principal de conversión</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
+            Respondé 3 preguntas, recibí una recomendación inicial y continuá con el formulario para enviarnos tu contexto comercial.
+          </p>
+        </div>
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="order-2 lg:order-1 lg:sticky lg:top-28">
             <SectionHeading
@@ -150,7 +156,7 @@ export function ProjectDiagnosisSection() {
               description="Te recomendamos un primer paso claro según tu situación actual, sin vueltas y sin venderte algo que no necesitás."
             />
 
-            <MotionReveal className="mt-6 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+            <MotionReveal className="mt-6 overflow-hidden rounded-3xl border border-[var(--purple-soft)]/30 bg-[var(--card-bg)]/82 p-6 shadow-[0_24px_80px_rgba(2,6,23,0.45)] sm:p-7">
               {canShowRecommendation ? (
                 <div
                   key={`${answers.goal ?? ''}-${answers.stage ?? ''}-${answers.urgency ?? ''}`}
@@ -160,7 +166,7 @@ export function ProjectDiagnosisSection() {
                     Punto de partida sugerido
                   </p>
 
-                  <h3 className="mt-2 text-2xl font-semibold text-[var(--text-bright)]">
+                  <h3 className="mt-2 text-2xl font-semibold leading-tight text-[var(--text-bright)] sm:text-3xl">
                     {responseCopy?.displayTitle ?? responseCopy?.recommendation ?? result?.recommendedSolution}
                   </h3>
 
@@ -206,7 +212,7 @@ export function ProjectDiagnosisSection() {
                 </div>
               )}
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 {canShowRecommendation ? (
                   <>
                     <p className="w-full text-sm leading-6 text-[var(--text-secondary)]">
@@ -225,7 +231,7 @@ export function ProjectDiagnosisSection() {
                             responseCopy?.recommendation ?? result.recommendedSolution,
                         });
                       }}
-                      className="inline-flex items-center justify-center rounded-full bg-[var(--orange-cta)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(79,70,229,0.3)] transition hover:bg-[var(--orange-hover)]"
+                      className="inline-flex items-center justify-center rounded-full bg-[var(--orange-cta)] px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(249,115,22,0.28)] transition hover:bg-[var(--orange-hover)]"
                     >
                       Completar formulario
                     </a>
@@ -242,7 +248,7 @@ export function ProjectDiagnosisSection() {
             </MotionReveal>
           </div>
 
-          <MotionReveal className="order-1 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-bg)]/75 shadow-[0_24px_80px_rgba(2,6,23,0.45)] lg:order-2" delay="100">
+          <MotionReveal className="order-1 overflow-hidden rounded-3xl border border-[var(--purple-soft)]/25 bg-[var(--card-bg)]/82 shadow-[0_24px_80px_rgba(2,6,23,0.45)] lg:order-2" delay="100">
             <div className="border-b border-[var(--border-subtle)] p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[var(--text-bright)]">
@@ -253,9 +259,9 @@ export function ProjectDiagnosisSection() {
                 </p>
               </div>
 
-              <div className="mt-4 h-2 overflow-hidden rounded-full bg-[var(--bg-primary)]">
+              <div className="mt-4 h-3 overflow-hidden rounded-full border border-[var(--border-subtle)] bg-[var(--bg-primary)]">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-[var(--purple-primary)] to-[var(--cyan-accent)] transition-all duration-300"
+                  className="h-full rounded-full bg-gradient-to-r from-[var(--orange-cta)] via-[var(--purple-primary)] to-[var(--cyan-accent)] transition-all duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -361,7 +367,7 @@ export function ProjectDiagnosisSection() {
                                 event.target.value,
                               )
                             }
-                            className="w-full rounded-2xl bg-[var(--orange-cta)] px-4 py-3 text-sm text-[var(--text-secondary)] outline-none transition focus:border-[var(--purple-primary)]/60 focus:ring-2 focus:ring-[var(--purple-primary)]/20"
+                            className="premium-focus w-full rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-secondary)] outline-none transition focus:ring-2 focus:ring-[var(--purple-primary)]/20"
                           >
                             <option value="" disabled>
                               Seleccioná una opción

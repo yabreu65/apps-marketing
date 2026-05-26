@@ -1,38 +1,39 @@
 import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const stages = [
   {
-    title: 'Estoy empezando y necesito presencia',
-    recommendation: 'Landing o web profesional para presentar tu propuesta y facilitar contacto.',
+    title: 'Estoy empezando',
+    recommendation: 'Ordenamos propuesta, oferta y presencia inicial para que el negocio se entienda y genere primeras consultas.',
   },
   {
-    title: 'Ya vendo y quiero recibir más consultas',
-    recommendation: 'Landing enfocada en conversión con oferta y llamada clara a la acción.',
+    title: 'Ya recibo consultas',
+    recommendation: 'Optimizamos mensaje, canales y web para mejorar calidad de consultas y aumentar conversaciones útiles.',
   },
   {
-    title: 'Recibo consultas pero pierdo seguimiento',
-    recommendation: 'Web catálogo + orden de consultas para responder con continuidad.',
+    title: 'Pierdo seguimiento',
+    recommendation: 'Definimos un flujo de respuesta y continuidad para no perder oportunidades por falta de orden comercial.',
   },
   {
-    title: 'Tengo procesos manuales y necesito sistema',
-    recommendation: 'Sistema web a medida para ordenar operación y decisiones.',
+    title: 'Necesito sistema',
+    recommendation: 'Diseñamos una base operativa con procesos claros, seguimiento y datos para decidir mejor.',
   },
   {
-    title: 'Quiero validar un producto digital',
-    recommendation: 'MVP por fases para aprender con bajo riesgo inicial.',
+    title: 'Quiero IA',
+    recommendation: 'Aplicamos IA en casos concretos para responder mejor, priorizar oportunidades y reducir tareas repetitivas.',
   },
   {
-    title: 'Quiero sumar IA o automatización',
-    recommendation: 'Implementación gradual con foco en impacto real y control.',
+    title: 'Quiero validar SaaS',
+    recommendation: 'Bajamos la idea a un MVP de alcance controlado para validar demanda y aprender rápido con riesgo acotado.',
   },
 ];
 
 export function ProjectTypesSection() {
   return (
-    <section id="ruta-etapa" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16">
-      <Container className="relative z-10 space-y-7">
+    <section id="ruta-etapa" className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16 lg:py-20">
+      <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Ruta según tu etapa"
           title="Elegí tu siguiente paso"
@@ -47,6 +48,12 @@ export function ProjectTypesSection() {
               <p className="mt-2 text-xs font-medium text-[var(--text-accent)]">Me pasa esto</p>
             </Card>
           ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Button href="#contacto" className="rounded-full px-6 py-3 text-sm sm:text-base">
+            Elegir mi punto de partida
+          </Button>
         </div>
       </Container>
     </section>

@@ -53,7 +53,7 @@ const cardStyles = [
 
 export function ProblemSection() {
   return (
-    <section id="problema-real" className="section-aurora-grid relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-24">
+    <section id="problema-real" className="section-aurora-grid relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16 lg:py-20">
       <p className="relative top-[-30px] mb-4 text-xl text-center sm:text-2xl font-semibold uppercase tracking-[0.32em] text-[var(--purple-soft)]">
         El problema real
       </p>
@@ -72,7 +72,7 @@ export function ProblemSection() {
           </p>
         </div>
 
-        <MotionReveal className="mt-12 grid gap-4 lg:grid-cols-4">
+        <MotionReveal className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
           {problems.map((problem, index) => {
             const style = cardStyles[index % cardStyles.length];
 

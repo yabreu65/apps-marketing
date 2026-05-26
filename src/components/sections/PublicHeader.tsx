@@ -6,9 +6,8 @@ import { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
   { label: 'Servicios', href: '#soluciones' },
-  { label: 'Proyectos', href: '#ruta-etapa' },
-  { label: 'Marketing', href: '#marketing' },
-  { label: 'IA aplicada', href: '#ia-local' },
+  { label: 'Ecosistema', href: '#sistema-conectado' },
+  { label: 'Ruta', href: '#ruta-etapa' },
   { label: 'Diagnóstico', href: '#diagnostico' },
   { label: 'Contacto', href: '#contacto' },
 ];
@@ -37,21 +36,21 @@ export function PublicHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 py-6 z-50  bg-transparent backdrop-blur-md">
-        <div className="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
+      <header className="fixed inset-x-0 top-0 z-50 bg-[rgba(5,9,22,0.42)] py-3 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
           <Link
             href="/"
             className="inline-flex items-center px-1 py-1 transition hover:scale-[1.02] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
           >
-            <Image src="/logo_pawtech.svg" alt="Apps Marketing" width={320} height={128} className="h-12 w-auto sm:h-14 lg:h-20 xl:h-24" priority />
+            <Image src="/logo_pawtech.svg" alt="PAW Tech" width={320} height={128} className="h-11 w-auto sm:h-12 lg:h-14 xl:h-16" priority />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex xl:gap-10">
+          <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-lg text-[var(--warm-white)] transition hover:-translate-y-0.5 hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
+                className="text-sm font-medium text-[var(--warm-white)]/88 transition hover:-translate-y-0.5 hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)] xl:text-base"
               >
                 {item.label}
               </Link>
@@ -61,7 +60,7 @@ export function PublicHeader() {
           <div className="hidden lg:block">
             <Link
               href="#diagnostico"
-              className="hover-lift inline-flex h-11 items-center rounded-full bg-[var(--orange-cta)] px-5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(245,158,11,0.3)] transition hover:bg-[var(--orange-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] focus-visible:ring-orange-300"
+              className="hover-lift inline-flex h-10 items-center rounded-full bg-[var(--orange-cta)] px-5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(245,158,11,0.3)] transition hover:bg-[var(--orange-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] focus-visible:ring-orange-300"
             >
               Solicitar diagnóstico
             </Link>

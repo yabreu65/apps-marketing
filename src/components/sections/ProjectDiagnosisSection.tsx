@@ -127,7 +127,7 @@ export function ProjectDiagnosisSection() {
   return (
     <section
       id="diagnostico"
-      className="section-cosmic relative overflow-hidden scroll-mt-24 border-b border-[var(--border-subtle)] py-18 sm:py-24"
+      className="section-cosmic relative overflow-hidden scroll-mt-24 border-b border-[var(--border-subtle)] py-16 sm:py-24"
     >
       <div id="project-diagnosis" className="absolute -top-24 h-px w-px" aria-hidden="true" />
 
@@ -142,12 +142,6 @@ export function ProjectDiagnosisSection() {
       />
 
       <Container className="relative z-10">
-        <div className="mb-6 rounded-3xl border border-[var(--purple-soft)]/35 bg-[color-mix(in_srgb,var(--purple-primary)_12%,var(--bg-primary))] px-5 py-4 shadow-[0_18px_56px_rgba(124,58,237,0.16)] sm:mb-8 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--purple-soft)]">Bloque principal de conversión</p>
-          <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)] sm:text-base">
-            Respondé 3 preguntas, recibí una recomendación inicial y continuá con el formulario para enviarnos tu contexto comercial.
-          </p>
-        </div>
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="order-2 lg:order-1 lg:sticky lg:top-28">
             <SectionHeading
@@ -233,7 +227,7 @@ export function ProjectDiagnosisSection() {
                       }}
                       className="inline-flex items-center justify-center rounded-full bg-[var(--orange-cta)] px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(249,115,22,0.28)] transition hover:bg-[var(--orange-hover)]"
                     >
-                      Completar formulario
+                      Enviar mi diagnóstico y completar formulario
                     </a>
                     <button
                       type="button"

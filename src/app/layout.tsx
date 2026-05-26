@@ -27,11 +27,11 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://apps-marketing-sage.vercel.app'),
-  title: 'Apps Marketing / Yoryi AI Studio',
+  title: 'PAW Tech / Yoryi AI Studio',
   description:
     'Landing comercial para desarrollo web, marketing digital e inteligencia artificial aplicada a negocios.',
   openGraph: {
-    title: 'Apps Marketing / Yoryi AI Studio',
+    title: 'PAW Tech / Yoryi AI Studio',
     description:
       'Landing comercial para desarrollo web, marketing digital e inteligencia artificial aplicada a negocios.',
     type: 'website',

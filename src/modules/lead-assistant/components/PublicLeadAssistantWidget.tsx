@@ -114,20 +114,34 @@ export function PublicLeadAssistantWidget() {
 	}, [config.greeting]);
 
 	useEffect(() => {
+		const heroSection = document.querySelector("section.hero-cosmic-bg");
+		const problemSection = document.getElementById("problema-real");
+		const routeSection = document.getElementById("ruta-etapa");
+		const diagnosisSection = document.getElementById("diagnostico");
 		const contactSection = document.getElementById("contact-form");
 		const finalSection = document.getElementById("contacto");
-		if (!contactSection && !finalSection) return;
+		const sectionsToObserve = [
+			heroSection,
+			problemSection,
+			routeSection,
+			diagnosisSection,
+			contactSection,
+			finalSection,
+		].filter((section): section is Element => section !== null);
+
+		if (sectionsToObserve.length === 0) return;
 
 		const observer = new IntersectionObserver(
 			(entries) => {
-				const isNearCloseArea = entries.some((entry) => entry.isIntersecting);
-				setHideTriggerNearCloseSections(isNearCloseArea);
+				const shouldHideFloatingTrigger = entries.some(
+					(entry) => entry.isIntersecting,
+				);
+				setHideTriggerNearCloseSections(shouldHideFloatingTrigger);
 			},
-			{ threshold: 0.2 },
+			{ threshold: 0.28 },
 		);
 
-		if (contactSection) observer.observe(contactSection);
-		if (finalSection) observer.observe(finalSection);
+		sectionsToObserve.forEach((section) => observer.observe(section));
 
 		return () => observer.disconnect();
 	}, []);
@@ -349,7 +363,7 @@ export function PublicLeadAssistantWidget() {
 								AM
 							</div>
 							<div className="min-w-0">
-								<p className="truncate text-sm font-semibold text-[#F8FAFC]">Apps Marketing AI</p>
+								<p className="truncate text-sm font-semibold text-[#F8FAFC]">PAW Tech Assistant</p>
 								<p className="truncate text-[11px] text-[#CBD5E1]">Diagnóstico guiado · contacto manual</p>
 							</div>
 						</div>
@@ -515,7 +529,7 @@ export function PublicLeadAssistantWidget() {
 					{error ? <p className="mt-2 text-xs text-rose-300">{error}</p> : null}
 
 					<div className="mt-2 flex items-center justify-between gap-2">
-						<p className="text-[10px] text-[#94A3B8]">Powered by Apps Marketing AI</p>
+						<p className="text-[10px] text-[#94A3B8]">Powered by PAW Tech Assistant</p>
 						<button
 							type="button"
 							onClick={() => {
@@ -548,7 +562,7 @@ export function PublicLeadAssistantWidget() {
 					aria-expanded={isOpen}
 					aria-controls="public-lead-assistant-widget"
 				>
-					{isOpen ? "Cerrar diagnóstico" : "Diagnóstico comercial en 2 minutos"}
+					{isOpen ? "Cerrar orientación" : "Orientación rápida"}
 				</button>
 			</div>
 		</div>

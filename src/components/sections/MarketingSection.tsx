@@ -9,14 +9,14 @@ const marketingPillars = [
       'Traducimos tu propuesta a una comunicación simple para que el cliente entienda rápido qué resolvés y por qué elegirte.',
   },
   {
-    title: 'Canales que sí convierten',
+    title: 'Adquisición y canales con intención',
     description:
-      'Alineamos web, contenido y llamadas a la acción para generar más conversaciones con intención real.',
+      'Alineamos canales, campañas y llamadas a la acción para atraer consultas más calificadas.',
   },
   {
-    title: 'Seguimiento con criterio comercial',
+    title: 'Contenido y medición para decidir',
     description:
-      'Conectamos adquisición y operación para priorizar oportunidades y sostener continuidad en cada contacto.',
+      'Medimos señales de conversión para optimizar oferta, mensaje y próximos pasos comerciales.',
   },
 ];
 
@@ -24,7 +24,7 @@ export function MarketingSection() {
   return (
     <section
       id="marketing"
-      className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-18 sm:py-24"
+      className="section-cosmic relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16 lg:py-20"
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--orange-soft)]/45 to-transparent"
@@ -35,7 +35,7 @@ export function MarketingSection() {
           <SectionHeading
             eyebrow="Marketing digital"
             title="Captación y conversión con foco comercial"
-            description="No hacemos marketing aislado: lo integramos con tu web y tus procesos para que cada campaña termine en conversaciones más útiles y decisiones más claras."
+            description="Trabajamos mensaje, oferta, adquisición, contenido, campañas y medición para convertir atención en oportunidades reales."
           />
         </div>
 

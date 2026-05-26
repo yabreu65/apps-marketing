@@ -1,5 +1,23 @@
 import { Container } from '@/components/ui/Container';
 
+const socialLinks = [
+  {
+    label: 'LinkedIn',
+    short: 'in',
+    href: 'https://www.linkedin.com',
+  },
+  {
+    label: 'X',
+    short: 'x',
+    href: 'https://x.com',
+  },
+  {
+    label: 'GitHub',
+    short: 'gh',
+    href: 'https://github.com/yoryiabreu',
+  },
+] as const;
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -17,15 +35,22 @@ export function Footer() {
       <Container className="relative z-10 space-y-8">
         <div className="grid gap-8 border-b border-[var(--border-subtle)] pb-8 lg:grid-cols-[1.1fr_1.9fr]">
           <div className="space-y-3">
-            <p className="text-xl font-semibold text-[var(--warm-white)]">Yoryi AI Studio</p>
+            <p className="text-xl font-semibold text-[var(--warm-white)]">PAW Tech</p>
             <p className="max-w-sm text-sm leading-6 text-[var(--text-soft)]">
               Desarrollo web, sistemas e IA local aplicada para equipos que quieren crecer con dirección tecnológica.
             </p>
             <div className="flex items-center gap-2 pt-2">
-              {['in', 'x', 'gh'].map((item) => (
-                <span key={item} className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-primary)]/70 text-xs font-semibold text-[var(--text-secondary)]">
-                  {item}
-                </span>
+              {socialLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-primary)]/70 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--purple-soft)]/45 hover:text-[var(--text-bright)]"
+                >
+                  {item.short}
+                </a>
               ))}
             </div>
           </div>
@@ -47,7 +72,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 text-xs text-[var(--text-soft-2)] sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} Apps Marketing / Yoryi AI Studio. Todos los derechos reservados.</p>
+          <p>© {year} PAW Tech / Yoryi AI Studio. Todos los derechos reservados.</p>
           <p>IA local opcional con Ollama. Sin envío a terceros ni decisiones automáticas.</p>
         </div>
       </Container>

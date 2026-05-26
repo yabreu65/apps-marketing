@@ -3,31 +3,31 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const points = [
   {
-    title: 'Atención inicial más rápida',
-    description: 'El asistente comercial con IA responde primeras consultas y ayuda a orientar próximos pasos.',
+    title: 'Asistente para consultas',
+    description: 'Da una primera orientación comercial y ayuda a responder más rápido sin perder contexto.',
   },
   {
-    title: 'Más orden en el seguimiento',
-    description: 'Permite resumir contexto y mantener continuidad para no perder oportunidades comerciales.',
+    title: 'Resumen de leads',
+    description: 'Condensa información clave de cada conversación para seguir con criterio y continuidad.',
   },
   {
-    title: 'Recomendaciones accionables',
-    description: 'Sugiere caminos realistas según negocio, canal y objetivo, siempre con validación humana.',
+    title: 'Clasificación por intención',
+    description: 'Prioriza oportunidades según señales comerciales para enfocar mejor el esfuerzo del equipo.',
   },
   {
-    title: 'Implementación por fases',
-    description: 'Se integra de forma controlada para acompañar crecimiento, sin promesas exageradas.',
+    title: 'Próximos pasos recomendados',
+    description: 'Sugiere acciones concretas y automatización gradual con control humano.',
   },
 ];
 
 export function AILeadIntelligenceSection() {
   return (
-    <section id="ia-local" className="section-product-depth relative overflow-hidden border-b border-[var(--border-subtle)] py-16 sm:py-20">
+    <section id="ia-local" className="section-product-depth relative overflow-hidden border-b border-[var(--border-subtle)] py-14 sm:py-16 lg:py-20">
       <Container className="relative z-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <SectionHeading
           eyebrow="Asistente comercial con IA"
-          title="IA aplicada para orientar y ordenar consultas"
-          description="No reemplaza tu equipo: lo ayuda a responder mejor, detectar prioridades y sostener continuidad comercial."
+          title="IA para responder mejor, priorizar oportunidades y reducir tareas repetitivas."
+          description="Se aplica por etapas para mejorar decisiones comerciales sin perder supervisión humana."
         />
 
         <div className="grid gap-4 md:grid-cols-2">

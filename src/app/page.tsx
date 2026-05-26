@@ -1,6 +1,7 @@
 import { ContactFormSection } from '@/components/sections/ContactFormSection';
 import { Footer } from '@/components/sections/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { ConceptEcosystemSection } from '@/components/sections/ConceptEcosystemSection';
 import { AILeadIntelligenceSection } from '@/components/sections/AILeadIntelligenceSection';
 import { MarketingSection } from '@/components/sections/MarketingSection';
 import { ProblemSection } from '@/components/sections/ProblemSection';
@@ -18,11 +19,12 @@ export default function HomePage() {
       <PublicHeader />
       <HeroSection />
       <ProblemSection />
+      <ConceptEcosystemSection />
+      <ProjectDiagnosisSection />
       <ServicesSection />
       <ProjectTypesSection />
       <MarketingSection />
       <AILeadIntelligenceSection />
-      <ProjectDiagnosisSection />
       <ProcessSection />
       <UseCasesSection />
       <ContactFormSection />

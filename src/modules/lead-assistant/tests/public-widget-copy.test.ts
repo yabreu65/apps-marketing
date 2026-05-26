@@ -18,7 +18,7 @@ describe("PublicLeadAssistantWidget commercial copy", () => {
 	it("uses value-led floating trigger and scoped header copy", () => {
 		const source = readWidgetSource();
 
-		expect(source).toContain("Diagnóstico comercial en 2 minutos");
+		expect(source).toContain("Orientación rápida");
 		expect(source).toContain("Asistente comercial");
 		expect(source).toContain("Diagnóstico guiado");
 		expect(source).toContain("contacto manual");

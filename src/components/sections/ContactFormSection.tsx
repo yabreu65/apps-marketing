@@ -219,7 +219,7 @@ export function ContactFormSection() {
 			<Container className="relative z-10 space-y-8">
 				<SectionHeading
 					eyebrow="Contacto"
-					title="Dejanos tu caso y te orientamos el próximo paso"
+					title="Contanos tu negocio y te respondemos con el mejor camino para avanzar"
 					description="Te pedimos estos datos para recomendarte el mejor próximo paso y contactarte de forma manual."
 				/>
 				<div className="grid gap-3 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/68 px-5 py-5 sm:grid-cols-3 sm:px-6">
@@ -505,7 +505,7 @@ export function ContactFormSection() {
 							>
 								{isSubmitting
 									? "Enviando consulta..."
-									: "Quiero que evalúen mi proyecto"}
+									: "Enviar mi caso"}
 							</Button>
 						</div>
 					</form>

@@ -92,9 +92,11 @@ export function PublicLeadAssistantWidget() {
 			setVisitorKey(key);
 
 			try {
-				const response = await fetch(
-					`${buildPublicApiUrl("/api/public/chat")}?visitorKey=${encodeURIComponent(key)}`,
-				);
+				const response = await fetch(buildPublicApiUrl("/api/public/chat"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ visitorKey: key, mode: "state" }),
+				});
 				const data = (await response.json().catch(() => null)) as
 					| PublicChatApiResponse
 					| null;

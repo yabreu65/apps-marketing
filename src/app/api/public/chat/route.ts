@@ -6,6 +6,10 @@ import {
 } from '@/modules/lead-assistant/server/public-chat-service';
 import type { PublicChatTurnRequest } from '@/modules/lead-assistant/types/lead-assistant';
 
+type PublicChatRequestPayload = Partial<PublicChatTurnRequest> & {
+  mode?: 'state';
+};
+
 export async function GET(request: Request) {
   const headers = internalNoStoreHeaders();
 
@@ -48,13 +52,27 @@ export async function POST(request: Request) {
       return errorResponse('Payload JSON inválido.', 400, undefined, headers);
     }
 
-    const payload = (body && typeof body === 'object' ? body : {}) as Partial<PublicChatTurnRequest>;
+    const payload = (body && typeof body === 'object' ? body : {}) as PublicChatRequestPayload;
     const visitorKey = `${payload.visitorKey ?? ''}`.trim();
-    const message = `${payload.message ?? ''}`.trim();
 
     if (!visitorKey) {
       return errorResponse('visitorKey es requerido.', 400, undefined, headers);
     }
+
+    if (payload.mode === 'state') {
+      const state = await getPublicChatStateByVisitorKey(visitorKey);
+
+      return successResponse(
+        {
+          message: 'Estado de chat cargado correctamente.',
+          state,
+        },
+        200,
+        headers,
+      );
+    }
+
+    const message = `${payload.message ?? ''}`.trim();
 
     if (!message) {
       return errorResponse('El mensaje es obligatorio.', 400, undefined, headers);

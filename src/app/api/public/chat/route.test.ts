@@ -89,6 +89,29 @@ describe('GET/POST /api/public/chat', () => {
     expect(data.suggestedActions?.length).toBe(1);
   });
 
+  it('POST con mode=state responde 200 con estado', async () => {
+    serviceMock.getPublicChatStateByVisitorKey.mockResolvedValueOnce({
+      visitorKey: 'visitor-1',
+      memory: null,
+      messages: [],
+    });
+
+    const request = createJsonRequest(
+      'http://localhost:3000/api/public/chat',
+      'POST',
+      { visitorKey: 'visitor-1', mode: 'state' },
+      sameOriginHeaders(),
+    );
+
+    const response = await POST(request);
+    const data = await readJsonResponse<{ ok: boolean; state?: { visitorKey: string } }>(response);
+
+    expect(response.status).toBe(200);
+    expect(data.ok).toBe(true);
+    expect(data.state?.visitorKey).toBe('visitor-1');
+    expect(serviceMock.processPersistentPublicChatTurn).not.toHaveBeenCalled();
+  });
+
   it('PATCH responde 405', async () => {
     const response = await PATCH();
 

@@ -32,7 +32,7 @@ export function HeroSection() {
             className="mx-auto text-base leading-7 text-[var(--text-secondary)] motion-fade-in motion-delay-400 sm:text-2xl lg:text-[2rem] lg:leading-[1.35]"
             style={{ animationDuration: '1300ms' }}
           >
-            Ayudamos a negocios que venden por conversaciones a ordenar su presencia digital, mejorar captación y sostener seguimiento comercial con procesos más claros.
+            Optimizamos la presencia digital de los negocios que venden por WhatsApp, redes o formularios. Los ayudamos a captar mejores oportunidades, dar un seguimiento comercial efectivo y consolidar una base de clientes sostenible
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">

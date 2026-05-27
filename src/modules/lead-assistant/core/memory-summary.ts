@@ -80,7 +80,7 @@ function recommendedPathForIntent(intent: PublicAssistantIntent) {
     dashboard: 'dashboard interno para operación',
     lead_followup_priority: 'seguimiento de leads primero; captación como complemento',
     mvp_saas: 'MVP por fases',
-    ai_automation: 'IA local/controlada como segunda capa',
+    ai_automation: 'IA aplicada/controlada como segunda capa',
     seo_marketing: 'marketing con seguimiento comercial',
   };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { trackChatFunnelEvent } from "@/lib/chat-funnel";
@@ -82,8 +83,6 @@ export function PublicLeadAssistantWidget() {
 	const [lastReply, setLastReply] = useState<PublicAssistantReply | null>(null);
 	const [isCopySuccess, setIsCopySuccess] = useState(false);
 	const [isHandoffExpanded, setIsHandoffExpanded] = useState(false);
-	const [hideTriggerNearCloseSections, setHideTriggerNearCloseSections] =
-		useState(false);
 	const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
@@ -114,39 +113,6 @@ export function PublicLeadAssistantWidget() {
 
 		void bootstrap();
 	}, [config.greeting]);
-
-	useEffect(() => {
-		const heroSection = document.querySelector("section.hero-cosmic-bg");
-		const problemSection = document.getElementById("problema-real");
-		const routeSection = document.getElementById("ruta-etapa");
-		const diagnosisSection = document.getElementById("diagnostico");
-		const contactSection = document.getElementById("contact-form");
-		const finalSection = document.getElementById("contacto");
-		const sectionsToObserve = [
-			heroSection,
-			problemSection,
-			routeSection,
-			diagnosisSection,
-			contactSection,
-			finalSection,
-		].filter((section): section is Element => section !== null);
-
-		if (sectionsToObserve.length === 0) return;
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				const shouldHideFloatingTrigger = entries.some(
-					(entry) => entry.isIntersecting,
-				);
-				setHideTriggerNearCloseSections(shouldHideFloatingTrigger);
-			},
-			{ threshold: 0.28 },
-		);
-
-		sectionsToObserve.forEach((section) => observer.observe(section));
-
-		return () => observer.disconnect();
-	}, []);
 
 	const quickReplies = config.quickReplies;
 	const messages = useMemo(() => state?.messages ?? [], [state]);
@@ -344,8 +310,6 @@ export function PublicLeadAssistantWidget() {
 
 	const composerDisabled = !state || isResponding;
 	const sendDisabled = composerDisabled || !input.trim();
-	const shouldHideTrigger = hideTriggerNearCloseSections && !isOpen;
-
 	return (
 		<div className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] right-3 z-40 sm:bottom-5 sm:right-5">
 			<section
@@ -556,15 +520,20 @@ export function PublicLeadAssistantWidget() {
 							return next;
 						});
 					}}
-					className={`rounded-full border border-cyan-300/35 bg-[var(--orange-cta)] px-3 py-2 text-[11px] font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(14,165,233,0.35)] transition hover:bg-[var(--orange-hover)] sm:px-4 sm:text-xs ${
-						shouldHideTrigger
-							? "pointer-events-none translate-y-3 opacity-0"
-							: "opacity-100"
-					}`}
+					className="inline-flex items-center gap-2 rounded-full border border-cyan-300/35 bg-[var(--orange-cta)] px-3 py-2 text-[11px] font-semibold text-[#F8FAFC] shadow-[0_10px_24px_rgba(14,165,233,0.35)] transition hover:bg-[var(--orange-hover)] sm:px-4 sm:text-xs"
 					aria-expanded={isOpen}
 					aria-controls="public-lead-assistant-widget"
 				>
-					{isOpen ? "Cerrar orientación" : "Orientación rápida"}
+					{isOpen ? null : (
+						<Image
+							src="/sussy-asesora.png"
+							alt="Sussy asesora virtual"
+							width={26}
+							height={26}
+							className="h-6 w-6 rounded-full border border-cyan-200/50 object-cover"
+						/>
+					)}
+					{isOpen ? "Cerrar chat" : "Chatear con Sussy"}
 				</button>
 			</div>
 		</div>

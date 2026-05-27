@@ -5,7 +5,7 @@ export const appsMarketingAssistantConfig: AppsMarketingAssistantConfig = {
   whatsappNumber: '+54 9 11 0000 0000',
   contactFormAnchor: '#contact-form',
   greeting:
-    'Hola, soy el asistente comercial de PAW Tech. En 2 minutos te ayudo a definir tu próximo paso: landing, web, dashboard o MVP.',
+    'Hola, soy Sussy, la asistente comercial de PAW Tech. Te ayudo a entender qué necesita tu negocio para captar mejor, ordenar consultas y avanzar con la solución correcta.',
   privacyNote:
     'Este chat guarda contexto local para orientarte mejor. No compartas contraseñas, datos bancarios ni información sensible.',
   quickReplies: [

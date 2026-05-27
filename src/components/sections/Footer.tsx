@@ -24,7 +24,7 @@ export function Footer() {
   const links = {
     Soluciones: ['Desarrollo web', 'Sistemas internos', 'MVP SaaS', 'Dashboards'],
     Proceso: ['Diagnóstico', 'Roadmap', 'Implementación', 'Evolución'],
-    'IA local': ['Resumen comercial', 'Priorización comercial', 'Ollama opcional', 'Soporte humano'],
+    'IA aplicada': ['Resumen comercial', 'Priorización comercial', 'IA opcional', 'Soporte humano'],
   } as const;
 
   return (
@@ -37,7 +37,7 @@ export function Footer() {
           <div className="space-y-3">
             <p className="text-xl font-semibold text-[var(--warm-white)]">PAW Tech</p>
             <p className="max-w-sm text-sm leading-6 text-[var(--text-soft)]">
-              Desarrollo web, sistemas e IA local aplicada para equipos que quieren crecer con dirección tecnológica.
+              Desarrollo web, sistemas e IA aplicada para equipos que quieren crecer con dirección tecnológica.
             </p>
             <div className="flex items-center gap-2 pt-2">
               {socialLinks.map((item) => (
@@ -73,7 +73,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-2 text-xs text-[var(--text-soft-2)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} PAW Tech / Yoryi AI Studio. Todos los derechos reservados.</p>
-          <p>IA local opcional con Ollama. Sin envío a terceros ni decisiones automáticas.</p>
+          <p>IA opcional. Sin envío a terceros ni decisiones automáticas.</p>
         </div>
       </Container>
     </footer>

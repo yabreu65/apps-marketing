@@ -15,7 +15,7 @@ Recheck weak customer-facing cases from Phase 24.3 after Phase 24.4 polish, plus
 ### Case 01
 - **Question:** “¿Me puedes hacer una tienda online completa?”
 - **Expected intent:** `not_sure` + ecommerce edge override
-- **Exact chat response:** “Sí, se puede pensar una tienda online completa, pero como estrategia comercial conviene validarlo por fases. Primero definimos si hoy necesitás ecommerce full o si una web catálogo con contacto por WhatsApp ya cubre tu operación inicial. Siguiente paso recomendado: contame cuántos productos manejás, si necesitás pagos online, cómo resolvés envíos y cómo vendés hoy para proponerte la fase correcta.”
+- **Exact chat response:** “Sí, se puede pensar una tienda online completa, pero como estrategia comercial conviene validarlo por fases. Primero definimos si hoy necesitas ecommerce full o si una web catálogo con contacto por WhatsApp ya cubre tu operación inicial. Siguiente paso recomendado: cuéntame cuántos productos manejas, si necesitas pagos online, cómo resuelves envíos y cómo vendes hoy para proponerte la fase correcta.”
 - **Previous score:** 3
 - **New score:** 5
 - **Improved?:** yes
@@ -41,7 +41,7 @@ Recheck weak customer-facing cases from Phase 24.3 after Phase 24.4 polish, plus
 ### Case 03
 - **Question:** “¿Qué diferencia hay entre landing y web profesional?”
 - **Expected intent:** compare edge override
-- **Exact chat response:** “Buena pregunta: una landing está pensada para una oferta puntual y conversión rápida; una web profesional sirve para presentar tu negocio completo, generar confianza y ordenar servicios. Si tu objetivo es captar consultas ya, suele convenir empezar por landing; si necesitás presencia sólida de marca, conviene web profesional. Siguiente paso recomendado: contame tu objetivo principal de este mes y te digo qué opción conviene arrancar primero.”
+- **Exact chat response:** “Buena pregunta: una landing está pensada para una oferta puntual y conversión rápida; una web profesional sirve para presentar tu negocio completo, generar confianza y ordenar servicios. Si tu objetivo es captar consultas ya, suele convenir empezar por landing; si necesitas presencia sólida de marca, conviene web profesional. Siguiente paso recomendado: cuéntame tu objetivo principal de este mes y te digo qué opción conviene arrancar primero.”
 - **Previous score:** 3
 - **New score:** 5
 - **Improved?:** yes
@@ -52,9 +52,9 @@ Recheck weak customer-facing cases from Phase 24.3 after Phase 24.4 polish, plus
 - **Status:** OK
 
 ### Case 04
-- **Question:** “¿Me conectás esto con Meta API ya?”
+- **Question:** “¿Me conectas esto con Meta API ya?”
 - **Expected intent:** Meta API edge override
-- **Exact chat response:** “Se puede evaluar como fase futura, pero integrar Meta API requiere revisar requisitos técnicos, costos, aprobaciones y configuración del flujo completo. Para no frenar resultados, conviene empezar con contacto manual y seguimiento interno bien ordenado, y luego escalar integración. Siguiente paso recomendado: contame tu volumen de consultas y tu proceso actual para definir si conviene planificar esa fase ahora o más adelante.”
+- **Exact chat response:** “Se puede evaluar como fase futura, pero integrar Meta API requiere revisar requisitos técnicos, costos, aprobaciones y configuración del flujo completo. Para no frenar resultados, conviene empezar con contacto manual y seguimiento interno bien ordenado, y luego escalar integración. Siguiente paso recomendado: cuéntame tu volumen de consultas y tu proceso actual para definir si conviene planificar esa fase ahora o más adelante.”
 - **Previous score:** 3
 - **New score:** 5
 - **Improved?:** yes
@@ -67,7 +67,7 @@ Recheck weak customer-facing cases from Phase 24.3 after Phase 24.4 polish, plus
 ### Case 05
 - **Question:** “Estoy arrancando y estoy perdido.”
 - **Expected intent:** early-stage edge override
-- **Exact chat response:** “Tranqui, es normal arrancar así. Para avanzar sin complicarte, te propongo ir por fases: primero definimos oferta y objetivo inicial, después armamos una landing o web mínima según prioridad, y en paralelo dejamos un seguimiento simple de consultas para no perder oportunidades. Siguiente paso recomendado: contame qué vendés, cómo te contactan hoy y cuál sería tu objetivo de corto plazo.”
+- **Exact chat response:** “está bien, es normal arrancar así. Para avanzar sin complicarte, te propongo ir por fases: primero definimos oferta y objetivo inicial, después armamos una landing o web mínima según prioridad, y en paralelo dejamos un seguimiento simple de consultas para no perder oportunidades. Siguiente paso recomendado: cuéntame qué vendes, cómo te contactan hoy y cuál sería tu objetivo de corto plazo.”
 - **Previous score:** 4
 - **New score:** 5
 - **Improved?:** yes
@@ -93,7 +93,7 @@ Recheck weak customer-facing cases from Phase 24.3 after Phase 24.4 polish, plus
 ### Case 07
 - **Question:** “¿Puedo empezar sin tienda online completa?”
 - **Expected intent:** ecommerce edge override
-- **Exact chat response:** “Sí, se puede pensar una tienda online completa, pero como estrategia comercial conviene validarlo por fases. Primero definimos si hoy necesitás ecommerce full o si una web catálogo con contacto por WhatsApp ya cubre tu operación inicial. Siguiente paso recomendado: contame cuántos productos manejás, si necesitás pagos online, cómo resolvés envíos y cómo vendés hoy para proponerte la fase correcta.”
+- **Exact chat response:** “Sí, se puede pensar una tienda online completa, pero como estrategia comercial conviene validarlo por fases. Primero definimos si hoy necesitas ecommerce full o si una web catálogo con contacto por WhatsApp ya cubre tu operación inicial. Siguiente paso recomendado: cuéntame cuántos productos manejas, si necesitas pagos online, cómo resuelves envíos y cómo vendes hoy para proponerte la fase correcta.”
 - **Previous score:** n/a
 - **New score:** 5
 - **Improved?:** n/a
@@ -106,7 +106,7 @@ Recheck weak customer-facing cases from Phase 24.3 after Phase 24.4 polish, plus
 ### Case 08
 - **Question:** “¿WhatsApp automático sería para una segunda etapa?”
 - **Expected intent:** WhatsApp automation phase override
-- **Exact chat response:** “Sí, WhatsApp automático suele evaluarse como segunda etapa. Primero conviene ordenar el seguimiento manual y el criterio comercial de respuesta para no automatizar desorden. Después, con proceso claro, se define si tiene sentido automatizar parte del flujo. Siguiente paso recomendado: contame cuántas consultas recibís, cómo las seguís hoy y qué parte te consume más tiempo.”
+- **Exact chat response:** “Sí, WhatsApp automático suele evaluarse como segunda etapa. Primero conviene ordenar el seguimiento manual y el criterio comercial de respuesta para no automatizar desorden. Después, con proceso claro, se define si tiene sentido automatizar parte del flujo. Siguiente paso recomendado: cuéntame cuántas consultas recibes, cómo las sigues hoy y qué parte te consume más tiempo.”
 - **Previous score:** n/a
 - **New score:** 5
 - **Improved?:** n/a

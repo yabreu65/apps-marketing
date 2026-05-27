@@ -3,7 +3,7 @@ import type { DiagnosisQuestion } from '@/types/diagnosis';
 export const diagnosisQuestions: DiagnosisQuestion[] = [
   {
     id: 'goal',
-    title: '¿Qué querés lograr?',
+    title: '¿Qué quieres lograr?',
     options: [
       { id: 'goal-leads', label: 'Captar más consultas', value: 'leads' },
       { id: 'goal-web', label: 'Tener una web profesional', value: 'web' },
@@ -27,7 +27,7 @@ export const diagnosisQuestions: DiagnosisQuestion[] = [
   },
   {
     id: 'urgency',
-    title: '¿Qué urgencia tenés?',
+    title: '¿Qué urgencia tienes?',
     options: [
       { id: 'urgency-now', label: 'Este mes', value: 'now' },
       { id: 'urgency-soon', label: 'Próximos 2-3 meses', value: 'soon' },

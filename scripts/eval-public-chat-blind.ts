@@ -101,7 +101,7 @@ function scoreReply(text: string): Score {
 	const commercialUsefulness =
 		(/(conversi|cta|seguimiento|diagnóstico|canal|objetivo)/.test(t) ? 2 : 0) +
 		(/(landing|web|dashboard|mvp|ia|seo)/.test(t) ? 2 : 0) +
-		(/(pregunta|contame|compart)/.test(t) ? 1 : 0);
+		(/(pregunta|cuéntame|compart)/.test(t) ? 1 : 0);
 
 	const conversionPush =
 		(/(formulario|whatsapp manual)/.test(t) ? 2 : 0) +

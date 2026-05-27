@@ -30,7 +30,7 @@ function getNextAction(solution: RecommendedSolution): string {
     'Sistema web a medida':
       'Siguiente paso: mapeamos tus procesos actuales para ordenar y digitalizar lo que más impacto tenga.',
     'Dashboard / panel interno':
-      'Siguiente paso: identificamos qué datos necesitás ver para decidir más rápido.',
+      'Siguiente paso: identificamos qué datos necesitas ver para decidir más rápido.',
     'MVP SaaS':
       'Siguiente paso: bajamos tu idea a una versión inicial con funcionalidades esenciales.',
     'Automatización comercial':
@@ -68,7 +68,7 @@ function getDiagnosis(answers: Answers): DiagnosisResult | null {
   }
   else if (goal === 'unsure') {
     nextActionOverride =
-      'Siguiente paso: contanos tu situación actual y te ayudamos a elegir el camino correcto.';
+      'Siguiente paso: cuéntanos tu situación actual y te ayudamos a elegir el camino correcto.';
 
     if (answers.stage === 'noconvert') recommendedSolution = 'Landing comercial';
     else if (answers.stage === 'manual') recommendedSolution = 'Sistema web a medida';
@@ -146,8 +146,8 @@ export function ProjectDiagnosisSection() {
           <div className="order-2 lg:order-1 lg:sticky lg:top-28">
             <SectionHeading
               eyebrow="Diagnóstico orientativo"
-              title="Si no sabés por dónde empezar, respondé 3 preguntas"
-              description="Te recomendamos un primer paso claro según tu situación actual, sin vueltas y sin venderte algo que no necesitás."
+              title="Si no sabes por dónde empezar, responde 3 preguntas"
+              description="Te recomendamos un primer paso claro según tu situación actual, sin vueltas y sin venderte algo que no necesitas."
             />
 
             <MotionReveal className="mt-6 overflow-hidden rounded-3xl border border-[var(--purple-soft)]/30 bg-[var(--card-bg)]/82 p-6 shadow-[0_24px_80px_rgba(2,6,23,0.45)] sm:p-7">
@@ -364,7 +364,7 @@ export function ProjectDiagnosisSection() {
                             className="premium-focus w-full rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-4 py-3 text-sm text-[var(--text-secondary)] outline-none transition focus:ring-2 focus:ring-[var(--purple-primary)]/20"
                           >
                             <option value="" disabled>
-                              Seleccioná una opción
+                              selecciona una opción
                             </option>
                             {question.options.map((option) => (
                               <option key={option.id} value={option.value}>

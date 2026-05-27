@@ -59,7 +59,7 @@ function validate(values: FormValues): FormErrors {
 	if (!values.name.trim()) {
 		errors.name = "El nombre es obligatorio.";
 	} else if (values.name.trim().length < 2) {
-		errors.name = "Ingresá un nombre válido (mínimo 2 caracteres).";
+		errors.name = "ingresa un nombre válido (mínimo 2 caracteres).";
 	} else if (values.name.trim().length > 80) {
 		errors.name = "El nombre es demasiado largo (máximo 80 caracteres).";
 	}
@@ -73,11 +73,11 @@ function validate(values: FormValues): FormErrors {
 	}
 
 	if (hasEmail && !EMAIL_REGEX.test(values.email.trim())) {
-		errors.email = "Ingresá un email válido.";
+		errors.email = "ingresa un email válido.";
 	}
 
 	if (hasPhone && values.phone.trim().length < 7) {
-		errors.phone = "Ingresá un número válido (mínimo 7 caracteres).";
+		errors.phone = "ingresa un número válido (mínimo 7 caracteres).";
 	}
 
 	if (values.businessType.trim().length > 120) {
@@ -85,7 +85,7 @@ function validate(values: FormValues): FormErrors {
 	}
 
 	if (!values.message.trim()) {
-		errors.message = "Contanos brevemente tu necesidad principal.";
+		errors.message = "cuéntanos brevemente tu necesidad principal.";
 	} else if (values.message.trim().length < 10) {
 		errors.message = "Agregá más detalle (mínimo 10 caracteres).";
 	} else if (values.message.trim().length > 1000) {
@@ -219,7 +219,7 @@ export function ContactFormSection() {
 			<Container className="relative z-10 space-y-8">
 				<SectionHeading
 					eyebrow="Contacto"
-					title="Contanos tu negocio y te respondemos con el mejor camino para avanzar"
+					title="cuéntanos tu negocio y te respondemos con el mejor camino para avanzar"
 					description="Te pedimos estos datos para recomendarte el mejor próximo paso y contactarte de forma manual."
 				/>
 				<div className="grid gap-3 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/68 px-5 py-5 sm:grid-cols-3 sm:px-6">
@@ -411,7 +411,7 @@ export function ContactFormSection() {
 								className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm text-[var(--text-primary)] premium-focus"
 							>
 								<option value="" className="text-slate-800">
-									Opcional: seleccioná una opción
+									Opcional: selecciona una opción
 								</option>
 								{SERVICE_OPTIONS.map((option) => (
 									<option
@@ -430,7 +430,7 @@ export function ContactFormSection() {
 								htmlFor="message"
 								className="text-sm font-medium text-[var(--text-primary)]"
 							>
-								Contanos tu necesidad principal *
+								cuéntanos tu necesidad principal *
 							</label>
 							<textarea
 								required

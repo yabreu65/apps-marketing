@@ -34,7 +34,7 @@ const RECOMMENDED_PATH_BY_INTENT: Record<PublicAssistantIntent, string> = {
 };
 
 function defaultNextQuestion(intent: PublicAssistantIntent) {
-  if (intent === 'pricing') return 'Que alcance minimo necesitas y en que plazo queres lanzarlo?';
+  if (intent === 'pricing') return 'Que alcance minimo necesitas y en que plazo quieres lanzarlo?';
   if (intent === 'lead_followup_priority') return 'Cuantas consultas recibis por dia y como las seguis hoy?';
   return 'Para orientarte mejor, cual es tu objetivo comercial principal este mes?';
 }

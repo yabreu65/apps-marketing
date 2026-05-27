@@ -24,6 +24,6 @@ export const benefits: BenefitItem[] = [
   {
     id: 'scalable-base',
     title: 'Base tecnológica para crecer',
-    description: 'Partís de una base preparada para evolucionar a automatización e IA cuando corresponda.',
+    description: 'partes de una base preparada para evolucionar a automatización e IA cuando corresponda.',
   },
 ];

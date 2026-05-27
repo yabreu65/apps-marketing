@@ -81,7 +81,7 @@ function definitionReply(message: string): string | null {
 	}
 
 	if (/web profesional|sitio web|p[aá]gina web/i.test(message)) {
-		return "Una web profesional es un sitio más completo para presentar tu negocio: quién sos, qué ofrecés, cómo trabajás y cómo contactarte. Sirve para construir confianza y ordenar tu propuesta comercial. Siguiente paso recomendado: contame tu objetivo principal y te digo si conviene arrancar por web completa o por landing.";
+		return "Una web profesional es un sitio más completo para presentar tu negocio: quién eres, qué ofreces, cómo trabajas y cómo contactarte. Sirve para construir confianza y ordenar tu propuesta comercial. Siguiente paso recomendado: cuéntame tu objetivo principal y te digo si conviene arrancar por web completa o por landing.";
 	}
 
 	if (/dashboard|panel/i.test(message)) {
@@ -89,11 +89,11 @@ function definitionReply(message: string): string | null {
 	}
 
 	if (/mvp|saas/i.test(message)) {
-		return "Un MVP SaaS es la versión más simple de tu producto, hecha para validar rápido con usuarios reales antes de construir de más. El foco es aprender qué sí aporta valor, no lanzar algo gigante de entrada. Siguiente paso recomendado: si querés, definimos problema, usuario y 3 funcionalidades mínimas.";
+		return "Un MVP SaaS es la versión más simple de tu producto, hecha para validar rápido con usuarios reales antes de construir de más. El foco es aprender qué sí aporta valor, no lanzar algo gigante de entrada. Siguiente paso recomendado: si quieres, definimos problema, usuario y 3 funcionalidades mínimas.";
 	}
 
 	if (/(ia|inteligencia artificial|automatiz)/i.test(message)) {
-		return "IA aplicada es usar inteligencia artificial en una parte concreta del proceso para ahorrar tiempo o mejorar decisiones, sin vender humo. Primero se ordena proceso y datos, después se automatiza lo que tenga sentido. Siguiente paso recomendado: contame qué tarea repetitiva te consume más tiempo y evaluamos factibilidad.";
+		return "IA aplicada es usar inteligencia artificial en una parte concreta del proceso para ahorrar tiempo o mejorar decisiones, sin vender humo. Primero se ordena proceso y datos, después se automatiza lo que tenga sentido. Siguiente paso recomendado: cuéntame qué tarea repetitiva te consume más tiempo y evaluamos factibilidad.";
 	}
 
 	return null;
@@ -142,17 +142,17 @@ function responseByIntent(intent: PublicAssistantReply["intent"]) {
 			};
 		case "landing":
 			return {
-				text: "Si tu prioridad es captar consultas rápido, una landing comercial clara suele ser el primer paso más eficiente. Ahí enfocamos oferta, público y acción de contacto para convertir mejor. Siguiente paso recomendado: completá el formulario para hacer un diagnóstico comercial breve, definir canal principal y proponerte un alcance inicial realista.",
+				text: "Si tu prioridad es captar consultas rápido, una landing comercial clara suele ser el primer paso más eficiente. Ahí enfocamos oferta, público y acción de contacto para convertir mejor. Siguiente paso recomendado: completa el formulario para hacer un diagnóstico comercial breve, definir canal principal y proponerte un alcance inicial realista.",
 				rationale: "Enfoque de captación inicial.",
 			};
 		case "web_professional":
 			return {
-				text: "Una web profesional te ayuda a mejorar confianza y claridad comercial. Es ideal cuando necesitás presentar servicios de forma sólida y ordenada. Siguiente paso recomendado: contanos secciones clave y objetivo comercial para definir una estructura web realista por fases.",
+				text: "Una web profesional te ayuda a mejorar confianza y claridad comercial. Es ideal cuando necesitas presentar servicios de forma sólida y ordenada. Siguiente paso recomendado: cuéntanos secciones clave y objetivo comercial para definir una estructura web realista por fases.",
 				rationale: "Enfoque de presencia y credibilidad.",
 			};
 		case "dashboard":
 			return {
-				text: "Si necesitás visibilidad para decidir más rápido, el camino correcto suele ser dashboard/panel interno. Primero definimos qué métricas importan y qué decisiones querés acelerar. Siguiente paso recomendado: compartinos qué decisiones te cuestan hoy y armamos un diagnóstico de métricas prioritarias.",
+				text: "Si necesitas visibilidad para decidir más rápido, el camino correcto suele ser dashboard/panel interno. Primero definimos qué métricas importan y qué decisiones quieres acelerar. Siguiente paso recomendado: compártenos qué decisiones te cuestan hoy y armamos un diagnóstico de métricas prioritarias.",
 				rationale: "Enfoque de datos para decisión operativa.",
 			};
 		case "mvp_saas":
@@ -167,12 +167,12 @@ function responseByIntent(intent: PublicAssistantReply["intent"]) {
 			};
 		case "seo_marketing":
 			return {
-				text: "Si el foco es visibilidad y demanda, SEO/marketing puede ser un frente clave, pero sin prometer resultados mágicos: primero alineamos canal, oferta y capacidad real de seguimiento comercial. Siguiente paso recomendado: definimos tu canal prioritario y el flujo de seguimiento para convertir mejor las consultas; si querés, lo activamos ahora por formulario o WhatsApp manual.",
+				text: "Si el foco es visibilidad y demanda, SEO/marketing puede ser un frente clave, pero sin prometer resultados mágicos: primero alineamos canal, oferta y capacidad real de seguimiento comercial. Siguiente paso recomendado: definimos tu canal prioritario y el flujo de seguimiento para convertir mejor las consultas; si quieres, lo activamos ahora por formulario o WhatsApp manual.",
 				rationale: "Enfoque de adquisición sostenible con cierre comercial.",
 			};
 		case "pricing":
 			return {
-				text: "El costo depende del alcance real, urgencia y complejidad. Para estimarte de forma responsable, ese precio lo define Yoryi después de revisar tu caso. Siguiente paso recomendado: completá el formulario con objetivo, tiempos y alcance para coordinar llamada y darte una estimación real.",
+				text: "El costo depende del alcance real, urgencia y complejidad. Para estimarte de forma responsable, ese precio lo define Yoryi después de revisar tu caso. Siguiente paso recomendado: completa el formulario con objetivo, tiempos y alcance para coordinar llamada y darte una estimación real.",
 				rationale: "Pricing responsable, definido por revisión humana.",
 			};
 		case "human_help":
@@ -183,7 +183,7 @@ function responseByIntent(intent: PublicAssistantReply["intent"]) {
 		case "not_sure":
 		default:
 			return {
-				text: "Para recomendarte bien, primero conviene separar si hoy necesitás captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA, siempre con validación realista y sin promesas cerradas. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto; si te sirve, seguí ahora por formulario o WhatsApp manual.",
+				text: "Para recomendarte bien, primero conviene separar si hoy necesitas captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA, siempre con validación realista y sin promesas cerradas. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto; si te sirve, sigue ahora por formulario o WhatsApp manual.",
 				rationale: "Caso ambiguo requiere diagnóstico guiado con cierre.",
 			};
 	}
@@ -209,7 +209,7 @@ function humanIntro(
 			"Te entiendo, eso pasa mucho cuando crece la demanda.",
 			"Tiene todo el sentido lo que te está pasando.",
 		],
-		landing: ["Buen foco.", "Tiene sentido lo que planteás."],
+		landing: ["Buen foco.", "Tiene sentido lo que planteas."],
 		web_professional: ["Buena decisión pensarlo así.", "Muy buena pregunta."],
 		dashboard: [
 			"Perfecto, ahí hay una oportunidad clara.",
@@ -227,7 +227,7 @@ function humanIntro(
 		pricing: ["Buena pregunta.", "Perfecto, te explico cómo estimarlo bien."],
 		human_help: ["Perfecto.", "Dale, vamos por ahí."],
 		not_sure: [
-			"Tranqui, es normal esa duda al inicio.",
+			"está bien, es normal esa duda al inicio.",
 			"Súper válido, pasa mucho al empezar.",
 		],
 	};
@@ -240,7 +240,7 @@ function withHumanTone(
 	baseText: string,
 	visitorMessage: string,
 ) {
-	if (/^buena pregunta|^tranqui|^sí,|^perfecto|^dale/i.test(baseText.trim())) {
+	if (/^buena pregunta|^está bien|^sí,|^perfecto|^dale/i.test(baseText.trim())) {
 		return baseText;
 	}
 
@@ -263,7 +263,7 @@ function buildDynamicFollowUpQuestion(
 
 	if (intent === "landing") {
 		if (!hasGoal)
-			return "¿Qué querés lograr primero con la landing: más consultas o mejor calidad de lead?";
+			return "¿Qué quieres lograr primero con la landing: más consultas o mejor calidad de lead?";
 		if (!hasChannel)
 			return "¿Hoy qué canal te trae más consultas: WhatsApp, Instagram, web o ads?";
 		if (!hasUrgency)
@@ -271,7 +271,7 @@ function buildDynamicFollowUpQuestion(
 	}
 
 	if (intent === "pricing" && !hasUrgency) {
-		return "Para estimar mejor, ¿en qué plazo lo querés lanzar y qué alcance mínimo necesitás?";
+		return "Para estimar mejor, ¿en qué plazo lo quieres lanzar y qué alcance mínimo necesitas?";
 	}
 
 	return defaultQuestion;
@@ -286,7 +286,7 @@ function adaptTextByQuestionType(
 	if (questionType === "definition") {
 		return text.replace(
 			/Siguiente paso recomendado:/i,
-			"Si querés, como siguiente paso te propongo:",
+			"Si quieres, como siguiente paso te propongo:",
 		);
 	}
 
@@ -361,8 +361,8 @@ export function buildPublicLeadAssistantResponse(
 
 	const retailOverrideText = retailContext
 		? retailFollowupPain
-			? "Por lo que me contaste, ya tenés volumen suficiente de consultas como para que el problema principal sea organizar el seguimiento, no solo captar más personas. Un sistema simple para tu caso puede empezar en formato manual/local: una bandeja de consultas o leads con canal de origen (Instagram, WhatsApp, formulario o carga manual), producto de interés y fecha; estados de seguimiento para saber en qué etapa está cada contacto; prioridad para responder primero lo urgente; recordatorios manuales para que no se enfríen oportunidades; y un resumen diario con métricas básicas de entradas, respuestas y pendientes. Siguiente paso recomendado: definir el panel mínimo para tu negocio: qué datos guardar, qué estados usar y cómo priorizar clientes."
-			: "Perfecto. Para un negocio de venta de artículos, primero conviene definir si necesitás vender más, mostrar mejor tus productos o no perder consultas. Si hoy vendés por WhatsApp, Instagram o local físico, suele funcionar arrancar con una landing o web catálogo enfocada en productos clave y contacto rápido. Siguiente paso recomendado: contame qué tipo de artículos vendés, por dónde te contactan hoy y si querés vender online o recibir más consultas."
+			? "Por lo que me contaste, ya tienes volumen suficiente de consultas como para que el problema principal sea organizar el seguimiento, no solo captar más personas. Un sistema simple para tu caso puede empezar en formato manual/local: una bandeja de consultas o leads con canal de origen (Instagram, WhatsApp, formulario o carga manual), producto de interés y fecha; estados de seguimiento para saber en qué etapa está cada contacto; prioridad para responder primero lo urgente; recordatorios manuales para que no se enfríen oportunidades; y un resumen diario con métricas básicas de entradas, respuestas y pendientes. Siguiente paso recomendado: definir el panel mínimo para tu negocio: qué datos guardar, qué estados usar y cómo priorizar clientes."
+			: "Perfecto. Para un negocio de venta de artículos, primero conviene definir si necesitas vender más, mostrar mejor tus productos o no perder consultas. Si hoy vendes por WhatsApp, Instagram o local físico, suele funcionar arrancar con una landing o web catálogo enfocada en productos clave y contacto rápido. Siguiente paso recomendado: cuéntame qué tipo de artículos vendes, por dónde te contactan hoy y si quieres vender online o recibir más consultas."
 		: null;
 
 	const definedConceptText = asksDefinition(visitorMessage)
@@ -372,19 +372,19 @@ export function buildPublicLeadAssistantResponse(
 	const edgeCaseText = definedConceptText
 		? definedConceptText
 		: isEcommerceFullRequest(visitorMessage)
-			? "Sí, se puede pensar una tienda online completa, pero como estrategia comercial conviene validarlo por fases. Primero definimos si hoy necesitás ecommerce full o si una web catálogo con contacto por WhatsApp ya cubre tu operación inicial. Siguiente paso recomendado: contame cuántos productos manejás, si necesitás pagos online, cómo resolvés envíos y cómo vendés hoy para proponerte la fase correcta."
+			? "Sí, se puede pensar una tienda online completa, pero como estrategia comercial conviene validarlo por fases. Primero definimos si hoy necesitas ecommerce full o si una web catálogo con contacto por WhatsApp ya cubre tu operación inicial. Siguiente paso recomendado: cuéntame cuántos productos manejas, si necesitas pagos online, cómo resuelves envíos y cómo vendes hoy para proponerte la fase correcta."
 			: asksSalesGuarantee(visitorMessage)
 				? "No sería responsable garantizar ventas exactas. Lo que sí podemos hacer es mejorar conversión con propuesta clara, mejor llamada a la acción, seguimiento comercial y métricas para optimizar decisiones. Siguiente paso recomendado: compartime tu oferta actual, canal principal y cómo estás midiendo resultados para definir un plan realista."
 				: asksLandingVsWeb(visitorMessage)
-					? "Buena pregunta: una landing está pensada para una oferta puntual y conversión rápida; una web profesional sirve para presentar tu negocio completo, generar confianza y ordenar servicios. Si tu objetivo es captar consultas ya, suele convenir empezar por landing; si necesitás presencia sólida de marca, conviene web profesional. Siguiente paso recomendado: contame tu objetivo principal de este mes y te digo qué opción conviene arrancar primero."
+					? "Buena pregunta: una landing está pensada para una oferta puntual y conversión rápida; una web profesional sirve para presentar tu negocio completo, generar confianza y ordenar servicios. Si tu objetivo es captar consultas ya, suele convenir empezar por landing; si necesitas presencia sólida de marca, conviene web profesional. Siguiente paso recomendado: cuéntame tu objetivo principal de este mes y te digo qué opción conviene arrancar primero."
 					: asksMetaApi(visitorMessage)
-						? "Se puede evaluar como fase futura, pero integrar Meta API requiere revisar requisitos técnicos, costos, aprobaciones y configuración del flujo completo. Para no frenar resultados, conviene empezar con contacto manual y seguimiento interno bien ordenado, y luego escalar integración. Siguiente paso recomendado: contame tu volumen de consultas y tu proceso actual para definir si conviene planificar esa fase ahora o más adelante."
+						? "Se puede evaluar como fase futura, pero integrar Meta API requiere revisar requisitos técnicos, costos, aprobaciones y configuración del flujo completo. Para no frenar resultados, conviene empezar con contacto manual y seguimiento interno bien ordenado, y luego escalar integración. Siguiente paso recomendado: cuéntame tu volumen de consultas y tu proceso actual para definir si conviene planificar esa fase ahora o más adelante."
 						: asksWhatsappAutomationPhase(visitorMessage)
-							? "Sí, WhatsApp automático suele evaluarse como segunda etapa. Primero conviene ordenar el seguimiento manual y el criterio comercial de respuesta para no automatizar desorden. Después, con proceso claro, se define si tiene sentido automatizar parte del flujo. Siguiente paso recomendado: contame cuántas consultas recibís, cómo las seguís hoy y qué parte te consume más tiempo."
+							? "Sí, WhatsApp automático suele evaluarse como segunda etapa. Primero conviene ordenar el seguimiento manual y el criterio comercial de respuesta para no automatizar desorden. Después, con proceso claro, se define si tiene sentido automatizar parte del flujo. Siguiente paso recomendado: cuéntame cuántas consultas recibes, cómo las sigues hoy y qué parte te consume más tiempo."
 							: asksWebPreparation(visitorMessage)
 								? "Para pedir una web con buen resultado, lo ideal es llegar con base clara: oferta principal, público objetivo, servicios/productos prioritarios, ejemplos de contenido y canal de contacto principal. Eso acelera decisiones y evita retrabajo. Siguiente paso recomendado: armemos una checklist corta con esos puntos y definimos si te conviene landing o web profesional como primer paso."
 								: isEarlyStageLost(visitorMessage)
-									? "Tranqui, es normal arrancar así. Para avanzar sin complicarte, te propongo ir por fases: primero definimos oferta y objetivo inicial, después armamos una landing o web mínima según prioridad, y en paralelo dejamos un seguimiento simple de consultas para no perder oportunidades. Siguiente paso recomendado: contame qué vendés, cómo te contactan hoy y cuál sería tu objetivo de corto plazo."
+									? "está bien, es normal arrancar así. Para avanzar sin complicarte, te propongo ir por fases: primero definimos oferta y objetivo inicial, después armamos una landing o web mínima según prioridad, y en paralelo dejamos un seguimiento simple de consultas para no perder oportunidades. Siguiente paso recomendado: cuéntame qué vendes, cómo te contactan hoy y cuál sería tu objetivo de corto plazo."
 									: null;
 
 	const rawText = edgeCaseText
@@ -413,8 +413,8 @@ export function buildPublicLeadAssistantResponse(
 		intent: input.detectedIntent.intent,
 		followUpQuestion: retailContext
 			? retailFollowupPain
-				? "¿Qué artículos vendés, cuántas consultas te llegan por día y cómo las seguís hoy para no perder contactos?"
-				: "¿Qué artículos vendés, por dónde te llegan hoy las consultas y si querés vender online o captar más contactos?"
+				? "¿Qué artículos vendes, cuántas consultas te llegan por día y cómo las sigues hoy para no perder contactos?"
+				: "¿Qué artículos vendes, por dónde te llegan hoy las consultas y si quieres vender online o captar más contactos?"
 			: dynamicFollowUp,
 		rationale: response.rationale,
 		text: withHumanTone(

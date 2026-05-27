@@ -36,8 +36,8 @@ export function ProjectTypesSection() {
       <Container className="relative z-10 space-y-8">
         <SectionHeading
           eyebrow="Ruta según tu etapa"
-          title="Elegí tu siguiente paso"
-          description="Ubicá tu etapa actual y mirá qué camino te conviene hoy."
+          title="elige tu siguiente paso"
+          description="ubica tu etapa actual y mira qué camino te conviene hoy."
         />
 
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">

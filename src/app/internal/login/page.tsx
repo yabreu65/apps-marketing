@@ -16,7 +16,7 @@ export default async function InternalLoginPage({ searchParams }: InternalLoginP
         <header className="space-y-2 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-6 shadow-lg shadow-black/20">
           <h1 className="text-2xl font-semibold text-[var(--warm-white)]">Acceso interno</h1>
           <p className="text-sm text-slate-300">
-            Ingresá la contraseña de acceso interno. Esta protección es mínima y solo para entorno local.
+            ingresa la contraseña de acceso interno. Esta protección es mínima y solo para entorno local.
           </p>
         </header>
 

@@ -82,5 +82,5 @@ Lead Score se mantuvo estable y funcional en los tres modos (independiente de pr
 
 ### Recomendación preferida
 
-- Si querés trazabilidad de decisiones comerciales: **Fase 12F**.
-- Si querés preparar operación real primero: **Fase 13**.
+- Si quieres trazabilidad de decisiones comerciales: **Fase 12F**.
+- Si quieres preparar operación real primero: **Fase 13**.

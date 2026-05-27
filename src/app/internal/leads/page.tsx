@@ -451,7 +451,7 @@ export default async function InternalLeadsPage({
 									Todavía no hay leads cargados
 								</h2>
 								<p className="mt-2 text-sm text-slate-300">
-									Podés generar datos de prueba con el seed local o enviar una
+									puedes generar datos de prueba con el seed local o enviar una
 									consulta desde la landing para comenzar.
 								</p>
 							</>

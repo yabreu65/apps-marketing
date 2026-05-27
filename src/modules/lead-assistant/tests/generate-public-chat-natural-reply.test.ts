@@ -27,7 +27,7 @@ const decision: PublicChatDecision = {
 };
 
 const baseReply = {
-  text: 'Perfecto. Contame por donde vendes hoy para orientarte mejor.',
+  text: 'Perfecto. Cuéntame por donde vendes hoy para orientarte mejor.',
   intent: 'not_sure' as const,
   rationale: 'rationale',
   source: 'rules' as const,

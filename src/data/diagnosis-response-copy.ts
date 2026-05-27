@@ -27,13 +27,13 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     nextStep:
       'Empezaría por una landing simple con una promesa clara, beneficios concretos, preguntas frecuentes y un formulario corto. Eso permite medir qué entiende la gente, qué pregunta y qué objeciones aparecen.',
     avoid:
-      'Evitaría invertir de entrada en muchas páginas, blog o automatizaciones. En esta etapa necesitás evidencia comercial, no una estructura pesada.',
+      'Evitaría invertir de entrada en muchas páginas, blog o automatizaciones. En esta etapa necesitas evidencia comercial, no una estructura pesada.',
   },
   'leads:running': {
     recommendation: 'Landing comercial',
     displayTitle: 'Landing enfocada en consultas',
     situation:
-      'El negocio ya está funcionando, pero si las consultas dependen de conversaciones sueltas, necesitás una página que concentre la propuesta y convierta mejor el interés existente.',
+      'El negocio ya está funcionando, pero si las consultas dependen de conversaciones sueltas, necesitas una página que concentre la propuesta y convierta mejor el interés existente.',
     nextStep:
       'Primero elegiría una oferta principal, ordenaría los argumentos de venta y pondría un CTA único hacia formulario. Después mediría qué mensajes generan más consultas y cuáles filtran mejor al cliente correcto.',
     avoid:
@@ -43,7 +43,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Landing comercial',
     displayTitle: 'Captación clara antes de automatizar',
     situation:
-      'Tenés clientes y movimiento, pero el proceso manual puede estar haciendo que las consultas entren sin contexto o se pierdan entre mensajes.',
+      'Tienes clientes y movimiento, pero el proceso manual puede estar haciendo que las consultas entren sin contexto o se pierdan entre mensajes.',
     nextStep:
       'Primero pondría una landing que pida la información mínima útil: tipo de necesidad, prioridad, contacto y mensaje. Con eso las consultas llegan más ordenadas y después se puede decidir qué parte automatizar.',
     avoid:
@@ -53,7 +53,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Landing comercial',
     displayTitle: 'Replanteo de conversión',
     situation:
-      'Si ya tenés una web pero no convierte, el problema probablemente no es solo visual: puede faltar claridad en la oferta, prueba de confianza o un próximo paso fácil.',
+      'Si ya tienes una web pero no convierte, el problema probablemente no es solo visual: puede faltar claridad en la oferta, prueba de confianza o un próximo paso fácil.',
     nextStep:
       'Revisaría título, propuesta, objeciones, CTA, formulario y recorrido mobile. Luego armaría una landing con menos distracciones y más foco en la consulta correcta.',
     avoid:
@@ -63,9 +63,9 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Landing comercial',
     displayTitle: 'Base de conversión para escalar',
     situation:
-      'Querés crecer, pero antes de empujar más tráfico necesitás una página que convierta de forma consistente y te ayude a distinguir consultas buenas de consultas débiles.',
+      'Quieres crecer, pero antes de empujar más tráfico necesitas una página que convierta de forma consistente y te ayude a distinguir consultas buenas de consultas débiles.',
     nextStep:
-      'Construiría una landing con una oferta clara, formulario breve, medición básica y mensajes pensados para campañas. Así podés aumentar volumen sin perder control sobre la calidad de las consultas.',
+      'Construiría una landing con una oferta clara, formulario breve, medición básica y mensajes pensados para campañas. Así puedes aumentar volumen sin perder control sobre la calidad de las consultas.',
     avoid:
       'Evitaría invertir más en pauta o contenido si la página todavía no explica bien por qué elegirte y qué hacer después.',
   },
@@ -74,7 +74,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Sitio web profesional',
     displayTitle: 'Web inicial con base comercial',
     situation:
-      'Estás en una etapa inicial y necesitás que el negocio se entienda rápido: qué hacés, para quién, qué problema resolvés y cómo contactarte.',
+      'Estás en una etapa inicial y necesitas que el negocio se entienda rápido: qué haces, para quién, qué problema resuelves y cómo contactarte.',
     nextStep:
       'Primero definiría la estructura mínima: inicio, servicios, confianza, preguntas frecuentes y contacto. La web debe dejar claro el valor sin obligar al visitante a escribir para entender lo básico.',
     avoid:
@@ -84,7 +84,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Sitio web profesional',
     displayTitle: 'Web profesional para ordenar la presencia',
     situation:
-      'El negocio funciona, pero si la información está repartida entre Instagram, WhatsApp y mensajes manuales, la confianza depende demasiado de que vos expliques todo cada vez.',
+      'El negocio funciona, pero si la información está repartida entre Instagram, WhatsApp y mensajes manuales, la confianza depende demasiado de que tú expliques todo cada vez.',
     nextStep:
       'Organizaría servicios, diferenciales, proceso de trabajo y contacto en una web clara. El objetivo es que la persona llegue más informada y que tus conversaciones comerciales arranquen mejor.',
     avoid:
@@ -94,7 +94,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Sitio web profesional',
     displayTitle: 'Web para reducir preguntas repetidas',
     situation:
-      'Tenés operación real, pero si cada interesado pregunta lo mismo, una parte del problema es que la web todavía no está filtrando ni educando.',
+      'Tienes operación real, pero si cada interesado pregunta lo mismo, una parte del problema es que la web todavía no está filtrando ni educando.',
     nextStep:
       'Crearía una web con información práctica: servicios, alcance, requisitos, tiempos, preguntas frecuentes y formulario con contexto. Eso baja trabajo manual y mejora la calidad de cada consulta.',
     avoid:
@@ -118,7 +118,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     nextStep:
       'Plantearía una estructura escalable con páginas claras por servicio, formularios segmentados y base SEO. La idea es que cada tipo de visitante encuentre rápido su camino.',
     avoid:
-      'Evitaría seguir dependiendo solo de redes sociales. Cuando querés escalar, necesitás un activo propio que ordene la demanda.',
+      'Evitaría seguir dependiendo solo de redes sociales. Cuando quieres escalar, necesitas un activo propio que ordene la demanda.',
   },
 
   'system:idea': {
@@ -145,11 +145,11 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Dashboard / panel interno',
     displayTitle: 'Panel interno para dejar de operar a ciegas',
     situation:
-      'Tenés clientes, pero los procesos manuales hacen que dependas de memoria, chats o planillas. Eso aumenta errores y hace difícil saber qué está pendiente.',
+      'Tienes clientes, pero los procesos manuales hacen que dependas de memoria, chats o planillas. Eso aumenta errores y hace difícil saber qué está pendiente.',
     nextStep:
-      'Empezaría por un panel que muestre clientes, estados, tareas y próximos pasos. Antes de automatizar, necesitás visibilidad y una forma común de trabajar.',
+      'Empezaría por un panel que muestre clientes, estados, tareas y próximos pasos. Antes de automatizar, necesitas visibilidad y una forma común de trabajar.',
     avoid:
-      'Evitaría una suite completa de gestión si todavía no está claro qué indicadores y estados necesitás controlar cada semana.',
+      'Evitaría una suite completa de gestión si todavía no está claro qué indicadores y estados necesitas controlar cada semana.',
   },
   'system:noconvert': {
     recommendation: 'Sistema web a medida',
@@ -165,7 +165,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Sistema web a medida',
     displayTitle: 'Sistema modular para escalar operación',
     situation:
-      'Para crecer sin caos, necesitás que la operación no dependa de una sola persona ni de procesos informales.',
+      'Para crecer sin caos, necesitas que la operación no dependa de una sola persona ni de procesos informales.',
     nextStep:
       'Definiría módulos por prioridad: gestión principal, estados, roles, reportes y alertas. La arquitectura debe permitir sumar funcionalidades sin rehacer el sistema.',
     avoid:
@@ -216,7 +216,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'MVP SaaS',
     displayTitle: 'MVP SaaS preparado para evolucionar',
     situation:
-      'Querés escalar, pero antes hay que asegurar que el núcleo del producto está probado y puede crecer sin deuda innecesaria.',
+      'Quieres escalar, pero antes hay que asegurar que el núcleo del producto está probado y puede crecer sin deuda innecesaria.',
     nextStep:
       'Revisaría qué parte del producto ya genera valor, qué flujo debe robustecerse y qué métricas muestran tracción. Desde ahí se define la siguiente versión.',
     avoid:
@@ -227,7 +227,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Automatización comercial',
     displayTitle: 'Automatización simple para probar eficiencia',
     situation:
-      'Querés automatizar, pero si el proceso todavía está verde, conviene empezar con tareas pequeñas y medibles.',
+      'Quieres automatizar, pero si el proceso todavía está verde, conviene empezar con tareas pequeñas y medibles.',
     nextStep:
       'Detectaría una tarea repetitiva concreta: confirmaciones, recordatorios, clasificación de consultas o envío de información básica. La automatización debe ahorrar tiempo sin quitar control.',
     avoid:
@@ -267,7 +267,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Automatización comercial',
     displayTitle: 'Automatización para sostener volumen',
     situation:
-      'Si querés escalar, el seguimiento manual se vuelve cuello de botella. Más consultas sin sistema termina en demoras y oportunidades perdidas.',
+      'Si quieres escalar, el seguimiento manual se vuelve cuello de botella. Más consultas sin sistema termina en demoras y oportunidades perdidas.',
     nextStep:
       'Diseñaría automatizaciones para clasificar, priorizar y recordar acciones comerciales. Así el equipo se enfoca en conversaciones de mayor valor.',
     avoid:
@@ -278,7 +278,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Automatización comercial',
     displayTitle: 'IA por fases, empezando por proceso',
     situation:
-      'Querés aplicar IA, pero si el proceso todavía no está claro, la IA puede terminar respondiendo sobre una base confusa.',
+      'Quieres aplicar IA, pero si el proceso todavía no está claro, la IA puede terminar respondiendo sobre una base confusa.',
     nextStep:
       'Primero definiría qué preguntas se repiten, qué información debe usar el asistente y cuándo debe pedir intervención humana. Después se prueba IA en un caso acotado.',
     avoid:
@@ -318,7 +318,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'IA aplicada al negocio (fase avanzada)',
     displayTitle: 'IA aplicada para escalar atención y operación',
     situation:
-      'Si ya tenés volumen y querés escalar, la IA puede ayudar a responder, resumir, priorizar y asistir decisiones repetitivas.',
+      'Si ya tienes volumen y quieres escalar, la IA puede ayudar a responder, resumir, priorizar y asistir decisiones repetitivas.',
     nextStep:
       'Definiría casos de uso por impacto: atención inicial, priorización de consultas, resúmenes internos o soporte comercial. Cada caso debe tener datos, límites y métricas.',
     avoid:
@@ -329,7 +329,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Sitio web profesional',
     displayTitle: 'Diagnóstico comercial + base digital inicial',
     situation:
-      'Si todavía no sabés qué necesitás, lo más útil es crear claridad: oferta, público, problema y próximo paso.',
+      'Si todavía no sabes qué necesitas, lo más útil es crear claridad: oferta, público, problema y próximo paso.',
     nextStep:
       'Empezaría con una estructura simple para explicar el negocio y validar qué despierta interés. Eso puede ser una web inicial o landing según la oferta.',
     avoid:
@@ -359,7 +359,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'Landing comercial',
     displayTitle: 'Primero corregir conversión',
     situation:
-      'Si no sabés por dónde empezar y la web no convierte, la prioridad es hacer que el mensaje y el CTA funcionen.',
+      'Si no sabes por dónde empezar y la web no convierte, la prioridad es hacer que el mensaje y el CTA funcionen.',
     nextStep:
       'Analizaría qué entiende el visitante, qué objeciones quedan sin responder y qué acción debería tomar. Luego simplificaría la página para convertir mejor.',
     avoid:
@@ -369,7 +369,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
     recommendation: 'MVP SaaS',
     displayTitle: 'Ruta de crecimiento con solución mínima',
     situation:
-      'Querés crecer, pero todavía falta decidir si el próximo paso es producto, sistema, captación o automatización.',
+      'Quieres crecer, pero todavía falta decidir si el próximo paso es producto, sistema, captación o automatización.',
     nextStep:
       'Definiría una hipótesis principal de crecimiento y una solución mínima para probarla. Si hay potencial de producto, un MVP puede ser mejor que una mejora aislada.',
     avoid:
@@ -378,7 +378,7 @@ const diagnosisBaseCopyByGoalStage: Record<DiagnosisKey, BaseDiagnosisResponseCo
 };
 
 const urgencyNote: Record<LeadDiagnosisUrgency, string> = {
-  now: 'Como querés avanzar este mes, conviene recortar alcance: elegir una prioridad, definir entregables concretos y evitar funcionalidades que no impacten en la primera decisión comercial.',
+  now: 'Como quieres avanzar este mes, conviene recortar alcance: elegir una prioridad, definir entregables concretos y evitar funcionalidades que no impacten en la primera decisión comercial.',
   soon: 'Como tu plazo es de 2 a 3 meses, conviene avanzar por etapas: diagnóstico inicial, definición del flujo principal, implementación y validación con usuarios o consultas reales.',
   explore: 'Como estás explorando, lo mejor es usar esta etapa para comparar opciones, validar supuestos y evitar una inversión grande antes de confirmar qué problema vale resolver primero.',
 };
@@ -391,7 +391,7 @@ const diagnosisCriticalOverrides: Partial<Record<DiagnosisOverrideKey, Diagnosis
     recommendation: 'Sitio web profesional',
     displayTitle: 'Diagnóstico comercial + base digital inicial',
     situation:
-      'Todavía estás definiendo el camino, pero si querés avanzar este mes necesitás una base clara para captar contexto real de clientes cuanto antes.',
+      'Todavía estás definiendo el camino, pero si quieres avanzar este mes necesitas una base clara para captar contexto real de clientes cuanto antes.',
     nextStep:
       'Haría un diagnóstico comercial corto (oferta, público, objeciones y canal principal) y lo convertiría en una web inicial muy enfocada. El objetivo es salir rápido con un mensaje entendible y una acción clara.',
     avoid:
@@ -415,13 +415,13 @@ const diagnosisCriticalOverrides: Partial<Record<DiagnosisOverrideKey, Diagnosis
     recommendation: 'Automatización comercial',
     displayTitle: 'Sistema + asistente inteligente por etapas',
     situation:
-      'Querés aplicar IA con urgencia, pero hoy el principal riesgo es que los procesos manuales todavía no están suficientemente ordenados para escalar IA sin errores.',
+      'Quieres aplicar IA con urgencia, pero hoy el principal riesgo es que los procesos manuales todavía no están suficientemente ordenados para escalar IA sin errores.',
     nextStep:
       'En el corto plazo priorizaría ordenar entradas, estados y respuestas frecuentes. Con esa base, activaríamos automatizaciones simples y recién después un asistente inteligente con límites claros.',
     avoid:
       'Evitaría lanzar IA avanzada “de una” para todo el flujo. Eso suele generar respuestas inconsistentes, retrabajo y pérdida de control operativo.',
     note:
-      'Como querés resolverlo este mes, conviene dividir en dos entregables: orden operativo mínimo primero y capa de asistencia inteligente después.',
+      'Como quieres resolverlo este mes, conviene dividir en dos entregables: orden operativo mínimo primero y capa de asistencia inteligente después.',
   },
   'leads:noconvert:now': {
     recommendation: 'Landing comercial',
@@ -439,7 +439,7 @@ const diagnosisCriticalOverrides: Partial<Record<DiagnosisOverrideKey, Diagnosis
     recommendation: 'Dashboard / panel interno',
     displayTitle: 'Panel interno para ordenar operación',
     situation:
-      'Tenés clientes y procesos manuales; en los próximos 2 a 3 meses podés ganar mucho si primero logramos visibilidad y disciplina operativa.',
+      'Tienes clientes y procesos manuales; en los próximos 2 a 3 meses puedes ganar mucho si primero logramos visibilidad y disciplina operativa.',
     nextStep:
       'Comenzaría con un panel de seguimiento (estados, responsables, pendientes y prioridades) y una rutina de uso semanal. Después, sobre ese flujo ordenado, evaluaríamos qué automatizar.',
     avoid:

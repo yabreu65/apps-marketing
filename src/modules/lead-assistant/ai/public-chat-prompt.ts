@@ -15,7 +15,7 @@ export function buildPublicChatPrompt(input: PublicChatAIInput) {
 
   return `Sos un asistente comercial consultivo para una landing de servicios digitales.
 
-Respondé SOLO JSON válido con este formato:
+responde SOLO JSON válido con este formato:
 {
   "replyText": "string",
   "rationale": "string"

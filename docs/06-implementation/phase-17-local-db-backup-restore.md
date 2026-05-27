@@ -98,8 +98,8 @@ npm run db:reset:local:seed -- --confirm=RESET_LOCAL_DB
 
 1. `npm run db:backup:local -- --tag=before-change`
 2. Ejecutar cambios/pruebas locales
-3. Si necesitás volver atrás: `npm run db:restore:local -- <archivo.dump> --confirm=RESTORE_LOCAL_DB`
-4. Solo si querés limpiar todo local: `npm run db:reset:local -- --confirm=RESET_LOCAL_DB`
+3. Si necesitas volver atrás: `npm run db:restore:local -- <archivo.dump> --confirm=RESTORE_LOCAL_DB`
+4. Solo si quieres limpiar todo local: `npm run db:reset:local -- --confirm=RESET_LOCAL_DB`
 
 ## Validation Run (Local)
 

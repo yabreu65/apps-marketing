@@ -319,10 +319,10 @@ export function ConceptEcosystemSection() {
 
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <Image
-                    src="/logo_pawtech.svg"
+                    src="/logoTech.png"
                     alt="PAW Tech"
                     width={210}
-                    height={82}
+                    height={153}
                     className="h-14 w-auto sm:h-20 lg:h-24"
                     priority
                   />

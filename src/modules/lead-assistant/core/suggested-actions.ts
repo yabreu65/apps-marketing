@@ -76,23 +76,23 @@ export function buildAssistantCtas(
 export function getNextDiagnosticQuestion(intent: PublicAssistantIntent) {
 	switch (intent) {
 		case "lead_followup_priority":
-			return "¿Cuántas consultas recibís por semana y cómo las priorizan hoy?";
+			return "¿Cuántas consultas recibes por semana y cómo las priorizan hoy?";
 		case "landing":
 			return "¿Tu prioridad hoy es captar más consultas o mejorar la calidad de las que llegan?";
 		case "web_professional":
-			return "¿Qué páginas clave necesitás sí o sí para que tu web te ayude comercialmente?";
+			return "¿Qué páginas clave necesitas sí o sí para que tu web te ayude comercialmente?";
 		case "dashboard":
 			return "¿Qué decisiones te cuesta tomar hoy por falta de visibilidad en datos?";
 		case "mvp_saas":
-			return "¿Quién es el usuario inicial y cuál es el problema principal que querés validar?";
+			return "¿Quién es el usuario inicial y cuál es el problema principal que quieres validar?";
 		case "ai_automation":
 			return "¿Qué tarea repetitiva te genera más fricción hoy y con qué datos la ejecutan?";
 		case "seo_marketing":
 			return "¿Qué canal te trae hoy más consultas y cuál te gustaría escalar primero?";
 		case "pricing":
-			return "Para estimar bien, ¿podés contarme objetivo, urgencia y alcance esperado?";
+			return "Para estimar bien, ¿puedes contarme objetivo, urgencia y alcance esperado?";
 		case "human_help":
-			return "Si querés, te dejo contacto directo para que lo revisen con vos en detalle.";
+			return "Si quieres, te dejo contacto directo para que lo revisen contigo en detalle.";
 		case "not_sure":
 		default:
 			return "¿Qué te preocupa más hoy: captar consultas, ordenar seguimiento o validar producto?";

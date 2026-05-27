@@ -128,7 +128,7 @@ Para una landing premium, seis items + CTA puede sentirse denso. El header deber
 
 ### 3. “Proyectos” no representa bien la sección
 
-`Proyectos` apunta a `#ruta-etapa`, pero esa sección realmente es “Ruta según tu etapa / Elegí tu siguiente paso”.
+`Proyectos` apunta a `#ruta-etapa`, pero esa sección realmente es “Ruta según tu etapa / elige tu siguiente paso”.
 
 El término “Proyectos” puede generar expectativa de portfolio, trabajos realizados o casos reales. Si el usuario hace click esperando ver proyectos construidos y encuentra una matriz de decisión, hay fricción semántica.
 
@@ -154,7 +154,7 @@ La sección Ecosistema PAW lo explica visualmente, pero conviene reforzarlo con 
 
 En `ServicesSection` aparece un bloque:
 
-> Si no sabés por dónde empezar, usamos un diagnóstico breve...
+> Si no sabes por dónde empezar, usamos un diagnóstico breve...
 
 CTA:
 
@@ -295,7 +295,7 @@ Está bien, pero podría sentirse menos visible que Web/Marketing/IA. Conviene r
 
 1. Agregar una transición clara entre Ecosistema PAW y Problema/Servicios.
 2. Reforzar que Marketing + Web + Sistema + IA son capas del mismo flujo.
-3. Hacer que Contacto cierre más fuerte con “contanos tu caso y te respondemos con camino recomendado”.
+3. Hacer que Contacto cierre más fuerte con “cuéntanos tu caso y te respondemos con camino recomendado”.
 
 ### P2 — Polish visual/conversión
 

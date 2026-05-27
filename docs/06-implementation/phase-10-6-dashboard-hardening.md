@@ -9,7 +9,7 @@ Local hardening completed.
 ### 1) Status UI hardening
 - Evita `PATCH` innecesario si se selecciona el mismo estado actual.
 - Botón de guardar deshabilitado cuando no hay cambio real.
-- Mensaje claro: "Seleccioná un estado diferente para actualizar."
+- Mensaje claro: "selecciona un estado diferente para actualizar."
 - Mantiene validación server-side de estados permitidos.
 
 ### 2) Notes UX hardening

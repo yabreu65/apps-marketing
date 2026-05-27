@@ -105,7 +105,7 @@ export function ServicesSection() {
 
         <div className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/65 px-6 py-6 text-center sm:px-8">
           <p className="max-w-3xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
-            Si querés definir un punto de partida claro, elegí tu etapa y te mostramos qué solución conviene activar primero.
+            Si quieres definir un punto de partida claro, elige tu etapa y te mostramos qué solución conviene activar primero.
           </p>
           <Button href="#ruta-etapa" className="rounded-full px-6 py-3 text-sm sm:text-base">
             Elegir mi punto de partida

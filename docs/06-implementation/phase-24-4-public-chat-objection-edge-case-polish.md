@@ -30,7 +30,7 @@ Improve weak customer-facing cases detected in Phase 24.3 so the assistant answe
      - Professional web = full presence + trust + structure.
    - Adds decision orientation by goal.
 
-4. **“¿Me conectás esto con Meta API ya?”**
+4. **“¿Me conectas esto con Meta API ya?”**
    - Now marks as future phase.
    - Clarifies requirements/costs/approvals/configuration.
    - Recommends manual contact + internal lead follow-up as current path.

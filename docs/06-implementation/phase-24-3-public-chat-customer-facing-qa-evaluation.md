@@ -31,7 +31,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 1) Not sure
 - **Visitor question:** “No sé si necesito una landing o una web, ¿qué me recomiendas?”
 - **Expected intent:** `not_sure`
-- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitás captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
+- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitas captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -43,7 +43,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 2) Retail products
 - **Visitor question:** “Tengo una tienda de accesorios y no sé si me conviene landing o web catálogo.”
 - **Expected intent:** `not_sure` + retail override
-- **Exact chat response:** “Perfecto. Para un negocio de venta de artículos, primero conviene definir si necesitás vender más, mostrar mejor tus productos o no perder consultas. Si hoy vendés por WhatsApp, Instagram o local físico, suele funcionar arrancar con una landing o web catálogo enfocada en productos clave y contacto rápido. Siguiente paso recomendado: contame qué tipo de artículos vendés, por dónde te contactan hoy y si querés vender online o recibir más consultas.”
+- **Exact chat response:** “Perfecto. Para un negocio de venta de artículos, primero conviene definir si necesitas vender más, mostrar mejor tus productos o no perder consultas. Si hoy vendes por WhatsApp, Instagram o local físico, suele funcionar arrancar con una landing o web catálogo enfocada en productos clave y contacto rápido. Siguiente paso recomendado: cuéntame qué tipo de artículos vendes, por dónde te contactan hoy y si quieres vender online o recibir más consultas.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -55,7 +55,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 3) Instagram/WhatsApp selling
 - **Visitor question:** “Vendo productos por Instagram y WhatsApp, quiero ordenarme.”
 - **Expected intent:** `not_sure` + retail override
-- **Exact chat response:** “Perfecto. Para un negocio de venta de artículos, primero conviene definir si necesitás vender más, mostrar mejor tus productos o no perder consultas. Si hoy vendés por WhatsApp, Instagram o local físico, suele funcionar arrancar con una landing o web catálogo enfocada en productos clave y contacto rápido. Siguiente paso recomendado: contame qué tipo de artículos vendés, por dónde te contactan hoy y si querés vender online o recibir más consultas.”
+- **Exact chat response:** “Perfecto. Para un negocio de venta de artículos, primero conviene definir si necesitas vender más, mostrar mejor tus productos o no perder consultas. Si hoy vendes por WhatsApp, Instagram o local físico, suele funcionar arrancar con una landing o web catálogo enfocada en productos clave y contacto rápido. Siguiente paso recomendado: cuéntame qué tipo de artículos vendes, por dónde te contactan hoy y si quieres vender online o recibir más consultas.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -67,7 +67,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 4) Lead follow-up pain
 - **Visitor question:** “Tengo un negocio de venta de artículos, vendo por Instagram y WhatsApp, pero pierdo muchas consultas. ¿Qué me recomiendas?”
 - **Expected intent:** `lead_followup_priority` + retail follow-up override
-- **Exact chat response:** “Por lo que me contaste, ya tenés volumen suficiente de consultas como para que el problema principal sea organizar el seguimiento, no solo captar más personas. Un sistema simple para tu caso puede empezar en formato manual/local: una bandeja de consultas o leads con canal de origen (Instagram, WhatsApp, formulario o carga manual), producto de interés y fecha; estados de seguimiento para saber en qué etapa está cada contacto; prioridad para responder primero lo urgente; recordatorios manuales para que no se enfríen oportunidades; y un resumen diario con métricas básicas de entradas, respuestas y pendientes. Siguiente paso recomendado: definir el panel mínimo para tu negocio: qué datos guardar, qué estados usar y cómo priorizar clientes.”
+- **Exact chat response:** “Por lo que me contaste, ya tienes volumen suficiente de consultas como para que el problema principal sea organizar el seguimiento, no solo captar más personas. Un sistema simple para tu caso puede empezar en formato manual/local: una bandeja de consultas o leads con canal de origen (Instagram, WhatsApp, formulario o carga manual), producto de interés y fecha; estados de seguimiento para saber en qué etapa está cada contacto; prioridad para responder primero lo urgente; recordatorios manuales para que no se enfríen oportunidades; y un resumen diario con métricas básicas de entradas, respuestas y pendientes. Siguiente paso recomendado: definir el panel mínimo para tu negocio: qué datos guardar, qué estados usar y cómo priorizar clientes.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -79,7 +79,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 5) Landing capture
 - **Visitor question:** “Quiero una página para que más clientes me escriban por WhatsApp.”
 - **Expected intent:** `landing`
-- **Exact chat response:** “Si tu prioridad es captar consultas rápido, una landing comercial clara suele ser el primer paso más eficiente. Ahí enfocamos oferta, público y CTA para convertir mejor. Siguiente paso recomendado: completá el formulario con tu objetivo de captación y canal principal para proponerte alcance inicial.”
+- **Exact chat response:** “Si tu prioridad es captar consultas rápido, una landing comercial clara suele ser el primer paso más eficiente. Ahí enfocamos oferta, público y CTA para convertir mejor. Siguiente paso recomendado: completa el formulario con tu objetivo de captación y canal principal para proponerte alcance inicial.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -103,7 +103,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 13) Out of scope ask
 - **Visitor question:** “¿Me puedes hacer una tienda online completa?”
 - **Expected intent:** `not_sure` (current rules)
-- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitás captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
+- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitas captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** no
@@ -151,7 +151,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 12) Skeptical/confused
 - **Visitor question:** “¿Me garantizan ventas?”
 - **Expected intent:** `not_sure`
-- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitás captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
+- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitas captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** no
@@ -163,7 +163,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 6) Web professional
 - **Visitor question:** “¿Qué diferencia hay entre landing y web profesional?”
 - **Expected intent:** `not_sure`
-- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitás captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
+- **Exact chat response:** “Para recomendarte bien, primero conviene separar si hoy necesitas captación (landing), presencia profesional (web), orden operativo (dashboard) o evolución por fases con IA. Siguiente paso recomendado: hacemos un diagnóstico breve y te proponemos un camino por fases según tu contexto.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** no
@@ -175,7 +175,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 12) Skeptical/confused
 - **Visitor question:** “Ya tengo Instagram, ¿para qué necesito una web?”
 - **Expected intent:** `web_professional`
-- **Exact chat response:** “Una web profesional te ayuda a mejorar confianza y claridad comercial. Es ideal cuando necesitás presentar servicios de forma sólida y ordenada. Siguiente paso recomendado: contanos secciones clave y objetivo comercial para definir una estructura web realista por fases.”
+- **Exact chat response:** “Una web profesional te ayuda a mejorar confianza y claridad comercial. Es ideal cuando necesitas presentar servicios de forma sólida y ordenada. Siguiente paso recomendado: cuéntanos secciones clave y objetivo comercial para definir una estructura web realista por fases.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -199,7 +199,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 - **Category:** 8) Dashboard operations
 - **Visitor question:** “¿Cómo me ayudaría un dashboard?”
 - **Expected intent:** `dashboard`
-- **Exact chat response:** “Si necesitás visibilidad para decidir más rápido, el camino correcto suele ser dashboard/panel interno. Primero definimos qué métricas importan y qué decisiones querés acelerar. Siguiente paso recomendado: compartinos qué decisiones te cuestan hoy y armamos un diagnóstico de métricas prioritarias.”
+- **Exact chat response:** “Si necesitas visibilidad para decidir más rápido, el camino correcto suele ser dashboard/panel interno. Primero definimos qué métricas importan y qué decisiones quieres acelerar. Siguiente paso recomendado: compártenos qué decisiones te cuestan hoy y armamos un diagnóstico de métricas prioritarias.”
 - **Memory used:** no
 - **Next step:** yes
 - **Specific:** yes
@@ -365,7 +365,7 @@ Evaluate public chat quality as a customer-facing commercial advisor with real v
 
 ### Case 29
 - **Category:** 13) Out of scope
-- **Visitor question:** “¿Me conectás esto con Meta API ya?”
+- **Visitor question:** “¿Me conectas esto con Meta API ya?”
 - **Expected intent:** `not_sure`/`human_help`
 - **Exact chat response:** safe redirection to manual channel (same style as Case 10 or 16).
 - **Memory used:** no

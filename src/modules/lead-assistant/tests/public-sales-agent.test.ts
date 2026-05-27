@@ -35,7 +35,7 @@ const baseInput = {
     conversationSummary: 'sin memoria',
     detectedContext: { channels: [], painPoints: [], goals: [] },
     recommendedPath: 'landing comercial',
-    nextQuestion: '¿Cómo vendés hoy?',
+    nextQuestion: '¿Cómo vendes hoy?',
     commercialGoal: 'captación',
     cta: [],
     constraints: [],
@@ -59,7 +59,7 @@ describe('public-sales-agent gemini-only', () => {
   it('Caso A: vende ropa, respuesta final viene solo de Gemini', async () => {
     generateGeminiPublicChatReplyMock.mockResolvedValueOnce({
       replyText:
-        'Si vendés ropa, te conviene una web catálogo o landing con fotos, talles y acceso rápido a WhatsApp/Instagram para captar consultas mejor. ¿Hoy vendés más por Instagram o WhatsApp?',
+        'Si vendes ropa, te conviene una web catálogo o landing con fotos, talles y acceso rápido a WhatsApp/Instagram para captar consultas mejor. ¿Hoy vendes más por Instagram o WhatsApp?',
       summary: 'Ropa retail con foco en captación',
       leadAction: 'update',
     });
@@ -75,7 +75,7 @@ describe('public-sales-agent gemini-only', () => {
   it('Caso B: vende zapatos, no concatena fallback y menciona zapatos', async () => {
     generateGeminiPublicChatReplyMock.mockResolvedValueOnce({
       replyText:
-        'Para vender zapatos, te recomiendo una landing catálogo con modelos y talles destacados, más CTA directo a WhatsApp para consultas. ¿Querés priorizar catálogo rápido o venta online por fases?',
+        'Para vender zapatos, te recomiendo una landing catálogo con modelos y talles destacados, más CTA directo a WhatsApp para consultas. ¿quieres priorizar catálogo rápido o venta online por fases?',
       summary: 'Zapatos con necesidad de catálogo',
       leadAction: 'update',
     });
@@ -90,7 +90,7 @@ describe('public-sales-agent gemini-only', () => {
   it('Caso C: farmacia sin web recomienda landing local/web simple', async () => {
     generateGeminiPublicChatReplyMock.mockResolvedValueOnce({
       replyText:
-        'Para una farmacia sin página, conviene arrancar con una web profesional simple o landing local con ubicación, horarios, servicios y botón a WhatsApp para generar confianza. ¿Ya tenés definidos tus horarios y servicios principales?',
+        'Para una farmacia sin página, conviene arrancar con una web profesional simple o landing local con ubicación, horarios, servicios y botón a WhatsApp para generar confianza. ¿Ya tienes definidos tus horarios y servicios principales?',
       summary: 'Farmacia sin web',
       leadAction: 'update',
     });
@@ -109,7 +109,7 @@ describe('public-sales-agent gemini-only', () => {
   it('Caso D: memoria ropa+instagram no repregunta canal', async () => {
     generateGeminiPublicChatReplyMock.mockResolvedValueOnce({
       replyText:
-        'Con ropa en Instagram, te conviene una landing enfocada en conversión con productos destacados, oferta clara y CTA directo para consultas. ¿Querés que prioricemos fotos clave, propuesta y CTA en una primera versión?',
+        'Con ropa en Instagram, te conviene una landing enfocada en conversión con productos destacados, oferta clara y CTA directo para consultas. ¿quieres que prioricemos fotos clave, propuesta y CTA en una primera versión?',
       summary: 'captación sobre base conocida',
       leadAction: 'update',
     });
@@ -135,7 +135,7 @@ describe('public-sales-agent gemini-only', () => {
   it('Caso E: cómo publicar responde implementación (hosting/dominio/vercel/seo)', async () => {
     generateGeminiPublicChatReplyMock.mockResolvedValueOnce({
       replyText:
-        'Para publicarla, primero definimos dominio, luego deploy en Vercel, configuración de hosting y SEO básico, y finalmente conexión de CTA a WhatsApp/Instagram. ¿Ya tenés dominio comprado?',
+        'Para publicarla, primero definimos dominio, luego deploy en Vercel, configuración de hosting y SEO básico, y finalmente conexión de CTA a WhatsApp/Instagram. ¿Ya tienes dominio comprado?',
       summary: 'Consulta de publicación técnica',
       leadAction: 'none',
     });
@@ -153,14 +153,14 @@ describe('public-sales-agent gemini-only', () => {
 
   it('Caso F: nunca concatena fallbackText con aiReply.replyText', async () => {
     generateGeminiPublicChatReplyMock.mockResolvedValueOnce({
-      replyText: 'Respuesta AI única y final. ¿Querés que te proponga estructura de secciones?',
+      replyText: 'Respuesta AI única y final. ¿quieres que te proponga estructura de secciones?',
       summary: 'ok',
       leadAction: 'none',
     });
 
     const result = await resolvePublicSalesAgentReply(baseInput);
 
-    expect(result.reply.text).toBe('Respuesta AI única y final. ¿Querés que te proponga estructura de secciones?');
+    expect(result.reply.text).toBe('Respuesta AI única y final. ¿quieres que te proponga estructura de secciones?');
     expect(result.reply.text).not.toContain(baseInput.baseReply.text);
   });
 

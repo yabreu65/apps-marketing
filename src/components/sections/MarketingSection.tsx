@@ -6,7 +6,7 @@ const marketingPillars = [
   {
     title: 'Claridad de oferta y mensaje',
     description:
-      'Traducimos tu propuesta a una comunicación simple para que el cliente entienda rápido qué resolvés y por qué elegirte.',
+      'Traducimos tu propuesta a una comunicación simple para que el cliente entienda rápido qué resuelves y por qué elegirte.',
   },
   {
     title: 'Adquisición y canales con intención',

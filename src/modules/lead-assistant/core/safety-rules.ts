@@ -13,7 +13,7 @@ export function containsSensitiveData(input: string) {
 }
 
 export function getSensitiveDataWarning() {
-  return 'Por seguridad, evitá compartir contraseñas, datos bancarios o información sensible. Si querés, seguimos con el diagnóstico comercial.';
+  return 'Por seguridad, evita compartir contraseñas, datos bancarios o información sensible. Si quieres, seguimos con el diagnóstico comercial.';
 }
 
 export function ensureSafeAssistantCopy(text: string) {

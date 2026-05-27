@@ -108,7 +108,7 @@ function detectQuestionType(input: string): PublicAssistantQuestionType {
 	)
 		return "implementation";
 	if (
-		/(recomendas|recomendás|conviene|por d[oó]nde empiezo|diagn[oó]stico)/i.test(
+		/(recomendas|recomiendas|conviene|por d[oó]nde empiezo|diagn[oó]stico)/i.test(
 			input,
 		)
 	)

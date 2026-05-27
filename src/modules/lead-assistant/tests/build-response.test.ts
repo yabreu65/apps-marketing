@@ -80,7 +80,7 @@ describe("buildPublicLeadAssistantResponse", () => {
 		expect(reply.text.toLowerCase()).toContain("web catálogo");
 		expect(reply.text.toLowerCase()).toContain("siguiente paso recomendado");
 		expect(reply.followUpQuestion?.toLowerCase()).toContain(
-			"qué artículos vendés",
+			"qué artículos vendes",
 		);
 	});
 
@@ -247,7 +247,7 @@ describe("buildPublicLeadAssistantResponse", () => {
 	it("para meta api aclara fase futura y propone manual + seguimiento interno", () => {
 		const reply = buildPublicLeadAssistantResponse(
 			{
-				visitorMessage: "¿Me conectás esto con Meta API ya?",
+				visitorMessage: "¿Me conectas esto con Meta API ya?",
 				detectedIntent: {
 					intent: "human_help",
 					confidence: 0.8,
@@ -280,7 +280,7 @@ describe("buildPublicLeadAssistantResponse", () => {
 		);
 
 		const text = reply.text.toLowerCase();
-		expect(text).toContain("tranqui");
+		expect(text).toContain("está bien");
 		expect(text).toMatch(/por fases|oferta|objetivo inicial/);
 		expect(text).toMatch(/landing|web m[ií]nima/);
 		expect(text).toMatch(/seguimiento simple de consultas/);
@@ -413,7 +413,7 @@ describe("buildPublicLeadAssistantResponse", () => {
 
 		expect(
 			reply.text.startsWith("Buen foco.") ||
-				reply.text.startsWith("Tiene sentido lo que planteás."),
+				reply.text.startsWith("Tiene sentido lo que planteas."),
 		).toBe(true);
 	});
 

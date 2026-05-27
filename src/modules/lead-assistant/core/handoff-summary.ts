@@ -43,7 +43,7 @@ const NEXT_STEP_LABELS: Record<PublicAssistantIntent, string> = {
 	web_professional:
 		"Compartir secciones clave y objetivo comercial para definir estructura inicial.",
 	dashboard:
-		"Indicar qué decisiones querés acelerar para diseñar un panel mínimo.",
+		"Indicar qué decisiones quieres acelerar para diseñar un panel mínimo.",
 	mvp_saas:
 		"Definir usuario inicial, problema principal y alcance mínimo validable.",
 	ai_automation:

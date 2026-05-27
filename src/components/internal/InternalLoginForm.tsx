@@ -62,7 +62,7 @@ export function InternalLoginForm({ redirect }: InternalLoginFormProps) {
           onChange={(event) => setPassword(event.target.value)}
           required
           className="w-full rounded-lg border border-slate-600 bg-slate-900/70 px-3 py-2 text-sm text-slate-100 focus:border-orange-400 focus:outline-none"
-          placeholder="Ingresá la contraseña"
+          placeholder="ingresa la contraseña"
         />
       </div>
 

@@ -38,7 +38,7 @@ export function buildLeadReplySuggestionByRules(input: LeadReplySuggestionInput)
 
   switch (intent) {
     case 'pricing':
-      suggestedReply = `${greeting} El costo depende del alcance y prioridades del proyecto. Si querés, te hago 3 preguntas rápidas y te propongo una opción inicial con próximos pasos.`;
+      suggestedReply = `${greeting} El costo depende del alcance y prioridades del proyecto. Si quieres, te hago 3 preguntas rápidas y te propongo una opción inicial con próximos pasos.`;
       rationale = 'Regla local: detectó consulta de costos/presupuesto y propone respuesta consultiva sin promesas cerradas.';
       break;
     case 'timeline':
@@ -66,13 +66,13 @@ export function buildLeadReplySuggestionByRules(input: LeadReplySuggestionInput)
       rationale = 'Regla local: interés en IA/automatización con enfoque de fases y control humano.';
       break;
     default:
-      suggestedReply = `${greeting} Para orientarte mejor, contame objetivo principal, urgencia y tipo de solución que querés priorizar. Con eso te recomiendo el mejor siguiente paso.`;
+      suggestedReply = `${greeting} Para orientarte mejor, cuéntame objetivo principal, urgencia y tipo de solución que quieres priorizar. Con eso te recomiendo el mejor siguiente paso.`;
       rationale = 'Regla local: contexto general sin intención dominante clara.';
       break;
   }
 
   if (input.lead.status === 'archived' || input.lead.status === 'closed') {
-    suggestedReply = `${greeting} Gracias por retomar el contacto. Si querés reactivar el proyecto, revisamos contexto actual y te propongo un siguiente paso actualizado.`;
+    suggestedReply = `${greeting} Gracias por retomar el contacto. Si quieres reactivar el proyecto, revisamos contexto actual y te propongo un siguiente paso actualizado.`;
     rationale = 'Regla local: lead cerrado/archivado, sugiere reactivación sin asumir continuidad automática.';
   }
 

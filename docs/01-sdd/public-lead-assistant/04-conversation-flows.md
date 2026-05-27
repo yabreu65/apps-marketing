@@ -22,7 +22,7 @@ Flujos base para respuestas consultivas del asistente público, con guardrails d
 - Propone camino por fases.
 
 ### Mala respuesta
-- “Hacé IA directamente, es lo mejor.”
+- “haz IA directamente, es lo mejor.”
 - No pregunta contexto.
 - No deja CTA.
 
@@ -129,7 +129,7 @@ Flujos base para respuestas consultivas del asistente público, con guardrails d
 ## Flujo: visitante recurrente con memoria
 
 ### Buena respuesta
-- “La última vez estabas evaluando un dashboard para ordenar consultas. ¿Querés que retomemos desde ahí?”
+- “La última vez estabas evaluando un dashboard para ordenar consultas. ¿quieres que retomemos desde ahí?”
 - Natural, breve y no invasivo.
 
 ### Mala respuesta

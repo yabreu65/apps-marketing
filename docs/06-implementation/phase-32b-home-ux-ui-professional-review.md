@@ -178,7 +178,7 @@ Evaluaría compactar o retirar `UseCasesSection`, porque puede repetir lo que ya
 - Contacto
 - CTA: Solicitar diagnóstico
 
-### Alternativa si querés destacar marketing
+### Alternativa si quieres destacar marketing
 
 - Servicios
 - Marketing
@@ -344,7 +344,7 @@ Si no, compactarlo dentro de Servicios o Ruta.
 
 Título sugerido:
 
-> Contanos tu negocio y te respondemos con el mejor camino para avanzar
+> cuéntanos tu negocio y te respondemos con el mejor camino para avanzar
 
 Mantener microconfianza:
 

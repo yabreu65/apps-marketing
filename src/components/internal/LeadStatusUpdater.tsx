@@ -31,7 +31,7 @@ export function LeadStatusUpdater({ leadId, currentStatus }: LeadStatusUpdaterPr
     setInfoMessage(null);
 
     if (!hasRealChange) {
-      setInfoMessage('Seleccioná un estado diferente para actualizar.');
+      setInfoMessage('selecciona un estado diferente para actualizar.');
       return;
     }
 

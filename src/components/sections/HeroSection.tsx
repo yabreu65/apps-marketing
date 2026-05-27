@@ -10,7 +10,7 @@ export function HeroSection() {
       <Container className="relative z-10 max-w-[1440px]">
         <div className="mx-auto space-y-6 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--purple-soft)] sm:text-sm">
-            PAW Tech · Yoryi AI Studio
+            PAW Tech
           </p>
 
           <h1 className="mx-auto font-semibold leading-[1.12] text-[var(--text-primary)] text-2xl sm:text-5xl lg:text-7xl">

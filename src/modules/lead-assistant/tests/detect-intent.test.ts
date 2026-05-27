@@ -81,7 +81,7 @@ describe("detectLeadAssistantIntent", () => {
 
 	it('no confunde "facial" con intención de IA', () => {
 		const result = detectLeadAssistantIntent(
-			"Tengo un negocio que vende artículos de limpieza facial, ¿qué me recomendás?",
+			"Tengo un negocio que vende artículos de limpieza facial, ¿qué me recomiendas?",
 		);
 
 		expect(result.intent).not.toBe("ai_automation");

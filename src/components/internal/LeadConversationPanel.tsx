@@ -165,10 +165,10 @@ export function LeadConversationPanel({ leadId, messages }: LeadConversationPane
   }
 
   function getSuggestionSourceLabel(source: LeadReplySuggestion['source']) {
-    if (source === 'ollama') return 'IA local (Ollama)';
-    if (source === 'rules_fallback') return 'Reglas locales (fallback)';
-    return 'Reglas locales';
-  }
+  if (source === 'gemini') return 'Gemini API';
+  if (source === 'rules_fallback') return 'Reglas locales (fallback)';
+  return 'Reglas locales';
+}
 
   const disablePrimaryActions = isSubmitting || isSuggesting || isPending;
 

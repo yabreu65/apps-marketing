@@ -38,7 +38,7 @@ export type PublicAssistantState = {
 	memory: PublicAssistantMemory | null;
 };
 
-export type PublicAssistantSource = "rules" | "ollama" | "gemini" | "rules_fallback";
+export type PublicAssistantSource = "rules" | "gemini" | "rules_fallback";
 
 export type PublicAssistantConversationStage =
 	| "first_contact"

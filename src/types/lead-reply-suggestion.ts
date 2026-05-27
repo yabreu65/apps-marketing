@@ -1,4 +1,4 @@
-export type LeadReplySuggestionSource = 'rules' | 'ollama' | 'rules_fallback';
+export type LeadReplySuggestionSource = 'rules' | 'gemini' | 'rules_fallback';
 
 export type LeadReplySuggestion = {
   suggestedReply: string;

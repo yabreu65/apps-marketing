@@ -92,7 +92,7 @@ describe('POST /api/admin/leads/[id]/summary', () => {
         summary: 'Lead con intención clara de validar producto.',
         recommendedAction: 'Agendar discovery para alcance MVP.',
       },
-      source: 'ollama',
+      source: 'rules',
     });
 
     const request = createJsonRequest(
@@ -108,7 +108,7 @@ describe('POST /api/admin/leads/[id]/summary', () => {
     expect(response.status).toBe(200);
     expect(data.ok).toBe(true);
     expect(data.summary?.opportunityType).toBe('MVP SaaS');
-    expect(data.source).toBe('ollama');
+    expect(data.source).toBe('rules');
   });
 
   it('error interno responde 500 genérico sin stack', async () => {

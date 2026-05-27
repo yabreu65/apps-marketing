@@ -31,21 +31,21 @@ function getPriorityLabel(priority: 'low' | 'medium' | 'high') {
 }
 
 function getSourceBadge(source: LeadSummarySource) {
-  if (source === 'ollama') return 'IA local (Ollama)';
+  if (source === 'gemini') return 'Gemini API';
   if (source === 'rules_fallback') return 'Reglas locales (fallback)';
   return 'Reglas locales';
 }
 
 function getSourceNote(source: LeadSummarySource) {
-  if (source === 'ollama') {
-    return 'Resumen generado con IA local mediante Ollama. No se enviaron datos a servicios externos.';
+  if (source === 'gemini') {
+    return 'Resumen generado con Gemini API según política de IA aplicada del proyecto.';
   }
 
   if (source === 'rules_fallback') {
-    return 'Ollama no estuvo disponible. Se mostró resumen por reglas locales.';
+    return 'Se usó fallback por reglas locales para asegurar continuidad comercial.';
   }
 
-  return 'Resumen orientativo generado por reglas locales. No usa IA ni servicios externos.';
+  return 'Resumen orientativo generado por reglas locales. No depende de modelos locales.';
 }
 
 export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: LeadSummaryPanelProps) {
@@ -95,7 +95,7 @@ export function LeadSummaryPanel({ leadId, initialSummary, initialSource }: Lead
           disabled={isPending}
           className="rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-xs font-medium text-violet-100 hover:bg-violet-500/20 disabled:opacity-60"
         >
-          {isPending ? 'Regenerando resumen...' : 'Regenerar resumen IA local'}
+          {isPending ? 'Regenerando resumen...' : 'Regenerar resumen'}
         </button>
       </div>
 

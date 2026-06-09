@@ -1,13 +1,10 @@
+import { AuthorityProductsSection } from '@/components/sections/AuthorityProductsSection';
 import { ContactFormSection } from '@/components/sections/ContactFormSection';
 import { Footer } from '@/components/sections/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { ConceptEcosystemSection } from '@/components/sections/ConceptEcosystemSection';
-import { AILeadIntelligenceSection } from '@/components/sections/AILeadIntelligenceSection';
-import { MarketingSection } from '@/components/sections/MarketingSection';
 import { ProblemSection } from '@/components/sections/ProblemSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { ProjectDiagnosisSection } from '@/components/sections/ProjectDiagnosisSection';
-import { ProjectTypesSection } from '@/components/sections/ProjectTypesSection';
 import { PublicHeader } from '@/components/sections/PublicHeader';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { UseCasesSection } from '@/components/sections/UseCasesSection';
@@ -19,12 +16,9 @@ export default function HomePage() {
       <PublicHeader />
       <HeroSection />
       <ProblemSection />
-      <ConceptEcosystemSection />
-      <ProjectDiagnosisSection />
       <ServicesSection />
-      <ProjectTypesSection />
-      <MarketingSection />
-      <AILeadIntelligenceSection />
+      <ProjectDiagnosisSection />
+      <AuthorityProductsSection />
       <ProcessSection />
       <UseCasesSection />
       <ContactFormSection />

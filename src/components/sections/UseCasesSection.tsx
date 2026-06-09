@@ -10,8 +10,8 @@ export function UseCasesSection() {
       <Container className="relative z-10 space-y-6">
         <SectionHeading
           eyebrow="Casos de uso"
-          title="Ejemplos de caminos según objetivo comercial"
-          description="Una guía rápida para ver cómo se traducen los pilares en soluciones concretas."
+          title="Casos reales del tipo de soluciones que impulsa PawTech Studio"
+          description="Una guía rápida para ver cómo convertimos necesidades comerciales en entregables concretos y escalables."
         />
 
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">

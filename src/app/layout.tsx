@@ -27,13 +27,13 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://apps-marketing-sage.vercel.app'),
-  title: 'PAW Tech',
+  title: 'PawTech Studio',
   description:
-    'Landing comercial para desarrollo web, marketing digital e inteligencia artificial aplicada a negocios.',
+    'PawTech Studio — Tecnología que deja huella con landing pages, websites, sistemas, automatización e IA aplicada para negocios.',
   openGraph: {
-    title: 'PAW Tech',
+    title: 'PawTech Studio',
     description:
-      'Landing comercial para desarrollo web, marketing digital e inteligencia artificial aplicada a negocios.',
+      'Tecnología que deja huella con soluciones comerciales y sistemas hechos para negocios que quieren crecer con dirección.',
     type: 'website',
     locale: 'es_AR',
   },

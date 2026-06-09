@@ -22,9 +22,9 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   const links = {
-    Soluciones: ['Desarrollo web', 'Sistemas internos', 'MVP SaaS', 'Dashboards'],
+    Soluciones: ['Landing pages', 'Websites profesionales', 'Sistemas internos', 'MVP SaaS'],
     Proceso: ['Diagnóstico', 'Roadmap', 'Implementación', 'Evolución'],
-    'IA aplicada': ['Resumen comercial', 'Priorización comercial', 'IA opcional', 'Soporte humano'],
+    Autoridad: ['BuildingOS', 'CocinaCore', 'PawTech Studio', 'Contacto manual'],
   } as const;
 
   return (
@@ -35,9 +35,9 @@ export function Footer() {
       <Container className="relative z-10 space-y-8">
         <div className="grid gap-8 border-b border-[var(--border-subtle)] pb-8 lg:grid-cols-[1.1fr_1.9fr]">
           <div className="space-y-3">
-            <p className="text-xl font-semibold text-[var(--warm-white)]">PAW Tech</p>
+            <p className="text-xl font-semibold text-[var(--warm-white)]">PawTech Studio</p>
             <p className="max-w-sm text-sm leading-6 text-[var(--text-soft)]">
-              Desarrollo web, sistemas e IA aplicada para equipos que quieren crecer con dirección tecnológica.
+              Tecnología que deja huella con páginas web, sistemas, automatización e IA aplicada por etapas.
             </p>
             <div className="flex items-center gap-2 pt-2">
               {socialLinks.map((item) => (
@@ -72,7 +72,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 text-xs text-[var(--text-soft-2)] sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} PAW Tech / Yoryi AI Studio. Todos los derechos reservados.</p>
+          <p>© {year} PawTech Studio / Yoryi AI Studio. Todos los derechos reservados.</p>
           <p>IA opcional. Sin envío a terceros ni decisiones automáticas.</p>
         </div>
       </Container>

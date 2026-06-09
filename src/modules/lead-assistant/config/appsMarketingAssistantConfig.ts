@@ -1,11 +1,11 @@
 import type { AppsMarketingAssistantConfig } from '@/modules/lead-assistant/types/lead-assistant';
 
 export const appsMarketingAssistantConfig: AppsMarketingAssistantConfig = {
-  businessName: 'PAW Tech / Yoryi AI Studio',
+  businessName: 'PawTech Studio / Yoryi AI Studio',
   whatsappNumber: '+54 9 11 0000 0000',
   contactFormAnchor: '#contact-form',
   greeting:
-    'Hola, soy Sussy, la asistente comercial de PAW Tech. Te ayudo a entender qué necesita tu negocio para captar mejor, ordenar consultas y avanzar con la solución correcta.',
+    'Hola, soy la asistente de PawTech Studio. Te ayudo a entender tu contexto y sugerirte el próximo paso para avanzar con una solución clara.',
   privacyNote:
     'Este chat guarda contexto local para orientarte mejor. No compartas contraseñas, datos bancarios ni información sensible.',
   quickReplies: [

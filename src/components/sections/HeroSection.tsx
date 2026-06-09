@@ -10,21 +10,21 @@ export function HeroSection() {
       <Container className="relative z-10 max-w-[1440px]">
         <div className="mx-auto space-y-6 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--purple-soft)] sm:text-sm">
-            PAW Tech
+            PawTech Studio
           </p>
 
           <h1 className="mx-auto font-semibold leading-[1.12] text-[var(--text-primary)] text-2xl sm:text-5xl lg:text-7xl">
             <span className="block motion-fade-up motion-delay-100" style={{ animationDuration: '1200ms' }}>
-              Web, marketing, sistemas e IA
+              Páginas web, sistemas e IA
             </span>{' '}
             <span className="block motion-fade-up motion-delay-300" style={{ animationDuration: '1200ms' }}>
-              para captar clientes,
+              para negocios que quieren
             </span>{' '}
             <span className="block motion-fade-up motion-delay-400" style={{ animationDuration: '1200ms' }}>
-              convertir mejor y escalar con{' '}
               <span className="bg-gradient-to-r from-[var(--purple-soft)] via-[var(--purple-primary)] to-[var(--cyan-accent)] bg-clip-text text-transparent">
-                tecnología.
-              </span>
+                dejar huella
+              </span>{' '}
+              con tecnología.
             </span>
           </h1>
 
@@ -32,7 +32,7 @@ export function HeroSection() {
             className="mx-auto text-base leading-7 text-[var(--text-secondary)] motion-fade-in motion-delay-400 sm:text-2xl lg:text-[2rem] lg:leading-[1.35]"
             style={{ animationDuration: '1300ms' }}
           >
-            Optimizamos la presencia digital de los negocios que venden por WhatsApp, redes o formularios. Los ayudamos a captar mejores oportunidades, dar un seguimiento comercial efectivo y consolidar una base de clientes sostenible
+            Tecnología que deja huella para lanzar landing pages, websites profesionales, sistemas internos y automatizaciones con un camino comercial claro desde el primer contacto.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
@@ -53,7 +53,7 @@ export function HeroSection() {
 
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-[var(--text-soft)]">
             <span>Diagnóstico orientativo</span>
-            <span>Estrategia a medida</span>
+            <span>Estrategia por etapas</span>
             <span>Respuesta humana</span>
           </div>
         </div>

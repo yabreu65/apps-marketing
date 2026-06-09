@@ -6,9 +6,10 @@ import { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
   { label: 'Servicios', href: '#soluciones' },
-  { label: 'Ecosistema', href: '#sistema-conectado' },
-  { label: 'Ruta', href: '#ruta-etapa' },
   { label: 'Diagnóstico', href: '#diagnostico' },
+  { label: 'Autoridad', href: '#autoridad' },
+  { label: 'Proceso', href: '#proceso' },
+  { label: 'Casos', href: '#casos' },
   { label: 'Contacto', href: '#contacto' },
 ];
 
@@ -42,7 +43,7 @@ export function PublicHeader() {
             href="/"
             className="inline-flex items-center px-1 py-1 transition hover:scale-[1.02] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--purple-soft)]"
           >
-            <Image src="/logoTech.png" alt="PAW Tech" width={320} height={128} className="h-16 w-auto  xl:h-20" priority />
+            <Image src="/logoTech.png" alt="PawTech Studio" width={320} height={128} className="h-16 w-auto  xl:h-20" priority />
           </Link>
 
           <nav className="hidden items-center gap-6 lg:flex xl:gap-8">

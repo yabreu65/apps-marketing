@@ -14,12 +14,12 @@ function readWidgetSource() {
 	return fs.readFileSync(widgetPath, "utf-8");
 }
 
-describe("PublicLeadAssistantWidget commercial copy", () => {
+	describe("PublicLeadAssistantWidget commercial copy", () => {
 	it("uses value-led floating trigger and scoped header copy", () => {
 		const source = readWidgetSource();
 
-		expect(source).toContain("Orientación rápida");
-		expect(source).toContain("Asistente comercial");
+		expect(source).toContain("Diagnóstico rápido con IA");
+		expect(source).toContain("PawTech Studio");
 		expect(source).toContain("Diagnóstico guiado");
 		expect(source).toContain("contacto manual");
 	});
@@ -43,9 +43,7 @@ describe("PublicLeadAssistantWidget commercial copy", () => {
 
 describe("appsMarketingAssistantConfig copy foundation", () => {
 	it("keeps greeting concise and value-led", () => {
-		expect(appsMarketingAssistantConfig.greeting.toLowerCase()).toContain(
-			"2 minutos",
-		);
+		expect(appsMarketingAssistantConfig.greeting).toContain("PawTech Studio");
 		expect(appsMarketingAssistantConfig.greeting.toLowerCase()).toContain(
 			"próximo paso",
 		);

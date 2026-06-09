@@ -4,7 +4,7 @@ export const useCases: UseCaseItem[] = [
   {
     id: 'landing-capture',
     title: 'Captar más consultas con una landing comercial',
-    audience: 'Negocios y profesionales que necesitan validar mensaje y oferta',
+    audience: 'Negocios y profesionales que necesitan validar mensaje, oferta y primer contacto con PawTech Studio',
     outcome: 'Convertir visitas en contactos con un flujo claro de contacto y formulario.',
   },
   {

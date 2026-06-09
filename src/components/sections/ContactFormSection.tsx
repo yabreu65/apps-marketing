@@ -40,14 +40,12 @@ const INITIAL_VALUES: FormValues = {
 };
 
 const SERVICE_OPTIONS = [
-	"Landing comercial",
-	"Sitio web profesional",
-	"Sistema web a medida",
-	"Dashboard / panel interno",
+	"Landing pages",
+	"Websites profesionales",
+	"Sistemas internos y dashboards",
+	"Automatización",
+	"Asistentes y chatbots con IA",
 	"MVP SaaS",
-	"Automatización comercial",
-	"IA aplicada al negocio",
-	"SEO / marketing digital",
 	"No estoy seguro (quiero orientación)",
 ];
 

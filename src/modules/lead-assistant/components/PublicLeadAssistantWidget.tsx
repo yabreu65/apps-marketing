@@ -329,8 +329,8 @@ export function PublicLeadAssistantWidget() {
 								AM
 							</div>
 							<div className="min-w-0">
-								<p className="truncate text-sm font-semibold text-[#F8FAFC]">PAW Tech Assistant</p>
-								<p className="truncate text-[11px] text-[#CBD5E1]">Diagnóstico guiado · contacto manual</p>
+								<p className="truncate text-sm font-semibold text-[#F8FAFC]">PawTech Studio</p>
+								<p className="truncate text-[11px] text-[#CBD5E1]">Diagnóstico rápido con IA · contacto manual</p>
 							</div>
 						</div>
 						<button
@@ -495,7 +495,7 @@ export function PublicLeadAssistantWidget() {
 					{error ? <p className="mt-2 text-xs text-rose-300">{error}</p> : null}
 
 					<div className="mt-2 flex items-center justify-between gap-2">
-						<p className="text-[10px] text-[#94A3B8]">Powered by PAW Tech Assistant</p>
+						<p className="text-[10px] text-[#94A3B8]">Diagnóstico guiado por PawTech Studio</p>
 						<button
 							type="button"
 							onClick={() => {
@@ -533,7 +533,7 @@ export function PublicLeadAssistantWidget() {
 							className="h-6 w-6 rounded-full border border-cyan-200/50 object-cover"
 						/>
 					)}
-					{isOpen ? "Cerrar chat" : "Chatear con Sussy"}
+					{isOpen ? "Cerrar chat" : "Diagnóstico rápido con IA"}
 				</button>
 			</div>
 		</div>

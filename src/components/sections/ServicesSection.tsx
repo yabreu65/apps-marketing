@@ -7,41 +7,41 @@ type ServicePillar = {
   title: string;
   description: string;
   chips: string[];
-  status: 'Disponible hoy' | 'Implementación por etapas' | 'Fase avanzada';
+  status: 'Disponible hoy' | 'Escalable por etapas' | 'Activación guiada';
   marker: string;
 };
 
 const servicePillars: ServicePillar[] = [
   {
-    title: 'Web y presencia digital',
+    title: 'Presencia comercial que convierte',
     description:
-      'Definimos una presencia digital clara para que tu propuesta se entienda rápido y el contacto sea simple desde cualquier canal.',
-    chips: ['Landing comercial', 'Sitio web profesional', 'Mensajes de valor'],
+      'Diseñamos la base digital para explicar tu propuesta con claridad, generar confianza y facilitar el primer contacto.',
+    chips: ['Landing pages', 'Websites profesionales'],
     status: 'Disponible hoy',
     marker: '01',
   },
   {
-    title: 'Marketing digital',
+    title: 'Operación interna con visibilidad',
     description:
-      'Ordenamos captación, contenido y llamadas a la acción para atraer más consultas con intención de compra.',
-    chips: ['SEO / marketing digital', 'Contenido comercial', 'Optimización de conversión'],
-    status: 'Disponible hoy',
+      'Construimos herramientas para ordenar procesos, visualizar datos clave y tomar decisiones con menos fricción.',
+    chips: ['Sistemas internos y dashboards'],
+    status: 'Escalable por etapas',
     marker: '02',
   },
   {
-    title: 'Sistemas y automatización',
+    title: 'Automatización con criterio',
     description:
-      'Conectamos procesos y seguimiento para que el crecimiento no dependa de tareas manuales dispersas.',
-    chips: ['Sistema web a medida', 'Dashboard / panel interno', 'Automatización comercial'],
-    status: 'Implementación por etapas',
+      'Detectamos cuellos de botella y automatizamos lo repetitivo sin perder control humano sobre el seguimiento comercial.',
+    chips: ['Automatización'],
+    status: 'Escalable por etapas',
     marker: '03',
   },
   {
-    title: 'IA aplicada',
+    title: 'Productos y evolución digital',
     description:
-      'Integramos IA en fases para priorizar mejor oportunidades y sostener control humano en decisiones clave.',
-    chips: ['Asistente comercial', 'Priorización con contexto', 'Escalado gradual'],
-    status: 'Fase avanzada',
+      'Acompañamos validaciones de producto con MVP SaaS y asistentes con IA cuando el negocio ya tiene una base clara para escalar.',
+    chips: ['Asistentes y chatbots con IA', 'MVP SaaS'],
+    status: 'Activación guiada',
     marker: '04',
   },
 ];
@@ -55,11 +55,11 @@ export function ServicesSection() {
       <Container className="relative z-10 space-y-10 sm:space-y-12">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--purple-soft)] sm:text-sm">
-            Soluciones por pilares
+            Servicios principales
           </p>
           <SectionHeading
-            title="Web, marketing, sistemas e IA conectados a resultados"
-            description="No vendemos piezas aisladas: diseñamos un camino coherente para captar mejor, ordenar seguimiento y escalar con tecnología."
+            title="Servicios claros para cada etapa del negocio"
+            description="Desde landing pages hasta sistemas internos, automatización, asistentes con IA y MVP SaaS: priorizamos lo que más impacto genera hoy."
           />
         </div>
 
@@ -105,10 +105,10 @@ export function ServicesSection() {
 
         <div className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-shell-2)]/65 px-6 py-6 text-center sm:px-8">
           <p className="max-w-3xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
-            Si quieres definir un punto de partida claro, elige tu etapa y te mostramos qué solución conviene activar primero.
+            Si no tienes claro por dónde empezar, hacemos un diagnóstico breve y te recomendamos el siguiente paso con criterio comercial.
           </p>
-          <Button href="#ruta-etapa" className="rounded-full px-6 py-3 text-sm sm:text-base">
-            Elegir mi punto de partida
+          <Button href="#diagnostico" className="rounded-full px-6 py-3 text-sm sm:text-base">
+            Ver mi siguiente paso
           </Button>
         </div>
       </Container>

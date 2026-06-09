@@ -147,7 +147,7 @@ export function ProjectDiagnosisSection() {
             <SectionHeading
               eyebrow="Diagnóstico orientativo"
               title="Si no sabes por dónde empezar, responde 3 preguntas"
-              description="Te recomendamos un primer paso claro según tu situación actual, sin vueltas y sin venderte algo que no necesitas."
+              description="En PawTech Studio te recomendamos un primer paso claro según tu situación actual, sin vueltas y sin venderte algo que no necesitas."
             />
 
             <MotionReveal className="mt-6 overflow-hidden rounded-3xl border border-[var(--purple-soft)]/30 bg-[var(--card-bg)]/82 p-6 shadow-[0_24px_80px_rgba(2,6,23,0.45)] sm:p-7">
